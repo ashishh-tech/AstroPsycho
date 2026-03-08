@@ -656,9 +656,10 @@
       <!-- Header -->
       <div class="dash-header">
         <div class="header-left">
-          <div class="greeting" id="greeting">Good Day</div>
+          <div class="greeting" id="greeting">Namaste 🙏</div>
           <div class="user-name" id="userName">Your Dashboard</div>
-          <div class="user-sub" id="userSub">✨ AstroPsycho Personal Hub</div>
+          <div class="user-sub" id="userSub">🔱 Guided by the Divine Cosmos</div>
+
         </div>
         <div class="header-right">
           <div class="live-time-sm" id="liveTime">--:--:--</div>
@@ -1002,5 +1003,32 @@
       );
     </script>
     <script src="mobile-nav.js"></script>
+    <!-- BGM Toggle -->
+    <div class="bgm-toggle" id="bgmToggle">
+      <span class="bgm-icon">🪈</span>
+      <span id="bgmText">Play BGM</span>
+    </div>
+    <audio id="krishnaBgm" loop src="krishna-bgm.mp3"></audio>
+
+    <script>
+      const bgm = document.getElementById('krishnaBgm');
+      const bgmToggle = document.getElementById('bgmToggle');
+      const bgmText = document.getElementById('bgmText');
+      let isPlaying = false;
+
+      bgmToggle.addEventListener('click', () => {
+        if (isPlaying) {
+          bgm.pause();
+          bgmText.textContent = 'Play BGM';
+          bgmToggle.style.boxShadow = 'var(--neon-cyan)';
+        } else {
+          bgm.play();
+          bgmText.textContent = 'BGM Live';
+          bgmToggle.style.boxShadow = 'var(--glow-strong)';
+        }
+        isPlaying = !isPlaying;
+      });
+    </script>
   </body>
 </html>
+
