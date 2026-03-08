@@ -21,7 +21,7 @@
 
 <br/>
 
-[🚀 **EXPLORE THE LIVE DEMO NOW**](https://astropsycho.pages.dev)
+[🚀 **EXPLORE THE LIVE DEMO NOW**](https://main.astropsycho.pages.dev)
 
 </div>
 
