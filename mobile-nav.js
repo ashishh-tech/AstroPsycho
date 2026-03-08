@@ -29,7 +29,7 @@
         { icon: '🔮', label: 'Planet Clock', href: 'planetary-clock.html' },
         { icon: '👩‍❤️‍👨', label: 'Compat.', href: 'compatibility.html' },
         { icon: '💼', label: 'Career', href: 'career-prediction.html' },
-        { icon: '🔯', label: 'Navamsa', href: 'navamsa.html' },
+        { icon: '✡️', label: 'Navamsa', href: 'navamsa.html' },
         { icon: '🌙', label: 'Moon', href: 'moon-analysis.html' },
         { icon: '⚕️', label: 'Medical', href: 'medical-astrology.html' },
         { icon: '💍', label: 'Marriage', href: 'marriage-analysis.html' },
