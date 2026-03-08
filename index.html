@@ -104,8 +104,10 @@
         border-radius: 50%;
         animation: orbFloat linear infinite;
         filter: blur(80px);
-        opacity: 0.12;
+        opacity: 0.15;
+        box-shadow: 0 0 100px currentColor;
       }
+
 
       .orb-1 {
         width: 600px;
@@ -441,14 +443,16 @@
           135deg,
           var(--gold) 0%,
           #f97316 50%,
-          var(--pink) 100%
+          #ff00ff 100%
         );
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
         animation: shimmer 4s linear infinite;
         background-size: 200% 100%;
+        text-shadow: 0 0 20px rgba(245, 197, 24, 0.3);
       }
+
 
       @keyframes shimmer {
         0% {
@@ -560,14 +564,15 @@
       }
 
       .btn-demo:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 0 40px rgba(245, 197, 24, 0.3);
+        transform: translateY(-3px) scale(1.05);
+        box-shadow: 0 0 40px rgba(245, 197, 24, 0.4);
         background: linear-gradient(
           135deg,
-          rgba(245, 197, 24, 0.18),
-          rgba(245, 197, 24, 0.28)
+          rgba(245, 197, 24, 0.22),
+          rgba(245, 197, 24, 0.35)
         );
       }
+
 
       /* Trust badges */
       .trust-row {

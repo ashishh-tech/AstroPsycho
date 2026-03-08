@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -150,6 +150,68 @@
         }
       }
 
+      /* Pulse Effect */
+      .cosmic-pulse-container {
+        grid-column: 1 / -1;
+        background: linear-gradient(135deg, rgba(100, 255, 218, 0.08), rgba(168, 85, 247, 0.08));
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 2rem;
+        position: relative;
+        overflow: hidden;
+        margin-bottom: 2rem;
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+        box-shadow: 0 0 30px rgba(100, 255, 218, 0.1);
+      }
+
+      .pulse-aura {
+        position: absolute;
+        inset: -50%;
+        background: conic-gradient(from 0deg, transparent, var(--cyan), transparent 25%, var(--purple), transparent 50%);
+        animation: rotate 10s linear infinite;
+        opacity: 0.1;
+      }
+
+      .pulse-content {
+        position: relative;
+        z-index: 2;
+        flex: 1;
+      }
+
+      .transit-meter {
+        width: 150px;
+        height: 150px;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+
+      .meter-svg {
+        transform: rotate(-90deg);
+        width: 100%;
+        height: 100%;
+      }
+
+      .meter-bg {
+        fill: none;
+        stroke: var(--border);
+        stroke-width: 8;
+      }
+
+      .meter-fill {
+        fill: none;
+        stroke: url(#pulseGradient);
+        stroke-width: 8;
+        stroke-linecap: round;
+        stroke-dasharray: 283;
+        stroke-dashoffset: 70; /* Example high score */
+        transition: stroke-dashoffset 1s ease-out;
+      }
+
       .container {
         max-width: 1000px;
         margin: 0 auto;
@@ -157,6 +219,7 @@
         position: relative;
         z-index: 10;
       }
+
 
       /* Header */
       .dash-header {
@@ -614,7 +677,35 @@
       <div id="dashContent" style="display: none">
         <!-- Quick stats -->
         <div class="section-label">☀️ Your Cosmic Profile</div>
+        
+        <!-- Daily Pulse -->
+        <div class="cosmic-pulse-container">
+          <div class="pulse-aura"></div>
+          <div class="transit-meter">
+            <svg class="meter-svg" viewBox="0 0 100 100">
+              <defs>
+                <linearGradient id="pulseGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="var(--cyan)" />
+                  <stop offset="100%" stop-color="var(--purple)" />
+                </linearGradient>
+              </defs>
+              <circle class="meter-bg" cx="50" cy="50" r="45" />
+              <circle class="meter-fill" cx="50" cy="50" r="45" id="transitScoreFill" />
+            </svg>
+            <div style="position: absolute; text-align: center;">
+              <div id="transitScoreVal" style="font-size: 1.8rem; font-weight: 900; font-family: var(--font-display); color: var(--cyan);">85</div>
+              <div style="font-size: 0.6rem; color: var(--silver); text-transform: uppercase;">Aura</div>
+            </div>
+          </div>
+          <div class="pulse-content">
+            <div class="section-label gold">Daily Cosmic Pulse</div>
+            <h2 id="pulseMsg" style="font-family: var(--font-display); font-size: 1.5rem; margin-bottom: 0.5rem;">The universe supports your growth today!</h2>
+            <p id="pulseDesc" style="color: var(--silver); font-size: 0.9rem;">Your Mercury-Rahu dasha suggests high mental activity. Perfect time for creative projects or learning new tech.</p>
+          </div>
+        </div>
+
         <div class="stats-row" id="statsRow"><!-- Filled by JS --></div>
+
         <!-- Main cards -->
         <div class="main-grid">
           <!-- Active Dasha -->

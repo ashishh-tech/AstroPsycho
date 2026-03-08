@@ -37,7 +37,29 @@
     /* Effects */
     --glow: 0 0 20px rgba(100, 255, 218, 0.3);
     --glow-strong: 0 0 30px rgba(100, 255, 218, 0.6);
+    --glass-bg: rgba(255, 255, 255, 0.03);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --neon-gold: 0 0 15px rgba(244, 196, 48, 0.4);
+    --neon-cyan: 0 0 15px rgba(100, 255, 218, 0.4);
+    --transition-premium: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
+
+/* Cosmic Animations */
+@keyframes float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-15px) rotate(2deg); }
+}
+
+@keyframes orbit {
+    from { transform: rotate(0deg) translateX(10px) rotate(0deg); }
+    to { transform: rotate(360deg) translateX(10px) rotate(-360deg); }
+}
+
+@keyframes pulse-glow {
+    0%, 100% { opacity: 0.5; filter: blur(10px); }
+    50% { opacity: 0.8; filter: blur(15px); }
+}
+
 
 * {
     margin: 0;
@@ -281,10 +303,12 @@ body {
 }
 
 .feature-card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-8px) scale(1.02);
     border-color: var(--accent-cyan);
-    box-shadow: var(--glow);
+    box-shadow: var(--glow-strong), 0 25px 50px rgba(0, 0, 0, 0.5);
+    background: rgba(42, 42, 84, 0.6);
 }
+
 
 .feature-card:hover::before {
     opacity: 0.05;

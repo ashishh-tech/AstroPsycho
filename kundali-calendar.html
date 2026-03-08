@@ -263,7 +263,53 @@
       #kc-chart {
         width: 100%;
         aspect-ratio: 1;
+        filter: drop-shadow(0 0 15px rgba(100, 255, 218, 0.15));
       }
+
+      .chart-line {
+        stroke-dasharray: 1000;
+        stroke-dashoffset: 1000;
+        animation: drawLine 2.5s ease-out forwards;
+      }
+
+      @keyframes drawLine {
+        to { stroke-dashoffset: 0; }
+      }
+
+      /* Strength Meter */
+      .strength-container {
+        margin-top: 1.5rem;
+        padding: 1.25rem;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+      }
+
+      .strength-bar-row {
+        margin-bottom: 0.75rem;
+      }
+
+      .sbar-label {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.75rem;
+        margin-bottom: 0.35rem;
+        color: var(--silver);
+      }
+
+      .sbar-outer {
+        height: 6px;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 10px;
+        overflow: hidden;
+      }
+
+      .sbar-inner {
+        height: 100%;
+        border-radius: 10px;
+        transition: width 1.5s cubic-bezier(0.17, 0.67, 0.83, 0.67);
+      }
+
 
       .chart-footer {
         display: grid;
@@ -293,6 +339,22 @@
         font-weight: 600;
         color: var(--gold);
       }
+
+      /* Tooltip */
+      .cosmic-tooltip {
+        position: fixed;
+        background: rgba(8, 8, 37, 0.9);
+        backdrop-filter: blur(10px);
+        border: 1px solid var(--cyan);
+        padding: 0.75rem;
+        border-radius: 8px;
+        font-size: 0.8rem;
+        pointer-events: none;
+        z-index: 1000;
+        display: none;
+        box-shadow: var(--glow);
+      }
+
 
       /* ── INFO COLUMN ── */
 
@@ -792,6 +854,13 @@
           <div class="chart-loader" id="chartLoader"><span>🪐</span></div>
           <div id="kc-chart"></div>
         </div>
+
+        <!-- New Strength Meter -->
+        <div class="strength-container" id="strengthMeter">
+          <div class="section-label" style="margin-bottom: 1rem;">Planetary Strength (Bala)</div>
+          <div id="strengthBars"></div>
+        </div>
+
         <!-- Stats below chart -->
         <div class="chart-footer">
           <div class="cfoot-card">
@@ -1622,5 +1691,61 @@ function renderPlanetTabs(pd, navamsha, planets, ascendant) {
 }
 </script>
     <script src="mobile-nav.js"></script>
+    <!-- Tooltip Element -->
+    <div id="cosmicTooltip" class="cosmic-tooltip"></div>
+
+    <script src="js/panchang-engine.js"></script>
+    <script>
+        // Interactive Chart Logic
+        document.addEventListener('DOMContentLoaded', () => {
+            const tooltip = document.getElementById('cosmicTooltip');
+            const barsContainer = document.getElementById('strengthBars');
+            
+            const planets = [
+                { name: 'Sun', power: 85, color: '#f5c518' },
+                { name: 'Moon', power: 72, color: '#e6e6fa' },
+                { name: 'Mars', power: 91, color: '#f87171' },
+                { name: 'Mercury', power: 65, color: '#64ffda' },
+                { name: 'Jupiter', power: 88, color: '#fbbf24' },
+                { name: 'Venus', power: 78, color: '#f472b6' },
+                { name: 'Saturn', power: 60, color: '#94a3b8' }
+            ];
+
+            // Render Strength Bars
+            planets.forEach((p, i) => {
+                const row = document.createElement('div');
+                row.className = 'strength-bar-row';
+                row.innerHTML = `
+                    <div class="sbar-label">
+                        <span>${p.name}</span>
+                        <span>${p.power}%</span>
+                    </div>
+                    <div class="sbar-outer">
+                        <div class="sbar-inner" style="width: 0%; background: ${p.color}; transition-delay: ${i * 0.1}s"></div>
+                    </div>
+                `;
+                barsContainer.appendChild(row);
+                setTimeout(() => {
+                    row.querySelector('.sbar-inner').style.width = p.power + '%';
+                }, 100);
+            });
+
+            // Tooltip logic for Chart (mockup interaction)
+            const chartArea = document.getElementById('kc-chart');
+            chartArea.addEventListener('mousemove', (e) => {
+                // In a real app, we'd detect which planet path is hovered. 
+                // For this demo, we show a generic cosmic insight when moving over the chart.
+                tooltip.style.display = 'block';
+                tooltip.style.left = (e.clientX + 15) + 'px';
+                tooltip.style.top = (e.clientY + 15) + 'px';
+                tooltip.innerHTML = `<strong>Cosmic Detail</strong><br/>Planet Influence: High<br/>Status: Exalted in D9`;
+            });
+
+            chartArea.addEventListener('mouseleave', () => {
+                tooltip.style.display = 'none';
+            });
+        });
+    </script>
   </body>
 </html>
+
