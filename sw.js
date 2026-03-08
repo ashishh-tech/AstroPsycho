@@ -6,7 +6,7 @@
  * - Static assets (JS/CSS/fonts/images): cache-first with background refresh.
  */
 
-const CACHE_NAME = 'astropsycho-v5';
+const CACHE_NAME = 'astropsycho-v6';
 
 // Only cache static assets — NOT HTML pages (they cause redirect errors on Cloudflare)
 const CORE_ASSETS = [
