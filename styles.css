@@ -125,6 +125,11 @@ html {
     width: 100%;
 }
 
+@keyframes pageLoadFade {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
 body {
     font-family: var(--font-primary);
     background: var(--deep-space);
@@ -137,6 +142,7 @@ body {
     /* Safe-area padding for notched phones (top applied per element) */
     padding-left: env(safe-area-inset-left, 0px);
     padding-right: env(safe-area-inset-right, 0px);
+    animation: pageLoadFade 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
 }
 
 /* Respect reduced motion preference */
