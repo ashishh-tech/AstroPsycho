@@ -1296,12 +1296,15 @@
             display: 'inline-flex',
             flexDirection: 'row',
             alignItems: 'center',
+            justifyContent: 'center',
             gap: '0.4rem',
-            width: 'auto',
-            height: 'auto',
+            width: 'max-content',
+            height: 'max-content',
+            maxHeight: '40px', /* Prevent vertical stretching */
             whiteSpace: 'nowrap',
             padding: '0.4rem 0.85rem',
-            lineHeight: '1'
+            lineHeight: '1',
+            alignSelf: 'center' /* If in a flex column, this stops stretching */
         });
 
         document.body.appendChild(btn);
