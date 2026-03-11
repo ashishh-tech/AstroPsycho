@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -287,7 +287,7 @@ const PLANET_DATA = {
         color: "#f97316",
         light: "rgba(249,115,22,0.12)",
         mantra: [
-            "Om Suryaya Namaha (108├ù/day)",
+            "Om Suryaya Namaha (108×/day)",
             "Aditya Hridayam (Sundays)",
             "Gayatri Mantra at sunrise",
         ],
@@ -303,7 +303,7 @@ const PLANET_DATA = {
         color: "#c0c0d0",
         light: "rgba(192,192,208,0.12)",
         mantra: [
-            "Om Chandraya Namaha (108├ù/day)",
+            "Om Chandraya Namaha (108×/day)",
             "Om Som Somaya Namaha",
             "Chandra Kavacham on Mondays",
         ],
@@ -319,7 +319,7 @@ const PLANET_DATA = {
         color: "#ef4444",
         light: "rgba(239,68,68,0.12)",
         mantra: [
-            "Om Mangalaya Namaha (108├ù/day)",
+            "Om Mangalaya Namaha (108×/day)",
             "Om Kraam Kreem Kraum Sah Bhaumaya Namaha",
             "Hanuman Chalisa on Tuesdays",
         ],
@@ -335,7 +335,7 @@ const PLANET_DATA = {
         color: "#22c55e",
         light: "rgba(34,197,94,0.12)",
         mantra: [
-            "Om Budhaya Namaha (108├ù/day)",
+            "Om Budhaya Namaha (108×/day)",
             "Om Bram Breem Braum Sah Budhaya Namaha",
             "Vishnu Sahasranama on Wednesdays",
         ],
@@ -351,7 +351,7 @@ const PLANET_DATA = {
         color: "#eab308",
         light: "rgba(234,179,8,0.12)",
         mantra: [
-            "Om Gurave Namaha (108├ù/day)",
+            "Om Gurave Namaha (108×/day)",
             "Om Gram Greem Graum Sah Guruve Namaha",
             "Guru Stotram on Thursdays",
         ],
@@ -367,7 +367,7 @@ const PLANET_DATA = {
         color: "#ec4899",
         light: "rgba(236,72,153,0.12)",
         mantra: [
-            "Om Shukraya Namaha (108├ù/day)",
+            "Om Shukraya Namaha (108×/day)",
             "Om Dram Dreem Draum Sah Shukraya Namaha",
             "Shukra Kavacham on Fridays",
         ],
@@ -383,7 +383,7 @@ const PLANET_DATA = {
         color: "#8b5cf6",
         light: "rgba(139,92,246,0.12)",
         mantra: [
-            "Om Shanaischaraya Namaha (108├ù/day)",
+            "Om Shanaischaraya Namaha (108×/day)",
             "Om Pram Preem Praum Sah Shanaischaraya Namaha",
             "Shani Chalisa on Saturdays",
         ],
@@ -399,7 +399,7 @@ const PLANET_DATA = {
         color: "#6366f1",
         light: "rgba(99,102,241,0.12)",
         mantra: [
-            "Om Rahave Namaha (108├ù/day)",
+            "Om Rahave Namaha (108×/day)",
             "Om Bhram Bhreem Bhraum Sah Rahave Namaha",
             "Rahu Kavacham on Saturdays",
         ],
@@ -415,7 +415,7 @@ const PLANET_DATA = {
         color: "#14b8a6",
         light: "rgba(20,184,166,0.12)",
         mantra: [
-            "Om Ketave Namaha (108├ù/day)",
+            "Om Ketave Namaha (108×/day)",
             "Om Stram Streem Straum Sah Ketave Namaha",
             "Ketu Kavacham on Tuesdays",
         ],
@@ -463,7 +463,57 @@ function buildRemedyCard(label, planet, period) {
     if (!pd) return "";
     const col = PLANET_COLORS[planet] || "#64ffda";
     const light = pd.light;
-    return `             <div class="remedy-planet-card" style="background:${light};border-color:${col}30;">                 <div class="remedy-badge" style="background:${col}20;color:${col};border:1px solid ${col}40;">                     ${label}                 <\/div>                 <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1rem;">                     <div style="font-size:2rem;">${pd.emoji}<\/div>                     <div>                         <div style="font-size:1.4rem;font-weight:700;color:#fff;">${pd.name}<\/div>                         <div style="font-size:0.82rem;color:rgba(255,255,255,0.5);">                             ${formatDateFull(period.startDate)} → ${formatDateFull(period.endDate)}                             &nbsp;|&nbsp; ${timePercent(period)}% elapsed                         <\/div>                     <\/div>                 <\/div>                 <div style="background:rgba(0,0,0,0.25);border-radius:6px;height:4px;overflow:hidden;margin-bottom:1.25rem;">                     <div style="height:100%;width:${timePercent(period)}%;background:${col};border-radius:6px;"><\/div>                 <\/div>                 <div class="remedy-grid">                     <div class="remedy-item">                         <h4>⚡ Mantras<\/h4>                         <ul>${pd.mantra.map((m) => `<li>${m}<\/li>`).join("")}<\/ul>                     <\/div>                     <div class="remedy-item">                         <h4>👄 Gemstone<\/h4>                         <ul><li>${pd.gemstone}<\/li><\/ul>                         <h4 style="margin-top:0.75rem;">⚡ Charity<\/h4>                         <ul><li>${pd.charity}<\/li><\/ul>                     <\/div>                     <div class="remedy-item">                         <h4>� Fasting<\/h4>                         <ul><li>${pd.fast}<\/li><\/ul>                         <h4 style="margin-top:0.75rem;">⚡ Ritual<\/h4>                         <ul><li>${pd.ritual}<\/li><\/ul>                     <\/div>                     <div class="remedy-item">                         <h4>🢒 Deity Worship<\/h4>                         <ul><li>${pd.deity}<\/li><\/ul>                     <\/div>                 <\/div>             <\/div>`;
+    const elapsed = timePercent(period);
+
+    return `
+        <div class="remedy-planet-card" style="background:${light};border-color:${col}30;">
+            <div class="remedy-badge" style="background:${col}20;color:${col};border:1px solid ${col}40;">
+                ${label}
+            </div>
+            
+            <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1rem;">
+                <div style="font-size:2rem;">${pd.emoji}</div>
+                <div>
+                    <div style="font-size:1.4rem;font-weight:700;color:#fff;">${pd.name}</div>
+                    <div style="font-size:0.82rem;color:rgba(255,255,255,0.5);">
+                        ${formatDateFull(period.startDate)} → ${formatDateFull(period.endDate)}
+                        &nbsp;|&nbsp; ${elapsed}% elapsed
+                    </div>
+                </div>
+            </div>
+
+            <div style="background:rgba(0,0,0,0.25);border-radius:6px;height:4px;overflow:hidden;margin-bottom:1.25rem;">
+                <div style="height:100%;width:${elapsed}%;background:${col};border-radius:6px;"></div>
+            </div>
+
+            <div class="remedy-grid">
+                <div class="remedy-item">
+                    <h4>⚡ Mantras</h4>
+                    <ul>
+                        ${pd.mantra.map(m => `<li>${m}</li>`).join("")}
+                    </ul>
+                </div>
+                
+                <div class="remedy-item">
+                    <h4>👄 Gemstone</h4>
+                    <ul><li>${pd.gemstone}</li></ul>
+                    <h4 style="margin-top:0.75rem;">⚡ Charity</h4>
+                    <ul><li>${pd.charity}</li></ul>
+                </div>
+                
+                <div class="remedy-item">
+                    <h4> Fasting</h4>
+                    <ul><li>${pd.fast}</li></ul>
+                    <h4 style="margin-top:0.75rem;">⚡ Ritual</h4>
+                    <ul><li>${pd.ritual}</li></ul>
+                </div>
+                
+                <div class="remedy-item">
+                    <h4>🢒 Deity Worship</h4>
+                    <ul><li>${pd.deity}</li></ul>
+                </div>
+            </div>
+        </div>`;
 }
 /* ── Init ───────────────────────────────────────────────────────────────── */
 const raw = localStorage.getItem("astropsycho_assessment");
@@ -518,12 +568,14 @@ if (!raw) {
             const light =
               PLANET_DATA[p.planet]?.light || "rgba(100,255,218,0.1)";
             const emoji = PLANET_DATA[p.planet]?.emoji || "🬉";
-            return ` < div style = "background:${light};border:1px solid ${col}40;border-radius:14px;padding:1rem 1.25rem;" > < div style = "font-size:0.7rem;color:${col};font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.3rem;" > $ {
-        label
-    } < \/div>                             <div style="font-size:1.3rem;font-weight:700;color:#fff;">${emoji} ${capitalize(p.planet)}<\/div>                             <div style="font-size:0.75rem;color:rgba(255,255,255,0.4);margin-top:0.25rem;">ends ${formatDateFull(p.endDate)}<\/div>                         <\/div>`;
+            return `<div style="background:${light};border:1px solid ${col}40;border-radius:14px;padding:1rem 1.25rem;">
+                                <div style="font-size:0.7rem;color:${col};font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.3rem;">${label}</div>
+                                <div style="font-size:1.3rem;font-weight:700;color:#fff;">${emoji} ${capitalize(p.planet)}</div>
+                                <div style="font-size:0.75rem;color:rgba(255,255,255,0.4);margin-top:0.25rem;">ends ${formatDateFull(p.endDate)}</div>
+                            </div>`;
 })
 .join("")
-} < \/div>`;
+} </div>`;
 /* Personalised remedy cards */
 const remediesContainer = document.getElementById("remediesContainer");
 let remedyHtml = "";
