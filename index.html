@@ -1481,103 +1481,7 @@
   </head>
 
   <body>
-    <!-- -- SPLASH SCREEN START -- -->
-    <div id="splash-screen">
-      <div class="splash-video-container">
-        <video
-          id="splash-video"
-          src="krishna-video.mp4"
-          playsinline
-          muted
-          preload="auto"
-        ></video>
-      </div>
-      <div class="splash-start-ui" id="splash-start-ui">
-        <h2>Experience the Cosmos</h2>
-        <button class="splash-start-btn" onclick="startSplash()">
-          Begin Journey
-        </button>
-      </div>
-      <audio id="splash-bgm" src="krishna-bgm.mp3" preload="auto"></audio>
-    </div>
-    <script>
-      /* Splash screen logic */
-      document.body.style.overflow = "hidden";
-      window.scrollTo(0, 0);
 
-      function dismissSplash() {
-        var splash = document.getElementById("splash-screen");
-        var video = document.getElementById("splash-video");
-        var bgm = document.getElementById("splash-bgm");
-
-        if (!splash || splash._done) return;
-        splash._done = true;
-
-        // Stop media cleanly
-        try {
-            if (video) { video.pause(); video.removeAttribute('src'); video.load(); }
-            if (bgm) { bgm.pause(); }
-        } catch (e) {
-            console.log("Media stop warning:", e);
-        }
-
-        splash.style.transition = "opacity 0.8s ease-out";
-        splash.style.opacity = "0";
-        setTimeout(function () {
-          if (splash.parentNode) splash.remove();
-          document.body.style.overflow = "auto";
-          document.body.style.overflowX = "hidden";
-        }, 800);
-      }
-
-      function startSplash() {
-        var splash = document.getElementById("splash-screen");
-        var video = document.getElementById("splash-video");
-        var bgm = document.getElementById("splash-bgm");
-        var startUi = document.getElementById("splash-start-ui");
-
-        if (startUi) startUi.style.display = "none";
-        if (splash) splash.classList.add("is-playing");
-
-        // Safely try BGM
-        if (bgm) {
-            try { 
-                if (bgm.readyState > 0) bgm.currentTime = 0;
-                bgm.play().catch(function(e){ console.log("BGM play error", e); }); 
-            } catch(e) {}
-        }
-
-        if (video) {
-            video.addEventListener("ended", dismissSplash, { once: true });
-            video.addEventListener("error", function () { setTimeout(dismissSplash, 200); }, { once: true });
-
-            try {
-                if (video.readyState > 0) video.currentTime = 0;
-                video.muted = false; // Attempt to unmute if platform allows
-                var playPromise = video.play();
-                if (playPromise !== undefined) {
-                    playPromise.catch(function (e) {
-                        console.log("Video play blocked, retrying muted...", e);
-                        video.muted = true;
-                        video.play().catch(function() {
-                             console.log("Video completely blocked.");
-                             setTimeout(dismissSplash, 1500); 
-                        });
-                    });
-                }
-            } catch (err) {
-                console.error("Video JS error:", err);
-                setTimeout(dismissSplash, 1000);
-            }
-        } else {
-            setTimeout(dismissSplash, 500);
-        }
-
-        // Failsafe timeout
-        setTimeout(dismissSplash, 16000);
-      }
-    </script>
-    <!-- -- SPLASH SCREEN END -- -->
     <!-- -- CANVAS STARS -- -->
     <canvas id="starCanvas"></canvas>
     <!-- -- NEBULA ORBS -- -->
@@ -1601,12 +1505,6 @@
     </nav>
     <!-- --------------------------------------------------      HERO -------------------------------------------------- -->
     <section class="hero">
-      <!-- Divine Video Background -->
-      <div class="video-container">
-        <video class="video-bg" autoplay muted loop playsinline>
-          <source src="krishna-video.mp4" type="video/mp4">
-        </video>
-      </div>
       <!-- Floating planets -->
       <div class="planet planet-1"></div>
 
