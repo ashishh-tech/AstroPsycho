@@ -278,16 +278,15 @@
         align-items: stretch !important;
     }
 
-    /* Prevent bottom nav overlap with fixed Hindi toggle */
+    /* Hindi toggle top right */
     #hindiToggleBtn {
-        bottom: calc(64px + env(safe-area-inset-bottom, 0px));
-        top: auto !important;
+        top: 0.8rem !important;
+        bottom: auto !important;
+        right: 0.8rem !important;
         /* Force compact pill shape — prevent stretching */
         display: inline-flex !important;
         flex-direction: row !important;
         align-items: center !important;
-        width: auto !important;
-        height: auto !important;
         padding: 0.4rem 0.8rem !important;
         font-size: 0.82rem !important;
     }
@@ -317,10 +316,11 @@
     }
 }
 
-/* ── Push hindi-translate button above the mobile nav bar ── */
+/* ── Hindi-translate button top right ── */
 @media (max-width: 768px) {
     #hindiToggleBtn {
-        bottom: calc(env(safe-area-inset-bottom, 0px) + 72px) !important;
+        top: 0.8rem !important;
+        bottom: auto !important;
         right: 14px !important;
         z-index: 9990 !important;
         /* Compact pill: ensure no height inflation */
@@ -328,8 +328,6 @@
         flex-direction: row !important;
         align-items: center !important;
         gap: 0.4rem !important;
-        width: auto !important;
-        height: auto !important;
         padding: 0.4rem 0.85rem !important;
         font-size: 0.82rem !important;
         line-height: 1 !important;
