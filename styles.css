@@ -2079,3 +2079,17 @@ body.hindi-mode {
 html {
     scroll-behavior: smooth;
 }
+/* -----------------------------------------------    RESPONSIVE COMPONENT HIDING ----------------------------------------------- */
+@media (max-width: 768px) {
+    .desktop-only {
+        display: none !important;
+    }
+}
+
+@media (min-width: 769px) {
+    .mobile-header,
+    .mobile-nav,
+    #mobileMenuBtn {
+        display: none !important;
+    }
+}
