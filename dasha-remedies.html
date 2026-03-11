@@ -107,7 +107,7 @@
       }
 
       .remedy-item ul li::before {
-        content: "💋 ";
+        content: "✨ ";
         font-size: 0.7rem;
       }
 
@@ -495,7 +495,7 @@ function buildRemedyCard(label, planet, period) {
                 </div>
                 
                 <div class="remedy-item">
-                    <h4>👄 Gemstone</h4>
+                    <h4>💎 Gemstone</h4>
                     <ul><li>${pd.gemstone}</li></ul>
                     <h4 style="margin-top:0.75rem;">⚡ Charity</h4>
                     <ul><li>${pd.charity}</li></ul>
@@ -598,7 +598,7 @@ Object.entries(PLANET_DATA)
     .forEach(([planet, pd]) => {
         const col = PLANET_COLORS[planet];
         const isActive = [md?.planet, ad?.planet].includes(planet);
-        refGuide.innerHTML += `                 <div class="ref-card" style="background:${pd.light};border-color:${col}30;${isActive ? "border-color:" + col + "80;box-shadow:0 0 12px " + col + "20;" : ""}">                     <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">                         <span style="font-size:1.2rem;">${pd.emoji}<\/span>                         <span style="color:${col};font-weight:600;font-size:0.9rem;">${capitalize(planet)}<\/span>                         ${isActive ? '<span style="background:' + col + "20;color:" + col + ';font-size:0.6rem;padding:1px 6px;border-radius:6px;font-weight:700;">ACTIVE<\/span>' : ""}                     <\/div>                     <div style="color:rgba(255,255,255,0.55);font-size:0.78rem;line-height:1.5;">${pd.mantra[0]}<\/div>                     <div style="color:rgba(255,255,255,0.4);font-size:0.72rem;margin-top:0.4rem;">👄 ${pd.gemstone.split("—")[0].trim()}<\/div>                 <\/div>`;
+        refGuide.innerHTML += `                 <div class="ref-card" style="background:${pd.light};border-color:${col}30;${isActive ? "border-color:" + col + "80;box-shadow:0 0 12px " + col + "20;" : ""}">                     <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">                         <span style="font-size:1.2rem;">${pd.emoji}<\/span>                         <span style="color:${col};font-weight:600;font-size:0.9rem;">${capitalize(planet)}<\/span>                         ${isActive ? '<span style="background:' + col + "20;color:" + col + ';font-size:0.6rem;padding:1px 6px;border-radius:6px;font-weight:700;">ACTIVE<\/span>' : ""}                     <\/div>                     <div style="color:rgba(255,255,255,0.55);font-size:0.78rem;line-height:1.5;">${pd.mantra[0]}<\/div>                     <div style="color:rgba(255,255,255,0.4);font-size:0.72rem;margin-top:0.4rem;">💎 ${pd.gemstone.split("—")[0].trim()}</div>                 <\/div>`;
     });
 }
 </script>
