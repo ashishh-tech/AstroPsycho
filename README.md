@@ -36,6 +36,9 @@ graph TD
     
     subgraph Specialists[Predictive Specialists]
         Panchang --> Birthday[Hindu Birthday Tracker]
+        Panchang --> Clock[Planetary Clock Engine]
+        EngineV8 --> Compatibility[Marriage Matching Engine]
+        EngineV8 --> Solar[Solar Return Engine]
         Shadbala --> Career[Career Intelligence Engine]
         Dasha --> Transit[Transit Tracker]
     end
@@ -47,15 +50,18 @@ graph TD
 
 ## 💎 AstroPsycho Core Pillars (Standout Features)
 
-The framework is architected to provide professional-grade astrological depth previously only found in specialized desktop software.
+The framework is architected to provide professional-grade astrological depth.
 
 | Feature | Description | High-Tech Implementation |
 | :--- | :--- | :--- |
 | **☸️ Precision Kundali Engine** | Authentic Natal Charts (D1) calculated using sidereal ephemeris algorithms. | *Lahiri Ayanamsa Precision* |
 | **🧬 60+ Divisional Maps (Varga)** | Complete hierarchy from Navamsa (D9) to Shashtiamsa (D60) with instant rendering. | *Recursive Divisional Logic* |
+| **💞 Marriage Matching Engine** | Comprehensive Koota-based compatibility analysis with Mangalik Dosha detection. | *Guna-Milan Algorithm* |
+| **🌞 Solar Return (Varshaphala)** | Precise annual chart generation to predict the year ahead based on Sun's return. | *Vedic Solar-Year Math* |
 | **⏳ Vimshottari Dasha Explorer** | Fluid temporal navigation through life cycles from Mahadasha to Antardasha levels. | *Temporal Time-Series Math* |
 | **🤖 AI-Driven Astro-Insights** | Advanced pattern matching that interprets dozens of simultaneous planetary yogas. | *Neural Interpretation Layer* |
 | **💪 Shadbala Strength HUD** | A 6-fold visual HUD displaying the "directional" and "temporal" potency of all planets. | *Directional Strength Vectors* |
+| **🔮 Planetary Clock** | Real-time tracking of planets moving through zodiac degrees, updated every second. | *Live Ephemeris Polling* |
 
 ---
 
