@@ -45,15 +45,28 @@ graph TD
 
 ---
 
-## 💎 Innovative Modules (High-Tech Features)
+## 💎 AstroPsycho Core Pillars (Standout Features)
 
-| Feature | Description | Tech Highlight |
+The framework is architected to provide professional-grade astrological depth previously only found in specialized desktop software.
+
+| Feature | Description | High-Tech Implementation |
 | :--- | :--- | :--- |
-| **🎂 Hindu Birthday Tracker** | Calculates the exact recurring birth Tithi (Lunar day) within the birth Solar month. | *Lookahead Iteration Logic* |
-| **💼 Career Intelligence** | Maps Shadbala strengths and 10th Lord positioning to 150+ modern professions. | *Rule-based Planetary Mapping* |
-| **🪐 Dynamic Dasha Timeline** | A high-fidelity visualization of Vimshottari cycles with sub-period precision. | *Temporal Math + CSS Grid* |
-| **💪 Shadbala UI** | Detailed 6-fold planetary strength analysis presented through high-tech HUD cards. | *Precise Ephemeris Algorithms* |
-| **✦ Rotating Branding** | A premium CSS-animated star logo that symbolizes the continuous motion of the cosmos. | *GPU-Accelerated Animations* |
+| **☸️ Precision Kundali Engine** | Authentic Natal Charts (D1) calculated using sidereal ephemeris algorithms. | *Lahiri Ayanamsa Precision* |
+| **🧬 60+ Divisional Maps (Varga)** | Complete hierarchy from Navamsa (D9) to Shashtiamsa (D60) with instant rendering. | *Recursive Divisional Logic* |
+| **⏳ Vimshottari Dasha Explorer** | Fluid temporal navigation through life cycles from Mahadasha to Antardasha levels. | *Temporal Time-Series Math* |
+| **🤖 AI-Driven Astro-Insights** | Advanced pattern matching that interprets dozens of simultaneous planetary yogas. | *Neural Interpretation Layer* |
+| **💪 Shadbala Strength HUD** | A 6-fold visual HUD displaying the "directional" and "temporal" potency of all planets. | *Directional Strength Vectors* |
+
+---
+
+## 🔬 Technical Superiority & Math
+
+AstroPsycho distinguishes itself by running 100% of its complex astrophysical calculations natively in the browser's engine, ensuring zero latency and total user privacy.
+
+- **Ephemeris Engine:** Custom high-fidelity JS implementation of Swiss-grade ephemeris math.
+- **Privacy-First Intelligence:** All birth data and chart generation happen locally; no personal data ever leaves your device.
+- **GPU-Accelerated HUD:** UI components are optimized for 60fps, even when calculating complex dasha transitions.
+- **Modular Astro-Logic:** Decoupled engine architecture allows for specialized "Predictive Plugins" (Transit, Career, Relationship compatibility).
 
 ---
 
