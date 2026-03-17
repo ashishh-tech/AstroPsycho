@@ -942,6 +942,418 @@ class BrighuCareerEngine {
         }
     }
 
+    // ─── CAREER COMPATIBILITY CHECKER ──────────────────────────────────────────
+
+    checkCustomCareer() {
+        const input = document.getElementById('careerCheckerInput');
+        const resultEl = document.getElementById('careerCheckerResult');
+        if (!input || !resultEl) return;
+
+        const query = input.value.trim();
+        if (!query) {
+            input.style.borderColor = '#ef4444';
+            setTimeout(() => input.style.borderColor = 'rgba(99,102,241,0.4)', 1200);
+            return;
+        }
+
+        // Show loading state
+        const btn = document.getElementById('careerCheckBtn');
+        if (btn) { btn.textContent = '⏳ Analyzing...'; btn.disabled = true; }
+
+        setTimeout(() => {
+            const result = this._scoreCustomCareer(query);
+            this._renderCareerCheckResult(result, query);
+            if (btn) { btn.innerHTML = '✨ Check My Chart'; btn.disabled = false; }
+        }, 600);
+    }
+
+    _scoreCustomCareer(query) {
+        const q = query.toLowerCase();
+
+        // Keyword → astrological domain mapping (Massive expansion)
+        const domainMap = {
+            // --- MEDICAL & HEALTHCARE ---
+            doctor: ['medicine', 'healthcare', 'healing'], physician: ['medicine', 'healthcare'],
+            surgeon: ['medicine', 'surgery', 'mars'], nurse: ['medicine', 'healthcare', 'moon'],
+            dentist: ['medicine', 'healthcare'], hospital: ['medicine', 'healthcare'],
+            pharmacist: ['medicine', 'chemistry'], therapist: ['psychology', 'counselling', 'moon'],
+            psychologist: ['psychology', 'counselling'], psychiatrist: ['psychology', 'medicine'],
+            neurologist: ['medicine', 'research', 'mercury'], cardiologist: ['medicine', 'surgery', 'sun'],
+            pediatrician: ['medicine', 'moon'], ayurveda: ['healing', 'spirituality', 'jupiter'],
+            homeopathy: ['healing', 'mercury'], veterinary: ['healthcare', 'social_work', 'mercury'],
+            radiologist: ['medicine', 'technology', 'rahu'], pathlogist: ['medicine', 'research'],
+            nutritionist: ['healthcare', 'food_industry', 'moon'], physiotherapy: ['healing', 'mars'],
+
+            // --- TECHNOLOGY & IT ---
+            software: ['IT', 'technology', 'mercury'], developer: ['IT', 'technology', 'mercury'],
+            programmer: ['IT', 'technology', 'mercury'], engineer: ['engineering', 'technology'],
+            data: ['IT', 'research', 'mercury'], ai: ['IT', 'technology', 'rahu'],
+            machine: ['IT', 'technology', 'rahu'], cyber: ['IT', 'technology', 'rahu'],
+            cloud: ['IT', 'technology', 'rahu'], frontend: ['IT', 'arts', 'venus'],
+            backend: ['IT', 'technology', 'mercury'], fullstack: ['IT', 'technology'],
+            devops: ['IT', 'technology', 'saturn'], blockchain: ['IT', 'technology', 'rahu'],
+            crypto: ['finance', 'technology', 'rahu'], gaming: ['IT', 'arts', 'rahu'],
+            web: ['IT', 'technology'], app: ['IT', 'technology'],
+            ui: ['IT', 'design', 'venus'], ux: ['IT', 'psychology', 'venus'],
+            hardware: ['engineering', 'mars'], networking: ['IT', 'mercury'],
+            tester: ['IT', 'saturn'], quality: ['IT', 'saturn'],
+
+            // --- FINANCE & COMMERCE ---
+            ca: ['finance', 'accounting', 'mercury'], chartered: ['finance', 'accounting'],
+            accountant: ['finance', 'accounting', 'mercury'], banker: ['finance', 'banking', 'jupiter'],
+            finance: ['finance', 'banking', 'investment'], trader: ['finance', 'investment', 'rahu'],
+            investor: ['finance', 'investment'], stock: ['finance', 'investment', 'rahu'],
+            auditor: ['finance', 'saturn'], tax: ['finance', 'government'],
+            insurance: ['finance', 'saturn'], actuary: ['finance', 'research', 'mercury'],
+            fintech: ['finance', 'technology', 'rahu'],
+
+            // --- LAW & GOVERNMENT ---
+            lawyer: ['law', 'legal', 'jupiter'], advocate: ['law', 'legal'],
+            judge: ['law', 'legal', 'jupiter', 'government'], legal: ['law', 'legal'],
+            ias: ['government', 'politics', 'sun'], ips: ['government', 'military', 'mars'],
+            irs: ['government', 'finance', 'mercury'], ifs: ['government', 'foreign_work', 'mercury'],
+            government: ['government', 'politics', 'sun'], politician: ['politics', 'sun', 'rahu'],
+            civil: ['government', 'politics'], bureaucrat: ['government', 'saturn'],
+            diplomat: ['foreign_work', 'law', 'venus'], ambassador: ['foreign_work', 'government'],
+            policeman: ['military', 'government', 'mars'], constable: ['military', 'government'],
+
+            // --- DEFENCE & AVIATION ---
+            army: ['military', 'mars', 'government'], soldier: ['military', 'mars'],
+            navy: ['military', 'travel', 'moon'], airforce: ['military', 'mars'],
+            pilot: ['military', 'travel', 'foreign_work', 'rahu'], cabin: ['hospitality', 'travel', 'venus'],
+            aerospace: ['engineering', 'technology', 'rahu'], aviation: ['travel', 'technology'],
+            fireman: ['military', 'mars'], security: ['military', 'mars'],
+
+            // --- EDUCATION & RESEARCH ---
+            teacher: ['teaching', 'education', 'jupiter'], professor: ['teaching', 'education'],
+            lecturer: ['teaching', 'education'], principal: ['teaching', 'government', 'sun'],
+            trainer: ['teaching', 'education'], coach: ['teaching', 'sports'],
+            researcher: ['research', 'science', 'mercury', 'saturn'], scientist: ['research', 'science'],
+            analyst: ['research', 'data', 'mercury'], historian: ['research', 'jupiter'],
+            librarian: ['education', 'saturn'], archaeologist: ['research', 'saturn', 'rahu'],
+
+            // --- CREATIVE, ARTS & DESIGN ---
+            artist: ['arts', 'venus'], designer: ['arts', 'design', 'venus'],
+            architect: ['engineering', 'property', 'saturn', 'venus'], interior: ['design', 'arts', 'venus'],
+            fashion: ['arts', 'design', 'venus'], makeup: ['arts', 'venus'],
+            photographer: ['arts', 'media', 'venus'], filmmaker: ['media', 'arts', 'venus'],
+            animator: ['arts', 'technology', 'rahu'], graphic: ['arts', 'design', 'venus'],
+            sculptor: ['arts', 'saturn'], painter: ['arts', 'venus'],
+            musician: ['arts', 'music', 'venus'], singer: ['arts', 'music', 'venus'],
+            dancer: ['arts', 'venus', 'moon'], actor: ['arts', 'media', 'venus', 'sun'],
+
+            // --- MEDIA & ENTERTAINMENT ---
+            youtuber: ['media', 'arts', 'rahu', 'venus'], influencer: ['media', 'rahu', 'venus'],
+            streamer: ['media', 'rahu', 'venus'], blogger: ['writing', 'media', 'mercury'],
+            journalist: ['writing', 'media', 'mercury'], writer: ['writing', 'mercury'],
+            author: ['writing', 'mercury', 'jupiter'], editor: ['writing', 'mercury'],
+            reporter: ['writing', 'media'], news: ['media', 'mercury'],
+            radio: ['media', 'mercury'], podcast: ['media', 'mercury'],
+
+            // --- BUSINESS & MANAGEMENT ---
+            business: ['business', 'entrepreneurship', 'mercury'], entrepreneur: ['business', 'entrepreneurship', 'mercury', 'sun', 'rahu'],
+            startup: ['business', 'technology', 'rahu', 'mercury'], ceo: ['business', 'management', 'sun'],
+            manager: ['management', 'business'], consultant: ['consulting', 'management', 'jupiter'],
+            hr: ['management', 'social_work', 'jupiter'], sales: ['business', 'mercury'],
+            marketing: ['business', 'mercury', 'rahu'], retail: ['business', 'mercury'],
+            logistics: ['business', 'saturn'], export: ['business', 'foreign_work', 'rahu'],
+
+            // --- REAL ESTATE & CONSTRUCTION ---
+            real: ['real_estate', 'property', 'saturn'], property: ['real_estate', 'property', 'mars'],
+            contractor: ['construction', 'property', 'saturn', 'mars'], builder: ['construction', 'property'],
+            civil_engineer: ['engineering', 'construction', 'mars'],
+
+            // --- SPIRITUALITY & SOCIAL ---
+            astrologer: ['occult', 'spirituality', 'ketu', 'mercury'], astrology: ['occult', 'spirituality'],
+            spiritual: ['spirituality', 'ketu', 'jupiter'], healer: ['spirituality', 'healing'],
+            yoga: ['spirituality', 'jupiter', 'moon'], meditation: ['spirituality', 'ketu'],
+            priest: ['spirituality', 'jupiter'], ngo: ['social_work', 'charity', 'jupiter', 'moon'],
+            social: ['social_work', 'moon', 'jupiter'], charity: ['charity', 'moon', 'jupiter'],
+
+            // --- HOSPITALITY & TRAVEL ---
+            chef: ['food_industry', 'venus', 'moon', 'mars'], hotel: ['hospitality', 'venus'],
+            restaurant: ['food_industry', 'venus'], food: ['food_industry', 'venus', 'moon'],
+            travel: ['travel', 'tourism', 'moon'], tourism: ['travel', 'tourism', 'venus'],
+            guide: ['travel', 'jupiter'], event: ['hospitality', 'venus'],
+
+            // --- AGRICULTURE & TRADITIONAL ---
+            farmer: ['agriculture', 'saturn', 'moon'], agriculture: ['agriculture', 'saturn'],
+            dairy: ['agriculture', 'moon'], fishing: ['agriculture', 'rahu'],
+            carpenter: ['construction', 'saturn'], plumber: ['construction', 'saturn'],
+            electrician: ['engineering', 'mars'], driver: ['transport', 'rahu'],
+            mechanic: ['engineering', 'mars', 'saturn'], factory: ['manufacturing', 'saturn'],
+
+            // --- SPORTS & FITNESS ---
+            athlete: ['sports', 'mars'], sportsman: ['sports', 'mars'],
+            cricketer: ['sports', 'mars', 'mercury'], footballer: ['sports', 'mars'],
+            gym: ['sports', 'mars'], bodybuilding: ['sports', 'mars', 'sun'],
+            swimmer: ['sports', 'moon'], coach: ['sports', 'jupiter'],
+        };
+
+        // Build matched domains from query
+        const matchedDomains = new Set();
+        const matchedPlanets = new Set();
+        const matchedKeywords = [];
+
+        for (const [kw, tags] of Object.entries(domainMap)) {
+            if (q.includes(kw)) {
+                matchedKeywords.push(kw);
+                tags.forEach(t => {
+                    const planets = ['sun', 'moon', 'mars', 'mercury', 'jupiter', 'venus', 'saturn', 'rahu', 'ketu'];
+                    if (planets.includes(t)) matchedPlanets.add(t);
+                    else matchedDomains.add(t);
+                });
+            }
+        }
+
+        // Get chart data
+        const satData = this.getSaturnData();
+        const tenth = this.get10thHouseAnalysis();
+        const d10 = this.getD10CareerSign();
+        const karakas = this.calculateJaiminiKarakas();
+        const topProfessions = this.buildCareerProfile();
+
+        // Scoring signals
+        const signals = [];
+        let totalScore = 0;
+
+        // 1. Check if query matches any top recommended professions (strong signal)
+        const topMatch = topProfessions.find(p => p.name.toLowerCase().includes(q) || q.includes(p.name.toLowerCase().split(/\s/)[0]));
+        if (topMatch) {
+            const pts = Math.round(topMatch.confidence * 0.4);
+            signals.push({ icon: '🏆', label: `Found in your top career matches (${topMatch.name})`, score: pts, positive: true });
+            totalScore += pts;
+        }
+
+        // 2. Saturn house professions match
+        const satProfs = satData.houseData?.top_professions || [];
+        const satMatch = satProfs.filter(p => q.includes(p.toLowerCase()) || p.toLowerCase().split(/\s/)[0].length > 3 && q.includes(p.toLowerCase().split(/\s/)[0]));
+        if (satMatch.length) {
+            signals.push({ icon: '♄', label: `Saturn (H${satData.house} ${satData.sign}) favours this field`, score: 22, positive: true });
+            totalScore += 22;
+        }
+
+        // 3. Saturn sign theme match
+        const satSignThemes = satData.signData?.themes || [];
+        const satSignMatch = satSignThemes.some(t => matchedDomains.has(t) || matchedPlanets.has(t));
+        if (satSignMatch) {
+            signals.push({ icon: '♄', label: `Saturn's sign (${satData.sign}) supports this energy`, score: 14, positive: true });
+            totalScore += 14;
+        }
+
+        // 4. 10th lord career match
+        const tenthProfs = tenth.lordData?.professions || [];
+        const tenthMatch = tenthProfs.some(p => q.includes(p.toLowerCase()) || matchedDomains.has(p.toLowerCase()));
+        if (tenthMatch) {
+            signals.push({ icon: '👑', label: `10th Lord (${this.planetNames[tenth.tenthLord]}) supports this career`, score: 20, positive: true });
+            totalScore += 20;
+        }
+
+        // 5. D10 sign profession match
+        const d10Profs = d10.data?.professions || [];
+        const d10Match = d10Profs.some(p => q.includes(p.toLowerCase()) || matchedDomains.has(p.toLowerCase().split(/\s/)[0]));
+        if (d10Match) {
+            signals.push({ icon: '📊', label: `D-10 Dashamsha (${d10.d10Sign}) aligns with this field`, score: 16, positive: true });
+            totalScore += 16;
+        }
+
+        // 6. Atmakaraka soul work match
+        const akWork = karakas.akData?.ideal_work || [];
+        const akMatch = akWork.some(w => q.includes(w.toLowerCase()) || matchedDomains.has(w.toLowerCase()));
+        if (akMatch) {
+            signals.push({ icon: '🔱', label: `Atmakaraka (${this.planetNames[karakas.atmakaraka.planet]}) resonates with your soul's calling`, score: 12, positive: true });
+            totalScore += 12;
+        }
+
+        // 7. Matched planet energy in chart assessment
+        if (matchedPlanets.size > 0) {
+            const relevantCount = [...matchedPlanets].filter(p => {
+                const shadbala = this.birthChart.shadbala?.[p];
+                return shadbala?.isStrong;
+            }).length;
+            if (relevantCount > 0) {
+                signals.push({ icon: '⚡', label: `Strong ruling planets (${[...matchedPlanets].map(p => this.planetNames[p]).join(', ')}) in your chart`, score: relevantCount * 8, positive: true });
+                totalScore += relevantCount * 8;
+            }
+        }
+
+        // 8. Negative signals — debilitated or weak planets
+        const weakPlanetsInfo = [];
+        
+        // Define key pillars to check regardless of profession (Always relevant for overall career success)
+        const pillars = new Set(['saturn', tenth.tenthLord]);
+        const planetsToCheck = new Set([...matchedPlanets, ...pillars]);
+
+        planetsToCheck.forEach(p => {
+            const shadbala = this.birthChart.shadbala?.[p];
+            const planetPos = this.birthChart.planets[p];
+            const signIndex = Math.floor(planetPos / 30);
+            
+            // Check if debilitating
+            let isDebilitated = false;
+            const debilMap = { sun: 6, moon: 7, mars: 3, mercury: 11, jupiter: 9, venus: 5, saturn: 0 };
+            if (debilMap[p] !== undefined && signIndex === debilMap[p]) isDebilitated = true;
+            
+            if (shadbala && !shadbala.isStrong) {
+                weakPlanetsInfo.push({
+                    planet: this.planetNames[p],
+                    reason: `has low Shadbala strength (${Math.round((shadbala.totalRupas / shadbala.requiredStrength) * 100)}%)`,
+                    code: p
+                });
+            } else if (isDebilitated) {
+                weakPlanetsInfo.push({
+                    planet: this.planetNames[p],
+                    reason: `is in its sign of debilitation (${this.signs[signIndex]})`,
+                    code: p
+                });
+            }
+        });
+
+        // Unique check
+        const finalWeakPlanets = [];
+        const seen = new Set();
+        weakPlanetsInfo.forEach(item => {
+            if (!seen.has(item.code)) {
+                finalWeakPlanets.push(item);
+                seen.add(item.code);
+            }
+        });
+
+        if (finalWeakPlanets.length > 0 && signals.filter(s => s.positive).length < 2) {
+            // Penalize more if the matched planets themselves are weak
+            const matchedWeakCount = finalWeakPlanets.filter(w => matchedPlanets.has(w.code)).length;
+            const penalty = (matchedWeakCount > 0 ? 12 : 8) * finalWeakPlanets.length;
+            
+            signals.push({ icon: '⚠️', label: `Key planets (${finalWeakPlanets.map(i => i.planet).join(', ')}) need strengthening`, score: -penalty, positive: false });
+            totalScore = Math.max(0, totalScore - penalty);
+        }
+        
+        // Update weakPlanetsInfo for rendering
+        const renderWeakPlanets = finalWeakPlanets;
+
+        // No keywords recognized
+        if (matchedKeywords.length === 0 && !topMatch) {
+            signals.push({ icon: '🔮', label: 'This profession isn\'t in our keyword database — showing general chart analysis', score: 0, positive: null });
+            // Give a general baseline based on career strength
+            const cs = this.calculateCareerStrengthScore();
+            totalScore = Math.round(cs.total * 0.5);
+        }
+
+        // Clamp
+        totalScore = Math.min(100, Math.max(5, totalScore));
+
+        // Verdict
+        let verdict, verdictColor, verdictBg, verdictIcon;
+        if (totalScore >= 80) {
+            verdict = 'Highly Favourable'; verdictColor = '#22c55e'; verdictBg = 'rgba(34,197,94,0.12)'; verdictIcon = '🌟';
+        } else if (totalScore >= 60) {
+            verdict = 'Favourable'; verdictColor = '#4ade80'; verdictBg = 'rgba(74,222,128,0.1)'; verdictIcon = '✅';
+        } else if (totalScore >= 40) {
+            verdict = 'Moderately Aligned'; verdictColor = '#f59e0b'; verdictBg = 'rgba(245,158,11,0.1)'; verdictIcon = '🟡';
+        } else if (totalScore >= 20) {
+            verdict = 'Challenging Path'; verdictColor = '#f97316'; verdictBg = 'rgba(249,115,22,0.1)'; verdictIcon = '⚠️';
+        } else {
+            verdict = 'Not Chart-Aligned'; verdictColor = '#ef4444'; verdictBg = 'rgba(239,68,68,0.1)'; verdictIcon = '❌';
+        }
+
+        return { totalScore, verdict, verdictColor, verdictBg, verdictIcon, signals, weakPlanetsInfo: renderWeakPlanets };
+    }
+
+    _renderCareerCheckResult(result, query) {
+        const el = document.getElementById('careerCheckerResult');
+        if (!el) return;
+
+        const positiveSignals = result.signals.filter(s => s.positive === true);
+        const negativeSignals = result.signals.filter(s => s.positive === false);
+        const neutralSignals = result.signals.filter(s => s.positive === null);
+
+        // Arc progress (semi-circle like the career gauge)
+        const arcPct = result.totalScore;
+        const arcColor = result.verdictColor;
+
+        el.style.display = 'block';
+        el.innerHTML = `
+        <div style="background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.1); border-radius:18px; padding:24px; animation: fadeIn 0.4s ease;">
+            <!-- Header -->
+            <div style="display:flex; align-items:center; gap:20px; flex-wrap:wrap; margin-bottom:20px; padding-bottom:16px; border-bottom:1px solid rgba(255,255,255,0.08);">
+                <!-- Mini gauge -->
+                <div style="text-align:center;">
+                    <svg viewBox="0 0 120 72" style="width:130px;">
+                        <path d="M 12 66 A 54 54 0 0 1 108 66" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="12" stroke-linecap="round"/>
+                        <path d="M 12 66 A 54 54 0 0 1 108 66" fill="none" stroke="${arcColor}" stroke-width="12" stroke-linecap="round"
+                              stroke-dasharray="${arcPct * 1.696} 169.6" style="transition:stroke-dasharray 1.2s ease;"/>
+                        <text x="60" y="58" text-anchor="middle" fill="white" font-size="22" font-weight="bold" font-family="Outfit,sans-serif">${arcPct}</text>
+                    </svg>
+                    <div style="font-size:0.7rem; color:rgba(255,255,255,0.45); margin-top:-4px;">/ 100</div>
+                </div>
+                <!-- Verdict -->
+                <div style="flex:1;">
+                    <div style="font-size:0.78rem; color:rgba(255,255,255,0.45); margin-bottom:6px; letter-spacing:0.5px;">CHART COMPATIBILITY FOR</div>
+                    <div style="font-size:1.35rem; font-weight:800; color:#f1f5f9; margin-bottom:10px;">"${query}"</div>
+                    <div style="display:inline-flex; align-items:center; gap:8px; background:${result.verdictBg}; border:1px solid ${arcColor}40;
+                                padding:8px 18px; border-radius:30px;">
+                        <span style="font-size:1.1rem;">${result.verdictIcon}</span>
+                        <span style="font-size:0.95rem; font-weight:700; color:${arcColor};">${result.verdict}</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Signals -->
+            ${positiveSignals.length ? `
+            <div style="margin-bottom:14px;">
+                <div style="font-size:0.75rem; font-weight:700; color:rgba(255,255,255,0.4); letter-spacing:0.5px; margin-bottom:10px;">✅ SUPPORTING FACTORS</div>
+                ${positiveSignals.map(s => `
+                    <div style="display:flex; align-items:center; gap:10px; background:rgba(34,197,94,0.06); border:1px solid rgba(34,197,94,0.15);
+                                border-radius:10px; padding:10px 14px; margin-bottom:8px;">
+                        <span style="font-size:1.1rem;">${s.icon}</span>
+                        <span style="flex:1; font-size:0.88rem; color:#e2e8f0; line-height:1.4;">${s.label}</span>
+                        <span style="font-size:0.85rem; font-weight:700; color:#4ade80;">+${s.score}</span>
+                    </div>`).join('')}
+            </div>` : ''}
+
+            ${negativeSignals.length ? `
+            <div style="margin-bottom:14px;">
+                <div style="font-size:0.75rem; font-weight:700; color:rgba(255,255,255,0.4); letter-spacing:0.5px; margin-bottom:10px;">⚠️ CHALLENGING FACTORS</div>
+                ${negativeSignals.map(s => `
+                    <div style="display:flex; align-items:center; gap:10px; background:rgba(239,68,68,0.06); border:1px solid rgba(239,68,68,0.15);
+                                border-radius:10px; padding:10px 14px; margin-bottom:8px;">
+                        <span style="font-size:1.1rem;">${s.icon}</span>
+                        <span style="flex:1; font-size:0.88rem; color:#e2e8f0; line-height:1.4;">${s.label}</span>
+                        <span style="font-size:0.85rem; font-weight:700; color:#f87171;">${s.score}</span>
+                    </div>`).join('')}
+            </div>` : ''}
+
+            ${neutralSignals.length ? `
+            <div style="margin-bottom:14px;">
+                ${neutralSignals.map(s => `
+                    <div style="display:flex; align-items:center; gap:10px; background:rgba(99,102,241,0.07); border:1px solid rgba(99,102,241,0.2);
+                                border-radius:10px; padding:10px 14px; margin-bottom:8px;">
+                        <span style="font-size:1.1rem;">${s.icon}</span>
+                        <span style="flex:1; font-size:0.88rem; color:#e2e8f0; line-height:1.4;">${s.label}</span>
+                    </div>`).join('')}
+            </div>` : ''}
+
+            ${result.totalScore < 50 ? `
+            <div style="background:rgba(245,158,11,0.08); border:1px solid rgba(245,158,11,0.2); border-radius:12px; padding:14px 16px; margin-top:4px;">
+                <span style="font-size:0.85rem; color:#fbbf24; line-height:1.6;">
+                    💡 <strong>Tip:</strong> This path is challenging because ${result.weakPlanetsInfo.length > 0 
+                        ? result.weakPlanetsInfo.map(i => `<strong>${i.planet}</strong> ${i.reason}`).join(', and ') 
+                        : 'your key career pillars (Saturn and 10th Lord) lack sufficient strength for this specific choice'}. 
+                    Consider strengthening these planets via their remedies, or explore your top recommended careers for a smoother journey.
+                </span>
+            </div>` : `
+            <div style="background:rgba(34,197,94,0.07); border:1px solid rgba(34,197,94,0.2); border-radius:12px; padding:14px 16px; margin-top:4px;">
+                <span style="font-size:0.85rem; color:#86efac; line-height:1.6;">
+                    🌟 <strong>Insight:</strong> Your chart shows alignment with this choice. Time your major career moves during your favourable Mahadasha periods for maximum success.
+                </span>
+            </div>`}
+        </div>
+        <style>@keyframes fadeIn { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }</style>`;
+
+        // Scroll to result
+        el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
     _getFallbackData() {
         // Minimal fallback so the engine doesn't crash if JSON fails to load
         const empty = {};
@@ -966,6 +1378,7 @@ class BrighuCareerEngine {
 
 document.addEventListener('DOMContentLoaded', async () => {
     const engine = new BrighuCareerEngine();
+    window._careerEngine = engine;
     const ok = await engine.init();
     if (ok) {
         engine.renderAll();

@@ -34,7 +34,7 @@ class ConjunctionsController {
         if (content) {
             content.innerHTML = `
                 <div class="info-box" style="border-color: #a78bfa; margin-top: 2rem;">
-                    <h3 style="color: #a78bfa;">🪐 Quick Conjunctions Analysis</h3>
+                    <h3 style="color: #a78bfa;">\uD83E\uDE90 Quick Conjunctions Analysis</h3>
                     <p style="margin-bottom: 1.5rem;">Enter your birth details to analyze your planetary combinations.</p>
                     ${this.createBirthForm('quickConjForm')}
                 </div>
@@ -66,7 +66,7 @@ class ConjunctionsController {
                     <input type="text" id="quickPlace" required placeholder="e.g. Mumbai">
                 </div>
                 <div class="button-group" style="margin-top: 1.5rem;">
-                    <button type="submit" class="btn btn-primary">Analyze Conjunctions 🪐</button>
+                    <button type="submit" class="btn btn-primary">Analyze Conjunctions \uD83E\uDE90</button>
                     <a href="index.html" class="btn btn-secondary">← Back to Home</a>
                 </div>
             </form>
@@ -178,7 +178,9 @@ class ConjunctionsController {
                 if ((p1 === 'rahu' && p2 === 'ketu') || (p1 === 'ketu' && p2 === 'rahu')) continue;
 
                 const orb = this._orb(pos[p1], pos[p2]);
-                const sameSign = this._signOf(pos[p1]) === this._signOf(pos[p2]);
+                const sign1 = this._signOf(pos[p1]);
+                const sign2 = this._signOf(pos[p2]);
+                const sameSign = sign1 === sign2;
 
                 if (orb <= 10.0 || (sameSign && orb <= 15.0)) {
                     pairs.push({
@@ -186,9 +188,12 @@ class ConjunctionsController {
                         orb: parseFloat(orb.toFixed(2)),
                         isTight: orb <= 5.0,
                         signName: this._signNameOf(pos[p1]),
+                        sign1Idx: sign1,
+                        sign2Idx: sign2,
                         sameSign,
-                        house: this._houseOf(pos[p1], ascendant),
-                        interpretation: this.getInterpretation(p1, p2, this._houseOf(pos[p1], ascendant))
+                        house1: this._houseOf(pos[p1], ascendant),
+                        house2: this._houseOf(pos[p2], ascendant),
+                        interpretation: this.getInterpretation(p1, p2, sameSign, this._signNameOf(pos[p1]), this._signNameOf(pos[p2]))
                     });
                 }
             }
@@ -393,7 +398,7 @@ class ConjunctionsController {
     // 2-PLANET INTERPRETATIONS (unchanged database)
     // ─────────────────────────────────────────────────────────────
 
-    getInterpretation(p1, p2, house) {
+    getInterpretation(p1, p2, sameSign, sign1Name, sign2Name) {
         const pair = [p1, p2].sort().join('-');
         const db = {
             'moon-sun': {
@@ -566,11 +571,23 @@ class ConjunctionsController {
         const defaultResult = {
             name: `${this._cap(p1)} + ${this._cap(p2)} Conjunction`,
             type: 'mixed',
-            effect: `The energies of ${p1} and ${p2} blend together in this house. The exact manifestation depends on the sign, but these two planets must inherently cooperate or compromise in your life.`,
+            effect: `The energies of ${p1} and ${p2} blend together. The exact manifestation depends on the sign, but these two planets must inherently cooperate or compromise in your life.`,
             domains: 'General life synthesis'
         };
 
-        return db[pair] || db[[p2, p1].sort().join('-')] || defaultResult;
+        let result = db[pair] || db[[p2, p1].sort().join('-')] || defaultResult;
+
+        // CRITICAL: If not in the same sign, we cannot call it a specific "Yoga"
+        if (!sameSign) {
+            result = {
+                ...result,
+                name: `${this._cap(p1)} & ${this._cap(p2)} Proximity`,
+                effect: `These two planets are close in degrees (${sign1Name} and ${sign2Name}) but in different zodiac signs. Their energies merge across the sign boundary, creating a complex influence that isn't a traditional single-sign Yoga, but still profoundly affects your psyche and life path.`,
+                domains: result.domains || 'Cross-sign life synthesis'
+            };
+        }
+
+        return result;
     }
 
     // ─────────────────────────────────────────────────────────────
@@ -578,7 +595,7 @@ class ConjunctionsController {
     // ─────────────────────────────────────────────────────────────
 
     getPlanetSymbol(p) {
-        const sym = { sun: '☀️', moon: '🌙', mars: '♂️', mercury: '☿', jupiter: '♃', venus: '♀️', saturn: '♄', rahu: '☊', ketu: '☋' };
+        const sym = { sun: '\u2600\uFE0F', moon: '\uD83C\uDF19', mars: '\u2642\uFE0F', mercury: '\u263F', jupiter: '\u2643', venus: '\u2640\uFE0F', saturn: '\u2644', rahu: '\u260A', ketu: '\u260B' };
         return sym[p] || '';
     }
 
@@ -601,7 +618,7 @@ class ConjunctionsController {
                 : '';
             summary.innerHTML = `
                 <div class="info-box" style="border-color: #a78bfa; background: rgba(167, 139, 250, 0.05);">
-                    <h3 style="color: #a78bfa; margin-bottom: 0.8rem;">✨ ${totalCount} Planetary Conjunctions Detected${stelliumBadge}</h3>
+                    <h3 style="color: #a78bfa; margin-bottom: 0.8rem;">\u2728 ${totalCount} Planetary Conjunctions Detected${stelliumBadge}</h3>
                     <p style="color: var(--soft-white); line-height: 1.8;">
                         When planets are within 10° of each other or share a zodiac sign, their energies fuse.
                         <strong>Stelliums (3+ planets)</strong> create a overwhelming concentration of destiny in one area.
@@ -638,7 +655,7 @@ class ConjunctionsController {
             html += `
                 <div style="margin-bottom: 0.5rem; display:flex; align-items:center; gap:0.8rem;">
                     <h2 style="color:#f4c430; font-family:var(--font-display); font-size:1.2rem; margin:0;">
-                        🌟 Stelliums — Multi-Planet Concentrations
+                        \uD83C\uDF1F Stelliums — Multi-Planet Concentrations
                     </h2>
                     <span style="background:rgba(244,196,48,0.15); color:#f4c430; font-size:0.75rem; font-weight:700; padding:2px 10px; border-radius:20px; border:1px solid rgba(244,196,48,0.3);">
                         ${stelliums.length} GROUP${stelliums.length > 1 ? 'S' : ''}
@@ -660,12 +677,12 @@ class ConjunctionsController {
                             <div>
                                 <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:6px;">
                                     <span style="background:rgba(244,196,48,0.15); color:#f4c430; font-size:0.75rem; font-weight:700; padding:3px 10px; border-radius:20px; border:1px solid rgba(244,196,48,0.35);">
-                                        ${s.count}⭐ ${countLabel.toUpperCase()} STELLIUM
+                                        ${s.count}\u2B50 ${countLabel.toUpperCase()} STELLIUM
                                     </span>
                                     <span style="background:rgba(${pc === '#4ade80' ? '74,222,128' : '251,113,133'},0.12); color:${pc}; font-size:0.75rem; font-weight:700; padding:3px 10px; border-radius:20px;">
                                         ${s.interpretation.power}
                                     </span>
-                                    ${s.isTight ? '<span style="background:rgba(167,139,250,0.2); color:#c4b5fd; font-size:0.75rem; font-weight:700; padding:3px 10px; border-radius:20px;">🔥 TIGHT</span>' : ''}
+                                    ${s.isTight ? '<span style="background:rgba(167,139,250,0.2); color:#c4b5fd; font-size:0.75rem; font-weight:700; padding:3px 10px; border-radius:20px;">\uD83D\uDD25 TIGHT</span>' : ''}
                                 </div>
                                 <h3 style="color:var(--soft-white); font-size:1.25rem; font-family:var(--font-display); margin:0 0 4px 0;">
                                     ${s.interpretation.title}
@@ -702,7 +719,7 @@ class ConjunctionsController {
                 html += `
                     <div style="margin:2rem 0 1rem; display:flex; align-items:center; gap:0.8rem;">
                         <h2 style="color:#a78bfa; font-family:var(--font-display); font-size:1.2rem; margin:0;">
-                            🪐 Two-Planet Conjunctions
+                            \uD83E\uDE90 Two-Planet Conjunctions
                         </h2>
                         <span style="background:rgba(167,139,250,0.15); color:#a78bfa; font-size:0.75rem; font-weight:700; padding:2px 10px; border-radius:20px; border:1px solid rgba(167,139,250,0.3);">
                             ${pairs.length} PAIR${pairs.length > 1 ? 'S' : ''}
@@ -732,10 +749,12 @@ class ConjunctionsController {
                             </div>
                             <div style="text-align:right;">
                                 <span style="display:inline-block; background: ${c.isTight ? 'rgba(167,139,250,0.2)' : 'rgba(255,255,255,0.1)'}; color: ${c.isTight ? '#c4b5fd' : '#cbd5e1'}; padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.8rem; font-weight:600;">
-                                    Orb: ${c.orb.toFixed(2)}° ${c.isTight ? '🔥 TIGHT' : ''}
+                                    Orb: ${c.orb.toFixed(2)}° ${c.isTight ? '\uD83D\uDD25 TIGHT' : ''}
                                 </span>
                                 <div style="color: var(--moon-silver); font-size: 0.85rem; margin-top: 6px;">
-                                    House ${c.house} · ${c.signName}
+                                    ${c.sameSign 
+                                        ? `House ${c.house1} · ${c.signName}` 
+                                        : `H${c.house1} ${this._signNameOf(this.birthChart.planets[c.p1]).substring(0,3)} &amp; H${c.house2} ${this._signNameOf(this.birthChart.planets[c.p2]).substring(0,3)}`}
                                 </div>
                             </div>
                         </div>

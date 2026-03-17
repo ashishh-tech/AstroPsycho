@@ -469,26 +469,202 @@ class TransitEngine {
     }
 
     _synthesizeTransitPairInterpretation(p1, p2, house, sign) {
-        const benefics = ['jupiter', 'venus', 'moon', 'mercury'];
-        const isBenefic1 = benefics.includes(p1), isBenefic2 = benefics.includes(p2);
         const cap = s => s.charAt(0).toUpperCase() + s.slice(1);
-
-        let type = 'mixed';
-        if (isBenefic1 && isBenefic2) type = 'benefic';
-        if (!isBenefic1 && !isBenefic2) type = 'challenging';
-        if (p1 === 'rahu' || p2 === 'rahu' || p1 === 'ketu' || p2 === 'ketu') type = 'intense';
+        const pair = [p1, p2].sort().join('-');
 
         const houseThemes = {
-            1: 'self', 2: 'wealth', 3: 'communication', 4: 'home', 5: 'creativity',
-            6: 'service', 7: 'relationships', 8: 'transformation', 9: 'fortune',
-            10: 'career', 11: 'gains', 12: 'spirituality'
+            1: 'self & personality', 2: 'wealth & family', 3: 'communication & courage',
+            4: 'home & emotions', 5: 'creativity & romance', 6: 'work & health',
+            7: 'relationships & partnerships', 8: 'transformation & secrets',
+            9: 'dharma & fortune', 10: 'career & public life', 11: 'gains & aspirations', 12: 'liberation & losses'
+        };
+
+        // Rich pair-specific transit descriptions
+        const pairDB = {
+            'moon-sun': {
+                type: 'intense',
+                name: 'New Moon Energy',
+                effect: `The Sun and Moon are merging in ${sign}, forming a New Moon zone in your ${house}th house. This is a powerful reset — old emotional cycles close and new ones begin. New ventures, intentions, and commitments made now carry strong momentum. Expect heightened subjectivity; your feelings and ego are one. Emotionally charged decisions should be made mindfully.`
+            },
+            'mars-sun': {
+                type: 'intense',
+                name: 'Solar Fire Transit',
+                effect: `Mars and the Sun are blazing together in ${sign}, amplifying your drive, ambition, and combative energy in your ${house}th house. This is a time of fierce initiative, leadership, and physical vitality. Beware of impulsiveness, arguments, and accidents from acting too fast. Channel this fire productively — this window favors bold action, competition, and starting new projects.`
+            },
+            'jupiter-sun': {
+                type: 'benefic',
+                name: 'Prosperity & Authority Transit',
+                effect: `Jupiter and the Sun are aligned in ${sign}, illuminating your ${house}th house with a rare combination of confidence, wisdom, and good fortune. This is one of the most auspicious transit pairs for recognition, career advancement, and spiritual growth. Teachers, mentors, and authority figures may play a pivotal role. Your sense of purpose is magnified — act on your highest ambitions now.`
+            },
+            'saturn-sun': {
+                type: 'challenging',
+                name: 'Reality Check Transit',
+                effect: `Saturn is pressing hard against the Sun in ${sign}, casting a sobering light on your ${house}th house. Duties, limitations, and responsibilities feel heavy right now. Ego-driven plans meet delays and obstacles. However, this is the universe demanding quality over speed — structures built now withstand the test of time. Avoid confrontations with authority figures. Discipline and patience are your greatest tools.`
+            },
+            'rahu-sun': {
+                type: 'intense',
+                name: 'Eclipse Shadow Transit',
+                effect: `Rahu is eclipsing the Sun in ${sign}, creating a powerful — and unsettling — transit in your ${house}th house. Your identity and self-expression may feel distorted, inflated, or pulled toward unusual ambitions. Fame, status, and recognition become obsessive themes. Beware of self-deception, exaggeration, or chasing illusions of power. Highly innovative energy is present, but ground yourself regularly.`
+            },
+            'ketu-sun': {
+                type: 'challenging',
+                name: 'Ego Dissolution Transit',
+                effect: `Ketu is draining the Sun's ego-force in ${sign}, making the themes of your ${house}th house feel distant or unsatisfying. Recognition may feel hollow, worldly identity loses its grip. This is a deeply spiritual transit — ideal for introspection, detachment from fame, and dedicating action toward selfless purpose. Unexpected withdrawals or changes in leadership may occur around you.`
+            },
+            'mars-moon': {
+                type: 'intense',
+                name: 'Emotional Fire Transit',
+                effect: `Mars and the Moon are colliding in ${sign}, supercharging your ${house}th house with emotional intensity, passion, and volatility. Moods swing between fierce motivation and reactive anger. Arguments with close ones are possible — especially with women or family. However, this is extraordinary fuel for business, fitness, or any goal requiring emotional courage. Channel passion constructively, and avoid reactive decisions.`
+            },
+            'mercury-moon': {
+                type: 'benefic',
+                name: 'Mind & Heart Alignment',
+                effect: `Mercury and the Moon are traveling together in ${sign}, bringing a beautiful union of intellect and intuition into your ${house}th house. Your mind is sharp, your communication is heartfelt, and your emotional intelligence peaks. Excellent for writing, counseling, negotiations, and learning. However, expect fluctuation in thoughts — too many ideas may scatter focus. Stay grounded amid the mental flow.`
+            },
+            'jupiter-moon': {
+                type: 'benefic',
+                name: 'Emotional Abundance Transit',
+                effect: `Jupiter is expanding the Moon's nurturing energy in ${sign}, blessing your ${house}th house with emotional optimism, inner richness, and genuine contentment. You may feel unusually generous, spiritually connected, or supported by others. Family relationships improve, and your intuition is wise and trustworthy. This transit often coincides with good news related to the themes of your ${house}th house.`
+            },
+            'moon-venus': {
+                type: 'benefic',
+                name: 'Pleasure & Harmony Transit',
+                effect: `Venus and the Moon are together in ${sign}, wrapping your ${house}th house in charm, beauty, and emotional warmth. Social life flourishes, relationships feel tender and nourishing, and aesthetic pleasures — art, music, food, love — are deeply satisfying. This is a gentle but potent transit for romance, creative projects, and healing emotional wounds. Enjoy it without indulgence tipping into excess.`
+            },
+            'moon-saturn': {
+                type: 'challenging',
+                name: 'Emotional Contraction Transit',
+                effect: `Saturn is weighing heavily on the Moon in ${sign}, casting a melancholic, duty-bound tone on your ${house}th house. You may feel emotionally withdrawn, lonely, or burdened by obligation. Pessimism and overthinking are common side effects. However, this transit builds extraordinary emotional endurance — lessons learned now about self-discipline and managing feelings become foundational strengths. Seek structure, not escape.`
+            },
+            'moon-rahu': {
+                type: 'intense',
+                name: 'Mental Turbulence Transit',
+                effect: `Rahu is distorting the Moon's receptive energy in ${sign}, stirring up anxiety, vivid imagination, and psychological intensity in your ${house}th house. Sleep may be disrupted by restless dreams. Emotional cravings become insatiable. However, your intuition is razor-sharp and your perception of hidden patterns is remarkable. Excellent for psychology, research, and technology — but ground yourself to avoid mental spiraling.`
+            },
+            'ketu-moon': {
+                type: 'mixed',
+                name: 'Intuitive Detachment Transit',
+                effect: `Ketu is dissolving the Moon's attachment in ${sign}, creating an unusual emotional detachment in your ${house}th house. You may feel disconnected from family or domestic comforts, drawn inward toward solitude and spiritual reflection. Past-life memories or inexplicable emotional surges may arise. Excellent for meditation, healing old wounds, and clearing emotional karma — but avoid isolation that tips into depression.`
+            },
+            'mars-mercury': {
+                type: 'mixed',
+                name: 'Sharp Mind & Sharp Tongue',
+                effect: `Mars and Mercury are accelerating together in ${sign}, making your ${house}th house a hotbed of rapid thinking, quick decisions, and assertive communication. Your mind operates like a blade — precise, fast, and penetrating. Debates, negotiations, and technical work benefit enormously. However, words can wound without intent — think before you speak. Watch for impulsive contracts or decisions made too hastily.`
+            },
+            'jupiter-mars': {
+                type: 'benefic',
+                name: 'Righteous Action Transit',
+                effect: `Jupiter and Mars are powering up your ${house}th house in ${sign}, creating a potent window of courageous, purposeful action. You have both the drive to act (Mars) and the wisdom to act rightly (Jupiter). This is an excellent transit for legal matters, athletic endeavors, launching ventures, and asserting yourself with dignity. The universe rewards bold but principled moves made during this period.`
+            },
+            'mars-venus': {
+                type: 'intense',
+                name: 'Passion & Desire Transit',
+                effect: `Mars and Venus are igniting your ${house}th house in ${sign}, flooding it with passion, sensuality, and creative hunger. Romantic energy is electric — existing relationships intensify, new attractions feel magnetic. Creative projects carry explosive momentum. However, this transit amplifies desire and impatience — be mindful of jealousy, possessiveness, or reckless romantic decisions. Harness this energy for art, love, and bold creation.`
+            },
+            'mars-saturn': {
+                type: 'challenging',
+                name: 'Frustration & Breakthrough Transit',
+                effect: `Mars and Saturn are locked in a tense pairing in ${sign}, creating a push-pull dynamic in your ${house}th house. You feel the urge to charge forward (Mars) while obstacles and delays hold you back (Saturn). This friction is intense — frustration, anger, and exhaustion are common. Yet within this tension lies extraordinary potential: forced patience and disciplined effort now build lasting, durable results. Avoid reckless shortcuts.`
+            },
+            'mars-rahu': {
+                type: 'intense',
+                name: 'Explosive Ambition Transit',
+                effect: `Mars and Rahu are supercharging your ${house}th house in ${sign} with reckless ambition, unconventional drive, and fearless — sometimes reckless — action. This is the most accident-prone and combustible transit pair. But it also fuels extraordinary breakthroughs in technology, sports, and pioneering ventures. Avoid aggression, substance abuse, and impulsive risk-taking. Channel this raw electricity toward bold, calculated innovation.`
+            },
+            'ketu-mars': {
+                type: 'challenging',
+                name: 'Erratic Energy Transit',
+                effect: `Ketu is destabilizing Mars in ${sign}, making action in your ${house}th house unpredictable and often lacking clear motivation. You may act impulsively, then feel indifferent about the outcome. Precision skills — surgery, martial arts, coding, detailed craft — are surprisingly enhanced. Avoid ventures requiring sustained follow-through. Unexpected separations or disruptions may arise in the areas governed by your ${house}th house.`
+            },
+            'jupiter-mercury': {
+                type: 'benefic',
+                name: 'Wisdom & Eloquence Transit',
+                effect: `Jupiter and Mercury are aligned in ${sign}, creating one of the finest intellectual transits possible in your ${house}th house. Your thinking is broad, eloquent, and philosophically rich — the perfect time for writing, teaching, public speaking, studying, or legal matters. Big ideas land with authority and clarity. Travel for educational or spiritual purposes is favored. Share your knowledge — others are listening and benefiting greatly.`
+            },
+            'mercury-venus': {
+                type: 'benefic',
+                name: 'Creative & Commercial Grace',
+                effect: `Mercury and Venus are dancing together in ${sign}, bringing charm, wit, and artistic flair to your ${house}th house. Communications are beautifully delivered — perfect for creative writing, presentations, negotiations, and social media. Commerce, beauty, and entertainment industries respond favorably. Relationships benefit from thoughtful, romantically expressive words. Make your pitch, sign the contract, or send the message you've been crafting.`
+            },
+            'mercury-saturn': {
+                type: 'mixed',
+                name: 'Methodical & Deep Thinking',
+                effect: `Saturn is slowing and deepening Mercury's pace in ${sign}, shifting your ${house}th house energy toward careful, structured thought. Rushing decisions is especially ill-advised now — instead, take your time to research, plan, and analyze thoroughly. Communication may feel heavy or restricted; be precise and avoid ambiguity. Excellent for long-form writing, technical work, programming, and any project requiring concentrated, methodical intelligence.`
+            },
+            'mercury-rahu': {
+                type: 'intense',
+                name: 'Cunning & Unconventional Mind',
+                effect: `Rahu is amplifying Mercury's signal in ${sign} to an unconventional frequency in your ${house}th house. Your mind races with out-of-the-box ideas, tech innovations, and clever strategies that others haven't considered. AI, digital media, rapid communication, and speculative ventures attract your focus. However, be vigilant about deception — both giving and receiving false information. Clarity in contracts and communications is essential.`
+            },
+            'ketu-mercury': {
+                type: 'mixed',
+                name: 'Intuitive Intelligence Transit',
+                effect: `Ketu is pulling Mercury away from logical convention in ${sign}, activating your ${house}th house with flashes of intuitive genius rather than linear reasoning. Standard routes of learning feel dull; you're drawn to mystical, non-conventional, or esoteric knowledge. Excellent for astrology, spiritual studies, and discovering hidden patterns. Watch for miscommunications, forgotten details, or short-circuit thinking in practical day-to-day matters.`
+            },
+            'jupiter-venus': {
+                type: 'benefic',
+                name: 'Abundance & Beauty Transit',
+                effect: `Jupiter and Venus are both showering your ${house}th house in ${sign} with grace, wealth, and pleasure. This is one of the most materially and emotionally rewarding transit combinations possible. Financial opportunities arise naturally; relationships feel generous and harmonious; artistic expression reaches its peak. Indulgence is the only risk — enjoy the abundance without over-spending or over-committing romantically in the heat of this expansive energy.`
+            },
+            'jupiter-saturn': {
+                type: 'mixed',
+                name: 'Slow-Build Opportunity Transit',
+                effect: `Jupiter and Saturn are paired in ${sign}, creating a sober but significant activation of your ${house}th house. This transit marks a serious crossroads — the optimism to dream big (Jupiter) meets the discipline to build realistically (Saturn). Long-term commitments made now — career pivots, business foundations, serious relationships — are grounded and durable. Avoid gambling on shortcuts; the opportunity here rewards strategy and patience above all.`
+            },
+            'jupiter-rahu': {
+                type: 'intense',
+                name: 'Guru Chandal Transit',
+                effect: `Rahu is amplifying and distorting Jupiter's wisdom in ${sign}, creating an unusual mixture of aspiration and illusion in your ${house}th house. Grand opportunities may appear with hidden risks attached. Spiritual or religious experiences can become extreme or unorthodox. Be cautious of false teachers, inflated beliefs, and over-ambitious schemes. However, this transit can also produce genuine breakthroughs in unconventional spirituality, innovation, and global-scale thinking.`
+            },
+            'jupiter-ketu': {
+                type: 'benefic',
+                name: 'Spiritual Insight Transit',
+                effect: `Ketu is drawing Jupiter's wisdom inward in ${sign}, activating a deeply spiritual and introspective mode in your ${house}th house. Worldly ambition loses its appeal; the search for deeper meaning intensifies. Profound insights, philosophical breakthroughs, and a pull toward meditation, pilgrimage, or spiritual study are the hallmarks of this transit. Material goals in this house may feel hollow — redirect them toward legacy, purpose, and inner development.`
+            },
+            'saturn-venus': {
+                type: 'mixed',
+                name: 'Love Under Pressure Transit',
+                effect: `Saturn is tempering Venus's warmth in ${sign}, creating a serious and restrained atmosphere in your ${house}th house. Relationships are tested for genuine commitment — casual connections fade, while solid bonds deepen. Financial pleasures are curbed by budget realities. This transit rewards loyalty, discipline in creative work, and investment in long-term relationships over fleeting gratification. Art and romance require effort, but what emerges is lasting and meaningful.`
+            },
+            'rahu-venus': {
+                type: 'intense',
+                name: 'Obsessive Desire Transit',
+                effect: `Rahu is amplifying Venus in ${sign} to extremes in your ${house}th house — desire becomes insatiable, glamour is magnetic, and attractions feel fated. You may be drawn to unconventional or taboo relationships, luxurious excess, or bold creative experiments. Media, fashion, and entertainment opportunities arise. But beware: Rahu distorts Venus's judgment — what glitters may not be gold. Avoid impulsive romantic commitments or extravagant financial decisions now.`
+            },
+            'ketu-venus': {
+                type: 'challenging',
+                name: 'Karmic Love Transit',
+                effect: `Ketu is dissolving Venus's pleasure-seeking in ${sign}, creating a sense of quiet dissatisfaction with material pleasures and earthly romance in your ${house}th house. Relationships may feel karmically familiar yet emotionally distant. What once gave joy — possessions, beauty, intimacy — now feels strangely unfulfilling. This is a transit for releasing attachments, clearing past romantic karma, and cultivating a more spiritual or unconditional form of love.`
+            },
+            'rahu-saturn': {
+                type: 'challenging',
+                name: 'Heavy Karma Transit',
+                effect: `Saturn and Rahu are forming one of astrology's most karmic pairings in ${sign}, pressing hard on your ${house}th house. Delays, frustrations, and a suffocating sense of being trapped in circumstances beyond your control are common themes. This is a period of serious karmic clearing — unresolved past-life debts surface to be paid. Stay grounded, avoid illegal or unethical shortcuts, and know that the pressure you face right now is purifying your trajectory long-term.`
+            },
+            'ketu-saturn': {
+                type: 'challenging',
+                name: 'Ascetic Discipline Transit',
+                effect: `Saturn and Ketu together in ${sign} are draining energy and motivation from your ${house}th house. A deep indifference to conventional worldly success replaces normal ambition. You may feel compelled to simplify, detach, or withdraw from the usual expectations of this house's themes. This is a powerful signal to do inner work — eliminate what is non-essential, master a specialized discipline, and prepare for a transformed sense of purpose post-transit.`
+            },
+            'mercury-moon': {
+                type: 'benefic',
+                name: 'Mind & Emotion United',
+                effect: `Mercury and Moon are traveling together in ${sign}, merging analytical thinking with emotional sensitivity in your ${house}th house. Your words carry genuine feeling, and your decisions are both smart and intuitive. Excellent for counseling, writing, studying, or having important heart-to-heart conversations. Thoughts may fluctuate rapidly — journal or document ideas before they slip away. Emotional intelligence is at a seasonal high.`
+            }
+        };
+
+        const result = pairDB[pair] || {
+            type: 'mixed',
+            name: `${cap(p1)} + ${cap(p2)} in ${sign}`,
+            effect: `${cap(p1)} and ${cap(p2)} are transiting conjunct in ${sign}, jointly activating your ${house}th house of ${houseThemes[house] || 'life'}. The natures of these two planets blend and compete — watch how their combined symbolism plays out concretely in the themes of this house over the coming weeks.`
         };
 
         return {
-            name: `Transit ${cap(p1)} + ${cap(p2)} in ${sign}`,
-            type,
-            effect: `${cap(p1)} and ${cap(p2)} are transiting together through ${sign} in your ${house}th house (${houseThemes[house] || 'life'}). Their combined energy is currently activating this area — watch for themes from both planets to emerge simultaneously over the coming weeks.`,
+            name: result.name,
+            type: result.type,
+            effect: result.effect,
             domains: houseThemes[house] || 'General themes'
         };
     }
 }
+

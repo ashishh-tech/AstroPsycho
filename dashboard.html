@@ -793,6 +793,23 @@
               >Live Planetary Clock →</a
             >
           </div>
+          <!-- Hindu Birthday Card -->
+          <div class="dash-card gold-card" style="animation-delay: 0.18s">
+            <div class="card-header">
+              <div class="card-header-icon gold">🎂</div>
+              <div class="card-header-text">
+                <h3>Your Hindu Birthday</h3>
+                <p>Based on Tithi & Month</p>
+              </div>
+            </div>
+            <div id="tithiBirthdayContent">
+              <div style="font-size: 1.2rem; font-family: var(--font-display); color: var(--gold); margin-bottom: 0.3rem;" id="birthdayDate">—</div>
+              <div style="font-size: 0.8rem; color: var(--silver);" id="birthdayTithi">Loading...</div>
+              <div style="margin-top: 1rem; padding: 0.75rem; background: rgba(100,255,218,0.05); border-radius: 8px; border: 1px solid rgba(100,255,218,0.1); font-size: 0.8rem;">
+                 ✨ Days remaining: <strong id="birthdayCountdown">—</strong>
+              </div>
+            </div>
+          </div>
           <!-- Chart summary -->
           <div class="dash-card wide" style="animation-delay: 0.2s">
             <div class="card-header">
@@ -994,6 +1011,29 @@
             `,
           )
           .join("");
+
+        // Hindu Birthday (Tithi) logic
+        try {
+          if (bd.birthDate && bd.birthTime) {
+            const [by, bm, bd_val] = bd.birthDate.split("-").map(Number);
+            const [bh, bmin] = bd.birthTime.split(":").map(Number);
+            const birthDateObj = new Date(by, bm - 1, bd_val, bh, bmin);
+            
+            const hinduBday = panch.calculateNextTithiBirthday(birthDateObj, tz);
+            if (hinduBday) {
+              const bDate = hinduBday.nextBirthday;
+              document.getElementById("birthdayDate").textContent = 
+                bDate.toLocaleDateString("en-IN", { month: "short", day: "numeric" }) + 
+                (bDate.getFullYear() !== new Date().getFullYear() ? `, ${bDate.getFullYear()}` : "");
+              document.getElementById("birthdayTithi").textContent = `Tithi: ${hinduBday.tithi}`;
+              document.getElementById("birthdayCountdown").textContent = hinduBday.daysRemaining;
+            } else {
+              document.getElementById("birthdayTithi").textContent = "Check full Panchang";
+            }
+          }
+        } catch (e) {
+          console.error("Birthday calc error:", e);
+        }
       }
 
       // Load astrology engine for dasha calc

@@ -1,4 +1,4 @@
-﻿
+
 <!doctype html>
 <html lang="en">
 
@@ -458,7 +458,7 @@
             </nav>
         </header>
         <div class="wealth-hero">
-            <div style="font-size: 3rem; margin-bottom: 0.75rem">�</div>
+            <div style="font-size: 3rem; margin-bottom: 0.75rem">&#127963;</div>
             <h1>Wealth Analysis</h1>
             <p>
                 A comprehensive Vedic astrological analysis of your financial life —
@@ -511,8 +511,8 @@
             white-space: nowrap;
         }
     </style>
-    <script src="js/astrology-engine-v8.js"></script>
-    <script src="js/wealth-engine.js"></script>
+    <script src="js/astrology-engine-v8.js?v=2"></script>
+    <script src="js/wealth-engine.js?v=2"></script>
     <script>
 document.addEventListener("DOMContentLoaded", () => {
     const stored = localStorage.getItem("astropsycho_assessment");
@@ -555,7 +555,7 @@ function renderWealth(r) {
         )
         .join("");
     grid.innerHTML +=
-        `     <div class="w-card">         <div class="w-card-header"><span class="w-card-icon">⚡<\/span><span class="w-card-title">Overall Wealth Score<\/span><\/div>         <div class="w-card-body">             <div class="score-number" style="color:${scColor}">${ws.score}/10<\/div>             <div class="score-bar-wrap"><div class="score-bar"><div class="score-fill-gold" style="width:${ws.score * 10}%;background:linear-gradient(90deg,${ws.score >= 7 ? "#00ff88,#00cc66" : ws.score >= 4 ? "#f4c430,#ffaa00" : "#ff6b6b,#e63939"})"><\/div><\/div><\/div>             <div style="overflow-x:auto;width:100%;border-radius:8px"><table class="breakdown-table"><thead><tr><th>Factor<\/th><th>Impact<\/th><th>Interpretation<\/th><\/tr><\/thead><tbody>${breakdownRows}<\/tbody><\/table><\/div>         <\/div>     <\/div>`;
+        `     <div class="w-card">         <div class="w-card-header"><span class="w-card-icon">&#128142;<\/span><span class="w-card-title">Overall Wealth Score<\/span><\/div>         <div class="w-card-body">             <div class="score-number" style="color:${scColor}">${ws.score}/10<\/div>             <div class="score-bar-wrap"><div class="score-bar"><div class="score-fill-gold" style="width:${ws.score * 10}%;background:linear-gradient(90deg,${ws.score >= 7 ? "#00ff88,#00cc66" : ws.score >= 4 ? "#f4c430,#ffaa00" : "#ff6b6b,#e63939"})"><\/div><\/div><\/div>             <div style="overflow-x:auto;width:100%;border-radius:8px"><table class="breakdown-table"><thead><tr><th>Factor<\/th><th>Impact<\/th><th>Interpretation<\/th><\/tr><\/thead><tbody>${breakdownRows}<\/tbody><\/table><\/div>         <\/div>     <\/div>`;
     /* Card 2: Wealth Sources (full width) */
     const srcHtml = r.wealthSources
         .map(
@@ -564,7 +564,7 @@ function renderWealth(r) {
         )
         .join("");
     grid.innerHTML +=
-        `     <div class="w-card">         <div class="w-card-header"><span class="w-card-icon">🏼<\/span><span class="w-card-title">Primary Wealth Sources<\/span><\/div>         <div class="w-card-body">${srcHtml}<\/div>     <\/div>`;
+        `     <div class="w-card">         <div class="w-card-header"><span class="w-card-icon">&#128184;<\/span><span class="w-card-title">Primary Wealth Sources<\/span><\/div>         <div class="w-card-body">${srcHtml}<\/div>     <\/div>`;
     /* Card 3: Property */
     const p = r.propertyAnalysis;
     const propDetails = p.details
@@ -574,7 +574,7 @@ function renderWealth(r) {
         )
         .join("");
     grid.innerHTML +=
-        `     <div class="w-card">         <div class="w-card-header"><span class="w-card-icon">🅡<\/span><span class="w-card-title">Property & Real Estate<\/span><\/div>         <div class="w-card-body">             <div class="prospect-box">${p.propertyProspect}<\/div>             <div class="score-number" style="font-size:1.5rem;color:var(--star-gold);margin:.3rem 0">${p.pScore}/10 — Property Score<\/div>             ${propDetails}             <div class="section-label" style="margin-top:1rem">✐ Best Timing<\/div>             <div class="list-text" style="padding:.5rem 0">${p.propertyTiming}<\/div>         <\/div>     <\/div>`;
+        `     <div class="w-card">         <div class="w-card-header"><span class="w-card-icon">&#127960;<\/span><span class="w-card-title">Property & Real Estate<\/span><\/div>         <div class="w-card-body">             <div class="prospect-box">${p.propertyProspect}<\/div>             <div class="score-number" style="font-size:1.5rem;color:var(--star-gold);margin:.3rem 0">${p.pScore}/10 — Property Score<\/div>             ${propDetails}             <div class="section-label" style="margin-top:1rem">✐ Best Timing<\/div>             <div class="list-text" style="padding:.5rem 0">${p.propertyTiming}<\/div>         <\/div>     <\/div>`;
     /* Card 4: Vehicles & Luxury */
     const vl = r.vehicleLuxury;
     const vlDetails = vl.details
@@ -584,7 +584,7 @@ function renderWealth(r) {
         )
         .join("");
     grid.innerHTML +=
-        `     <div class="w-card">         <div class="w-card-header"><span class="w-card-icon">⚡<\/span><span class="w-card-title">Vehicles & Luxury<\/span><\/div>         <div class="w-card-body">             <div class="luxury-row">                 <div class="luxury-box"><div class="luxury-val">⚡<\/div><div class="luxury-label">Vehicle Level<\/div><\/div>                 <div class="luxury-box"><div class="luxury-score">${vl.vScore}/10<\/div><div class="luxury-label">Luxury Score<\/div><\/div>                 <div class="luxury-box"><div class="luxury-val">👄<\/div><div class="luxury-label">Comfort Level<\/div><\/div>             <\/div>             <div class="prospect-box">${vl.vehicleProspect}<\/div>             <div class="prospect-box" style="border-left-color:#a78bfa;color:#a78bfa">${vl.luxuryLevel}<\/div>             ${vlDetails}         <\/div>     <\/div>`;
+        `     <div class="w-card">         <div class="w-card-header"><span class="w-card-icon">&#127790;<\/span><span class="w-card-title">Vehicles & Luxury<\/span><\/div>         <div class="w-card-body">             <div class="luxury-row">                 <div class="luxury-box"><div class="luxury-val">&#128663;<\/div><div class="luxury-label">Vehicle Level<\/div><\/div>                 <div class="luxury-box"><div class="luxury-score">${vl.vScore}/10<\/div><div class="luxury-label">Luxury Score<\/div><\/div>                 <div class="luxury-box"><div class="luxury-val">&#128715;<\/div><div class="luxury-label">Comfort Level<\/div><\/div>             <\/div>             <div class="prospect-box">${vl.vehicleProspect}<\/div>             <div class="prospect-box" style="border-left-color:#a78bfa;color:#a78bfa">${vl.luxuryLevel}<\/div>             ${vlDetails}         <\/div>     <\/div>`;
     /* Card 5: Loss Risks (full width) */
     const lr = r.lossRisks;
     const riskHtml = lr.risks
@@ -606,11 +606,11 @@ function renderWealth(r) {
         )
         .join("");
     grid.innerHTML +=
-        `     <div class="w-card full-width-card">         <div class="w-card-header"><span class="w-card-icon">☁<\/span><span class="w-card-title">Financial Loss Risks & Caution Periods<\/span><\/div>         <div class="w-card-body">             <div class="section-label">Risk Factors<\/div>             ${riskHtml}             <div class="section-label" style="margin-top:1rem">✐ Periods of Caution<\/div>             ${cautionHtml}             <div class="section-label" style="margin-top:1rem">⚡ Protective Measures<\/div>             ${protHtml}         <\/div>     <\/div>`;
+        `     <div class="w-card full-width-card">         <div class="w-card-header"><span class="w-card-icon">&#128201;<\/span><span class="w-card-title">Financial Loss Risks & Caution Periods<\/span><\/div>         <div class="w-card-body">             <div class="section-label">Risk Factors<\/div>             ${riskHtml}             <div class="section-label" style="margin-top:1rem">✐ Periods of Caution<\/div>             ${cautionHtml}             <div class="section-label" style="margin-top:1rem">⚡ Protective Measures<\/div>             ${protHtml}         <\/div>     <\/div>`;
     /* Card 6: Inheritance */
     const inh = r.inheritance;
     grid.innerHTML +=
-        `     <div class="w-card">         <div class="w-card-header"><span class="w-card-icon">🄼<\/span><span class="w-card-title">Inheritance & Windfall<\/span><\/div>         <div class="w-card-body">             <div class="prospect-box">${inh.prospect}<\/div>             ${inh.indicators.map((i) => `<div class="list-item"><div class="list-dot"><\/div><div class="list-text">${i}<\/div><\/div>`).join("")}         <\/div>     <\/div>`;
+        `     <div class="w-card">         <div class="w-card-header"><span class="w-card-icon">&#127873;<\/span><span class="w-card-title">Inheritance & Windfall<\/span><\/div>         <div class="w-card-body">             <div class="prospect-box">${inh.prospect}<\/div>             ${inh.indicators.map((i) => `<div class="list-item"><div class="list-dot"><\/div><div class="list-text">${i}<\/div><\/div>`).join("")}         <\/div>     <\/div>`;
     /* Card 7: Wealth Timeline */
     const tlHtml = r.wealthTimeline
         .map(
@@ -624,11 +624,11 @@ function renderWealth(r) {
     const remHtml = r.remedies
         .map(
             (rem) =>
-            `     <div class="remedy-item">         <div class="remedy-planet">💋 ${rem.planet}<\/div>         <div class="remedy-row"><span class="remedy-label">Mantra: <\/span>${rem.mantra}<\/div>         <div class="remedy-row"><span class="remedy-label">Ritual: <\/span>${rem.ritual}<\/div>         <div class="remedy-row"><span class="remedy-label">Gemstone/Crystal: <\/span>${rem.gemstone}<\/div>     <\/div>`,
+            `     <div class="remedy-item">         <div class="remedy-planet">&#129668; ${rem.planet}<\/div>         <div class="remedy-row"><span class="remedy-label">Mantra: <\/span>${rem.mantra}<\/div>         <div class="remedy-row"><span class="remedy-label">Ritual: <\/span>${rem.ritual}<\/div>         <div class="remedy-row"><span class="remedy-label">Gemstone/Crystal: <\/span>${rem.gemstone}<\/div>     <\/div>`,
         )
         .join("");
     grid.innerHTML +=
-        `     <div class="w-card full-width-card">         <div class="w-card-header"><span class="w-card-icon">🖅<\/span><span class="w-card-title">Wealth Remedies & Planetary Corrections<\/span><\/div>         <div class="w-card-body">${remHtml}<\/div>     <\/div>`;
+        `     <div class="w-card full-width-card">         <div class="w-card-header"><span class="w-card-icon">&#128220;<\/span><span class="w-card-title">Wealth Remedies & Planetary Corrections<\/span><\/div>         <div class="w-card-body">${remHtml}<\/div>     <\/div>`;
 }
 </script>
     <script src="mobile-nav.js"></script>

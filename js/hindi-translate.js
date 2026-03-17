@@ -14,31 +14,31 @@
         /* ── App branding (kept in English intentionally) ── */
 
         /* ── Planets ── */
-        'Sun': 'सूर्य ☀️',
-        'Moon': 'चंद्र 🌙',
-        'Mars': 'मंगल ♂️',
-        'Mercury': 'बुध ☿',
-        'Jupiter': 'गुरु ♃',
-        'Venus': 'शुक्र ♀',
-        'Saturn': 'शनि ♄',
-        'Rahu': 'राहु 🐉',
-        'Ketu': 'केतु ☄️',
+        'Sun': 'सूर्य \u2600\uFE0F',
+        'Moon': 'चंद्र \uD83C\uDF19',
+        'Mars': 'मंगल \u2642\uFE0F',
+        'Mercury': 'बुध \u263F',
+        'Jupiter': 'गुरु \u2643',
+        'Venus': 'शुक्र \u2640',
+        'Saturn': 'शनि \u2644',
+        'Rahu': 'राहु \uD83D\uDC32',
+        'Ketu': 'केतु \u2604\uFE0F',
         'Ascendant': 'लग्न',
         'Lagna': 'लग्न',
 
         /* ── Rashis / Zodiac Signs ── */
-        'Aries': 'मेष ♈',
-        'Taurus': 'वृषभ ♉',
-        'Gemini': 'मिथुन ♊',
-        'Cancer': 'कर्क ♋',
-        'Leo': 'सिंह ♌',
-        'Virgo': 'कन्या ♍',
-        'Libra': 'तुला ♎',
-        'Scorpio': 'वृश्चिक ♏',
-        'Sagittarius': 'धनु ♐',
-        'Capricorn': 'मकर ♑',
-        'Aquarius': 'कुंभ ♒',
-        'Pisces': 'मीन ♓',
+        'Aries': 'मेष \u2648',
+        'Taurus': 'वृषभ \u2649',
+        'Gemini': 'मिथुन \u264A',
+        'Cancer': 'कर्क \u264B',
+        'Leo': 'सिंह \u264C',
+        'Virgo': 'कन्या \u264D',
+        'Libra': 'तुला \u264E',
+        'Scorpio': 'वृश्चिक \u264F',
+        'Sagittarius': 'धनु \u2650',
+        'Capricorn': 'मकर \u2651',
+        'Aquarius': 'कुंभ \u2652',
+        'Pisces': 'मीन \u2653',
 
         /* ── Nakshatras ── */
         'Ashwini': 'अश्विनी',
@@ -614,9 +614,9 @@
         'Moon Blessings in Your Chart': 'आपकी कुंडली में चंद्र के आशीर्वाद',
         'Moon Strengthening Remedies': 'चंद्र बल वर्धन उपाय',
         'Professional Mental Health Support': 'पेशेवर मानसिक स्वास्थ्य सहायता',
-        '✨ Your Moon is well-placed for mental peace!': '✨ आपका चंद्र मानसिक शांति के लिए उत्तम स्थान पर है!',
-        '💫 Moon has moderate strength. Remedies will help.': '💫 चंद्र में मध्यम शक्ति है। उपाय सहायक होंगे।',
-        '⚠️ Moon needs strengthening. Focus on remedies.': '⚠️ चंद्र को बल की आवश्यकता है। उपायों पर ध्यान दें।',
+        '\u2728 Your Moon is well-placed for mental peace!': '\u2728 आपका चंद्र मानसिक शांति के लिए उत्तम स्थान पर है!',
+        '\uD83D\uDcab Moon has moderate strength. Remedies will help.': '\uD83D\uDcab चंद्र में मध्यम शक्ति है। उपाय सहायक होंगे।',
+        '\u26A0\uFE0F Moon needs strengthening. Focus on remedies.': '\u26A0\uFE0F चंद्र को बल की आवश्यकता है। उपायों पर ध्यान दें।',
 
         /* ── Positive Yogas Page ── */
         'Your Positive Yogas & Blessings': 'आपके शुभ योग और आशीर्वाद',
@@ -1006,7 +1006,7 @@
         'Obstacles and constant pressure. Requires perseverance.': 'बाधाएं और निरंतर दबाव। दृढ़ता की आवश्यकता।',
         'Paapa Kartari Yoga (Lagna)': 'पाप कर्तरी योग (लग्न)',
         'Note:': 'नोट:',
-        'Transit effects are calculated from your natal Moon position (Chandra Lagna), which is the primary method in Vedic astrology for understanding emotional and mental impacts. ⚠️ indicates Sade Sati phases, 🔥 shows Ashtama Shani, ⚡ marks Kantaka Shani.': 'गोचर प्रभाव की गणना आपकी जन्म कुंडली के चंद्र (चंद्र लग्न) से की जाती है, जो भावनात्मक और मानसिक प्रभावों को समझने के लिए वैदिक ज्योतिष की प्राथमिक विधि है। ⚠️ साढ़े साती के चरणों को दर्शाता है, 🔥 अष्टम शनि को और ⚡ कंटक शनि को दर्शाता है।',
+        'Transit effects are calculated from your natal Moon position (Chandra Lagna), which is the primary method in Vedic astrology for understanding emotional and mental impacts. \u26A0\uFE0F indicates Sade Sati phases, \uD83D\uDD25 shows Ashtama Shani, \u26A1 marks Kantaka Shani.': 'गोचर प्रभाव की गणना आपकी जन्म कुंडली के चंद्र (चंद्र लग्न) से की जाती है, जो भावनात्मक और मानसिक प्रभावों को समझने के लिए वैदिक ज्योतिष की प्राथमिक विधि है। \u26A0\uFE0F साढ़े साती के चरणों को दर्शाता है, \uD83D\uDD25 अष्टम शनि को और \u26A1 कंटक शनि को दर्शाता है।',
         'The Moon is the \'Manas\' or mind. Your': 'चंद्र \'मानस\' या मन है। आपकी',
         'Moon in': 'चंद्र',
         'House suggests a': 'भाव में है, जो एक',
@@ -1017,9 +1017,9 @@
         'and': 'और',
         'You may experience frequent mood swings or anxiety. Focus on stabilizing your routine.': 'आप बार-बार मनोदशा परिवर्तन या चिंता का अनुभव कर सकते हैं। अपनी दिनचर्या को स्थिर करने पर ध्यान दें।',
         'You possess natural emotional intelligence and ability to handle stress.': 'आपमें प्राकृतिक भावनात्मक बुद्धिमत्ता और तनाव को संभालने की क्षमता है।',
-        '✨ Your Moon is well-placed for mental peace!': '✨ आपका चंद्र मानसिक शांति के लिए उत्तम स्थान पर है!',
-        '💫 Moon has moderate strength. Remedies will help.': '💫 चंद्र में मध्यम शक्ति है। उपाय सहायक होंगे।',
-        '⚠️ Moon needs strengthening. Focus on remedies.': '⚠️ चंद्र को बल की आवश्यकता है। उपायों पर ध्यान दें।',
+        '\u2728 Your Moon is well-placed for mental peace!': '\u2728 आपका चंद्र मानसिक शांति के लिए उत्तम स्थान पर है!',
+        '\uD83D\uDcab Moon has moderate strength. Remedies will help.': '\uD83D\uDcab चंद्र में मध्यम शक्ति है। उपाय सहायक होंगे।',
+        '\u26A0\uFE0F Moon needs strengthening. Focus on remedies.': '\u26A0\uFE0F चंद्र को बल की आवश्यकता है। उपायों पर ध्यान दें।',
         'Chandra Mangala Conjunction': 'चंद्र मंगल युति',
         'Chandra Shani Conjunction - Vish Yoga': 'चंद्र शनि युति - विष योग',
         'Chandra Rahu Conjunction - Grahan Yoga': 'चंद्र राहु युति - ग्रहण योग',
@@ -1286,8 +1286,7 @@
     function injectButton() {
         // Button
         const btn = document.createElement('button');
-        btn.id = 'hindiToggleBtn';
-        btn.innerHTML = `<span class="hindi-btn-icon">🇮🇳</span><span class="hindi-btn-label">हिंदी</span>`;
+        btn.innerHTML = `<span class="hindi-btn-icon">\uD83C\uDDEE\uD83C\uDDF3</span><span class="hindi-btn-label">हिंदी</span>`;
         btn.setAttribute('aria-label', 'Toggle Hindi Language');
         btn.setAttribute('title', 'हिंदी / English');
 
@@ -1313,7 +1312,7 @@
         const overlay = document.createElement('div');
         overlay.id = 'hindiSlideOverlay';
         overlay.innerHTML = `<div class="hindi-overlay-text">
-            <div class="hindi-overlay-icon">🕉️</div>
+            <div class="hindi-overlay-icon">\uD83D\uDD49\uFE0F</div>
             <div class="hindi-overlay-msg" id="hindiOverlayMsg">हिंदी में अनुवाद हो रहा है...</div>
         </div>`;
         document.body.appendChild(overlay);
@@ -1331,9 +1330,9 @@
         btn.classList.add('active');
 
         if (!isHindi) {
-            msg.textContent = 'हिंदी में अनुवाद हो रहा है... 🕉️';
+            msg.textContent = '\u0939\u093F\u0902\u0926\u0940 \u0921\u0947\u0902 \u0905\u0928\u0941\u0935\u093E\u0926 \u0939\u094B \u0930\u0939\u093E \u0939\u0948... \uD83D\uDD49\uFE0F';
         } else {
-            msg.textContent = 'Switching back to English... 🌟';
+            msg.textContent = 'Switching back to English... \uD83C\uDF1F';
         }
 
 
@@ -1362,7 +1361,7 @@
     }
 
     function setButtonHindi(btn) {
-        btn.innerHTML = `<span class="hindi-btn-icon">🌐</span><span class="hindi-btn-label">English</span>`;
+        btn.innerHTML = `<span class="hindi-btn-icon">\uD83C\uDF10</span><span class="hindi-btn-label">English</span>`;
         btn.setAttribute('title', 'Switch to English');
     }
 

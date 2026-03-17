@@ -214,6 +214,42 @@ class PanchangEngine {
         const h12 = hInt > 12 ? hInt - 12 : (hInt === 0 ? 12 : hInt);
         return `${h12}:${min.toString().padStart(2, '0')} ${period}`;
     }
+
+    /**
+     * Calculates the next Gregorian date for a Hindu birthday based on Tithi & Sun Sign.
+     * @param {Date} birthDate - User's birth date/time
+     * @param {number} offsetHours - Timezone offset
+     */
+    calculateNextTithiBirthday(birthDate, offsetHours = 5.5) {
+        const birthPanchang = this.calculate(birthDate, offsetHours);
+        const birthTithi = birthPanchang.tithi.number;
+        const birthSunRashi = birthPanchang.sunSign.english;
+        const birthNakshatra = birthPanchang.nakshatra.name;
+
+        // Start checking from today
+        let checkDate = new Date();
+        const maxDays = 500; // Limit search to ~1.5 years to avoid infinite loops
+        
+        for (let i = 0; i < maxDays; i++) {
+            const currentPanchang = this.calculate(checkDate, offsetHours);
+            
+            // Birthday logic: Same Solar Month AND Same Tithi
+            // (Note: In some traditions, it's just Tithi, but Solar Month + Tithi is more accurate for "Birthday")
+            if (currentPanchang.sunSign.english === birthSunRashi && currentPanchang.tithi.number === birthTithi) {
+                return {
+                    nextBirthday: new Date(checkDate),
+                    tithi: currentPanchang.tithi.name,
+                    nakshatra: currentPanchang.nakshatra.name,
+                    daysRemaining: i
+                };
+            }
+            
+            // Move to next day (checking at roughly the same birth hour helps Tithi matching)
+            checkDate.setDate(checkDate.getDate() + 1);
+        }
+        
+        return null; // Fallback
+    }
 }
 
 window.PanchangEngine = PanchangEngine;

@@ -7,6 +7,6 @@
   },
   "devDependencies": {
     "js-beautify": "^1.15.4",
-    "wrangler": "^4.71.0"
+    "wrangler": "^4.74.0"
   }
 }

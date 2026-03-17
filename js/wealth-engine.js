@@ -66,11 +66,11 @@ class WealthEngine {
         let score = 5;
         const breakdown = [];
 
-        if (jupStr === 'exalted') { score += 2.5; breakdown.push({ label: 'Jupiter Exalted', impact: '+2.5 ✨', note: 'Dhana Yoga potential — exceptional wealth accumulation over lifetime.' }); }
+        if (jupStr === 'exalted') { score += 2.5; breakdown.push({ label: 'Jupiter Exalted', impact: '+2.5 \u2728', note: 'Dhana Yoga potential — exceptional wealth accumulation over lifetime.' }); }
         else if (jupStr === 'strong') { score += 1.5; breakdown.push({ label: 'Jupiter in Own Sign', impact: '+1.5', note: 'Strong overall prosperity and generosity of fortune.' }); }
-        else if (jupStr === 'debilitated') { score -= 2; breakdown.push({ label: 'Jupiter Debilitated', impact: '-2.0 ⚠️', note: 'Challenges in permanent wealth accumulation; gains may not hold.' }); }
+        else if (jupStr === 'debilitated') { score -= 2; breakdown.push({ label: 'Jupiter Debilitated', impact: '-2.0 \u26A0\uFE0F', note: 'Challenges in permanent wealth accumulation; gains may not hold.' }); }
 
-        if (venStr === 'exalted') { score += 2; breakdown.push({ label: 'Venus Exalted', impact: '+2.0 ✨', note: 'Excellent material comforts, luxury, vehicles, and aesthetic wealth.' }); }
+        if (venStr === 'exalted') { score += 2; breakdown.push({ label: 'Venus Exalted', impact: '+2.0 \u2728', note: 'Excellent material comforts, luxury, vehicles, and aesthetic wealth.' }); }
         else if (venStr === 'strong') { score += 1; breakdown.push({ label: 'Venus in Own Sign', impact: '+1.0', note: 'Good access to comforts, beauty, and pleasurable assets.' }); }
         else if (venStr === 'debilitated') { score -= 1.5; breakdown.push({ label: 'Venus Debilitated', impact: '-1.5', note: 'Luxury and comforts may feel elusive or short-lived.' }); }
 
@@ -94,25 +94,25 @@ class WealthEngine {
         const sources = [];
 
         // Active income sources based on 11th house planets
-        if (h11.includes('sun')) sources.push({ icon: '☀️', source: 'Government & Authority Roles', detail: 'Sun in the 11th house is a classic indicator of income from government jobs, administration, political positions, or roles associated with prestige and public authority.' });
-        if (h11.includes('moon')) sources.push({ icon: '🌙', source: 'Public, Hospitality & Nurturing Businesses', detail: 'Moon in 11th shows gains from public-facing businesses — restaurants, retail, travel, tourism, healthcare, or real estate catering to the masses.' });
-        if (h11.includes('mars')) sources.push({ icon: '🔥', source: 'Technical, Military & Construction Fields', detail: 'Mars in 11th directs income toward physical, competitive, and technical domains — engineering, real estate, military contracts, sports, or entrepreneurship.' });
-        if (h11.includes('mercury')) sources.push({ icon: '💬', source: 'Communication, IT, Media & Trade', detail: 'Mercury in 11th shows substantial income from communication-based businesses, IT, writing, publishing, trade networks, or stock market analysis.' });
-        if (h11.includes('jupiter')) sources.push({ icon: '📖', source: 'Teaching, Finance, Law & Consulting', detail: 'Jupiter in 11th is one of the strongest wealth indicators — income flows abundantly from advisory roles, legal services, education, investment, or religious work.' });
-        if (h11.includes('venus')) sources.push({ icon: '💎', source: 'Arts, Luxury, Beauty & Entertainment', detail: 'Venus in 11th creates income through creative industries — fashion, luxury brands, cosmetics, entertainment, music, and the hospitality industry.' });
-        if (h11.includes('saturn')) sources.push({ icon: '🏗️', source: 'Industry, Manufacturing & Long-term Investments', detail: 'Saturn in 11th brings slow but extremely reliable income from industry, real estate, construction, or long-term stock market investments. Gains increase significantly after age 36.' });
-        if (h11.includes('rahu')) sources.push({ icon: '🌐', source: 'Technology, Foreign Business & Unconventional Income', detail: 'Rahu in 11th is a powerful wealth indicator — income from foreign sources, technology, internet-based business, stock speculation, or unconventional entrepreneurship is strongly indicated.' });
+        if (h11.includes('sun')) sources.push({ icon: '\u2600\uFE0F', source: 'Government & Authority Roles', detail: 'Sun in the 11th house is a classic indicator of income from government jobs, administration, political positions, or roles associated with prestige and public authority.' });
+        if (h11.includes('moon')) sources.push({ icon: '\uD83C\uDF19', source: 'Public, Hospitality & Nurturing Businesses', detail: 'Moon in 11th shows gains from public-facing businesses — restaurants, retail, travel, tourism, healthcare, or real estate catering to the masses.' });
+        if (h11.includes('mars')) sources.push({ icon: '\uD83D\uDD25', source: 'Technical, Military & Construction Fields', detail: 'Mars in 11th directs income toward physical, competitive, and technical domains — engineering, real estate, military contracts, sports, or entrepreneurship.' });
+        if (h11.includes('mercury')) sources.push({ icon: '\uD83D\uDCAC', source: 'Communication, IT, Media & Trade', detail: 'Mercury in 11th shows substantial income from communication-based businesses, IT, writing, publishing, trade networks, or stock market analysis.' });
+        if (h11.includes('jupiter')) sources.push({ icon: '\uD83D\uDCD6', source: 'Teaching, Finance, Law & Consulting', detail: 'Jupiter in 11th is one of the strongest wealth indicators — income flows abundantly from advisory roles, legal services, education, investment, or religious work.' });
+        if (h11.includes('venus')) sources.push({ icon: '\uD83D\uDC8E', source: 'Arts, Luxury, Beauty & Entertainment', detail: 'Venus in 11th creates income through creative industries — fashion, luxury brands, cosmetics, entertainment, music, and the hospitality industry.' });
+        if (h11.includes('saturn')) sources.push({ icon: '\uD83D\uDCC7', source: 'Industry, Manufacturing & Long-term Investments', detail: 'Saturn in 11th brings slow but extremely reliable income from industry, real estate, construction, or long-term stock market investments. Gains increase significantly after age 36.' });
+        if (h11.includes('rahu')) sources.push({ icon: '\uD83C\uDF10', source: 'Technology, Foreign Business & Unconventional Income', detail: 'Rahu in 11th is a powerful wealth indicator — income from foreign sources, technology, internet-based business, stock speculation, or unconventional entrepreneurship is strongly indicated.' });
 
         // 2nd house planets (accumulated wealth patterns)
-        if (h2.includes('jupiter')) sources.push({ icon: '🪙', source: 'Inherited Wealth & Family Money', detail: 'Jupiter in 2nd house indicates a wealthy family background and the ability to preserve and grow generational wealth.' });
-        if (h2.includes('venus')) sources.push({ icon: '🏦', source: 'Luxury Trade, Jewelry & Art Investment', detail: 'Venus in 2nd shows wealth accumulated through luxury goods, jewelry, fine arts, and high-value asset trading.' });
-        if (h2.includes('mercury')) sources.push({ icon: '📊', source: 'Trading, Stock Market & Multiple Income Streams', detail: 'Mercury in 2nd creates a sharp financial mind — income comes through multiple simultaneous channels, including trading, finance, and intellectual work.' });
+        if (h2.includes('jupiter')) sources.push({ icon: '\uD83E\uDE99', source: 'Inherited Wealth & Family Money', detail: 'Jupiter in 2nd house indicates a wealthy family background and the ability to preserve and grow generational wealth.' });
+        if (h2.includes('venus')) sources.push({ icon: '\uD83C\uDFDB', source: 'Luxury Trade, Jewelry & Art Investment', detail: 'Venus in 2nd shows wealth accumulated through luxury goods, jewelry, fine arts, and high-value asset trading.' });
+        if (h2.includes('mercury')) sources.push({ icon: '\uD83D\uDCCA', source: 'Trading, Stock Market & Multiple Income Streams', detail: 'Mercury in 2nd creates a sharp financial mind — income comes through multiple simultaneous channels, including trading, finance, and intellectual work.' });
 
         // 8th house (sudden/unexpected wealth)
-        if (h8.includes('jupiter') || h8.includes('venus')) sources.push({ icon: '🎯', source: 'Inheritance & Sudden Windfall', detail: 'Benefics in 8th house indicate possible inheritance, large unexpected financial gains, insurance payouts, or gains from a partner\'s income.' });
-        if (rahuHouse === 11) sources.push({ icon: '📈', source: 'Speculation, Crypto & High-Risk Investments', detail: 'Rahu placed exactly in the 11th house is a very strong indicator of massive gains through speculative investments — stocks, crypto, or high-risk business ventures.' });
+        if (h8.includes('jupiter') || h8.includes('venus')) sources.push({ icon: '\uD83C\uDFAF', source: 'Inheritance & Sudden Windfall', detail: 'Benefics in 8th house indicate possible inheritance, large unexpected financial gains, insurance payouts, or gains from a partner\'s income.' });
+        if (rahuHouse === 11) sources.push({ icon: '\uD83D\uDCC8', source: 'Speculation, Crypto & High-Risk Investments', detail: 'Rahu placed exactly in the 11th house is a very strong indicator of massive gains through speculative investments — stocks, crypto, or high-risk business ventures.' });
 
-        if (sources.length === 0) sources.push({ icon: '⚖️', source: 'Steady Salaried Income', detail: 'The planetary configuration suggests steady, consistent income from employment or service — less dependency on speculative or business income.' });
+        if (sources.length === 0) sources.push({ icon: '\u2696\uFE0F', source: 'Steady Salaried Income', detail: 'The planetary configuration suggests steady, consistent income from employment or service — less dependency on speculative or business income.' });
 
         return sources;
     }
@@ -136,10 +136,10 @@ class WealthEngine {
 
         pScore = Math.max(0, Math.min(10, pScore));
 
-        if (pScore >= 8) propertyProspect = '🏠 Excellent — Multiple property acquisitions likely, including ancestral and purchased real estate';
-        else if (pScore >= 6) propertyProspect = '🏡 Very Good — Stable property ownership through personal effort and timing';
-        else if (pScore >= 4) propertyProspect = '⚖️ Moderate — Property possible but may come through struggle, delayed timing, or limited choices';
-        else propertyProspect = '⚠️ Challenging — Property ownership requires significant effort, remedies, and patient timing';
+        if (pScore >= 8) propertyProspect = '\uD83C\uDFE0 Excellent \u2014 Multiple property acquisitions likely, including ancestral and purchased real estate';
+        else if (pScore >= 6) propertyProspect = '\uD83C\uDFE1 Very Good \u2014 Stable property ownership through personal effort and timing';
+        else if (pScore >= 4) propertyProspect = '\u2696\uFE0F Moderate \u2014 Property possible but may come through struggle, delayed timing, or limited choices';
+        else propertyProspect = '\u26A0\uFE0F Challenging \u2014 Property ownership requires significant effort, remedies, and patient timing';
 
         if (h4.includes('saturn') || satStr === 'debilitated') propertyTiming = 'Property acquisition is most stable after age 35-38. Avoid major real estate purchases during Saturn Mahadasha or when Saturn transits the 4th house.';
         else if (h4.includes('jupiter') || jupStr === 'exalted') propertyTiming = 'Jupiter Mahadasha and Jupiter transiting the 4th or 11th house are ideal windows for purchasing property. Jupiter\'s 12-year cycle brings major real estate opportunities.';
@@ -163,10 +163,10 @@ class WealthEngine {
 
         vScore = Math.max(0, Math.min(10, vScore));
 
-        if (vScore >= 8) { vehicleProspect = '🚘 Premium — Luxury vehicles and high-end assets throughout life'; luxuryLevel = '💎 Ultra-Premium — Access to true luxury: fine dining, international travel, branded jewelry, premium real estate'; }
-        else if (vScore >= 6) { vehicleProspect = '🚗 Good — Comfortable, well-maintained vehicles with eventual upgrades'; luxuryLevel = '✨ High Comfort — Good quality of life, branded goods, comfortable travel, and regular lifestyle upgrades'; }
-        else if (vScore >= 4) { vehicleProspect = '🛵 Moderate — Standard vehicles; luxury upgrades come gradually'; luxuryLevel = '⚖️ Moderate Comfort — Functional lifestyle with occasional luxury experiences'; }
-        else { vehicleProspect = '🚶 Minimal — Vehicle acquisition requires deliberate savings and timing'; luxuryLevel = '⚠️ Basic Comfort — Luxury is accessible during specific Dasha periods only'; }
+        if (vScore >= 8) { vehicleProspect = '\uD83D\uDE98 Premium \u2014 Luxury vehicles and high-end assets throughout life'; luxuryLevel = '\uD83D\uDC8E Ultra-Premium \u2014 Access to true luxury: fine dining, international travel, branded jewelry, premium real estate'; }
+        else if (vScore >= 6) { vehicleProspect = '\uD83D\uDE97 Good \u2014 Comfortable, well-maintained vehicles with eventual upgrades'; luxuryLevel = '\u2728 High Comfort \u2014 Good quality of life, branded goods, comfortable travel, and regular lifestyle upgrades'; }
+        else if (vScore >= 4) { vehicleProspect = '\uD83D\uDEF5 Moderate \u2014 Standard vehicles; luxury upgrades come gradually'; luxuryLevel = '\u2696\uFE0F Moderate Comfort \u2014 Functional lifestyle with occasional luxury experiences'; }
+        else { vehicleProspect = '\uD83D\uDEB6 Minimal \u2014 Vehicle acquisition requires deliberate savings and timing'; luxuryLevel = '\u26A0\uFE0F Basic Comfort \u2014 Luxury is accessible during specific Dasha periods only'; }
 
         return { vehicleProspect, luxuryLevel, vScore: Math.round(vScore * 10) / 10, details };
     }
@@ -209,10 +209,10 @@ class WealthEngine {
         if (h8.includes('mercury')) { iScore += 1; indicators.push('Mercury in 8th indicates inheritance of intellectual properties — business, trade licenses, or accumulated savings from a family business.'); }
         if (h2.includes('jupiter')) { iScore += 1; indicators.push('Jupiter in 2nd house indicates a wealthy family background from which inheritance is naturally expected.'); }
 
-        if (iScore >= 4) prospect = '💰 Strong — Significant inheritance or unexpected windfall is strongly indicated in this chart';
-        else if (iScore >= 2) prospect = '🎁 Moderate — Some inheritance possible through family or partner connections';
-        else if (iScore >= 1) prospect = '🤲 Mild — Minor inheritance or gifts from family are possible';
-        else { prospect = '💼 Self-Made — Wealth is primarily self-generated; inheritance is not a significant factor'; indicators.push('Your chart indicates self-made wealth. While inheritance may not be a major financial source, your own earning potential and investments are the primary wealth-building mechanisms.'); }
+        if (iScore >= 4) prospect = '\uD83D\uDCB0 Strong \u2014 Significant inheritance or unexpected windfall is strongly indicated in this chart';
+        else if (iScore >= 2) prospect = '\uD83C\uDF81 Moderate \u2014 Some inheritance possible through family or partner connections';
+        else if (iScore >= 1) prospect = '\uD83E\uDDB2 Mild \u2014 Minor inheritance or gifts from family are possible';
+        else { prospect = '\uD83D\uDCBC Self-Made \u2014 Wealth is primarily self-generated; inheritance is not a significant factor'; indicators.push('Your chart indicates self-made wealth. While inheritance may not be a major financial source, your own earning potential and investments are the primary wealth-building mechanisms.'); }
 
         return { prospect, indicators };
     }
@@ -220,11 +220,11 @@ class WealthEngine {
     _wealthTimeline(chart, jupStr, satStr, rahuHouse) {
         const events = [];
 
-        events.push({ phase: 'Ages 15-25: Foundation Building', status: jupStr === 'exalted' || jupStr === 'strong' ? '🌱 Favorable' : '⚠️ Moderate', note: jupStr === 'exalted' ? 'Strong Jupiter makes early financial decisions instinctively wise. This age sees building of skills and early earning potential.' : 'Financial foundation builds slowly. Focus on education and skill-building during this phase rather than wealth accumulation.' });
+        events.push({ phase: 'Ages 15-25: Foundation Building', status: jupStr === 'exalted' || jupStr === 'strong' ? '\uD83C\uDF31 Favorable' : '\u26A0\uFE0F Moderate', note: jupStr === 'exalted' ? 'Strong Jupiter makes early financial decisions instinctively wise. This age sees building of skills and early earning potential.' : 'Financial foundation builds slowly. Focus on education and skill-building during this phase rather than wealth accumulation.' });
 
-        events.push({ phase: 'Ages 25-35: Primary Earning Years', status: '⭐ Key Window', note: 'Venus and Mercury Dashas in this window strongly support career income growth. Business ventures started in Jupiter periods during this decade show strongest returns.' });
+        events.push({ phase: 'Ages 25-35: Primary Earning Years', status: '\u2B50 Key Window', note: 'Venus and Mercury Dashas in this window strongly support career income growth. Business ventures started in Jupiter periods during this decade show strongest returns.' });
 
-        events.push({ phase: 'Ages 35-50: Wealth Solidification', status: satStr === 'debilitated' ? '⚠️ Challenging' : '🚀 Peak Phase', note: satStr === 'debilitated' ? 'Saturn Dasha challenges financial stability during this phase. Conservative investment, avoiding debt, and real estate are safer choices than speculation.' : 'Saturn Mahadasha during this window (if applicable) can bring slow but very stable wealth accumulation — especially in property and long-term investments.' });
+        events.push({ phase: 'Ages 35-50: Wealth Solidification', status: satStr === 'debilitated' ? '\u26A0\uFE0F Challenging' : '\uD83D\uDE80 Peak Phase', note: satStr === 'debilitated' ? 'Saturn Dasha challenges financial stability during this phase. Conservative investment, avoiding debt, and real estate are safer choices than speculation.' : 'Saturn Mahadasha during this window (if applicable) can bring slow but very stable wealth accumulation — especially in property and long-term investments.' });
 
         if (rahuHouse === 11 || rahuHouse === 2) {
             events.push({ phase: 'Rahu Mahadasha (18-year period)', status: '📈 High Volatility Window', note: 'This 18-year Rahu period contains the most dramatic financial swings in the entire lifetime — capable of generating wealth quickly OR causing sudden financial reversals. Speculative markets, foreign income, and technology businesses are highlighted.' });

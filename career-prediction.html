@@ -6,6 +6,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, viewport-fit=cover"
     />
+    <!-- v1.0.2 -->
     <title>Career Prediction | AstroPsycho</title>
     <meta
       name="description"
@@ -1427,6 +1428,43 @@
             Calculating career professions...
           </div>
         </div>
+      </section>
+
+      <!-- 8B. CAREER COMPATIBILITY CHECKER -->
+      <section class="section-card" id="careerCheckerSection" style="border: 1px solid rgba(99,102,241,0.3); background: linear-gradient(135deg, rgba(99,102,241,0.06), rgba(245,158,11,0.04));">
+        <div class="section-title">
+          🔍 Career Compatibility Checker
+          <span class="title-badge">ASK YOUR CHART</span>
+        </div>
+        <p style="color:var(--muted); font-size:0.88rem; margin-bottom:1.4rem; line-height:1.6;">
+          Curious about a specific career? Type any profession and your birth chart will reveal if it's astrologically aligned with your planetary strengths.
+        </p>
+        <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+          <div style="flex:1; min-width:220px;">
+            <input
+              id="careerCheckerInput"
+              type="text"
+              placeholder="e.g. Doctor, Pilot, YouTuber, CA, Software Engineer..."
+              autocomplete="off"
+              style="width:100%; background:rgba(255,255,255,0.07); border:1px solid rgba(99,102,241,0.4);
+                     border-radius:12px; color:#f1f5f9; font-family:'Outfit',sans-serif; font-size:0.95rem;
+                     padding:13px 18px; outline:none; transition:border 0.2s, box-shadow 0.2s;"
+              onfocus="this.style.borderColor='#6366f1';this.style.boxShadow='0 0 0 3px rgba(99,102,241,0.22)'"
+              onblur="this.style.borderColor='rgba(99,102,241,0.4)';this.style.boxShadow='none'"
+              onkeydown="if(event.key==='Enter') document.getElementById('careerCheckBtn').click()"
+            />
+          </div>
+          <button
+            id="careerCheckBtn"
+            onclick="window._careerEngine && window._careerEngine.checkCustomCareer()"
+            style="background:linear-gradient(135deg,#6366f1,#8b5cf6); color:white; border:none;
+                   padding:13px 28px; border-radius:12px; font-size:0.95rem; font-weight:700;
+                   font-family:'Outfit',sans-serif; cursor:pointer; white-space:nowrap; transition:all 0.2s;"
+            onmouseover="this.style.opacity='0.85';this.style.transform='translateY(-1px)'"
+            onmouseout="this.style.opacity='1';this.style.transform='translateY(0)'"
+          >✨ Check My Chart</button>
+        </div>
+        <div id="careerCheckerResult" style="display:none; margin-top:1.6rem;"></div>
       </section>
 
       <!-- 9. CAREER TIMELINE -->

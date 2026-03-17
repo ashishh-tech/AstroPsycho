@@ -204,20 +204,18 @@
 
       .nav-logo-star {
         font-size: 1.4rem;
-        animation: starPulse 3s ease-in-out infinite;
+        animation: starRotate 8s linear infinite;
         filter: drop-shadow(0 0 8px var(--gold));
+        display: inline-block; /* Required for rotation */
+        transform-origin: center;
       }
 
-      @keyframes starPulse {
-        0%,
-        100% {
-          opacity: 1;
-          transform: scale(1);
+      @keyframes starRotate {
+        from {
+          transform: rotate(0deg);
         }
-
-        50% {
-          opacity: 0.7;
-          transform: scale(0.9);
+        to {
+          transform: rotate(360deg);
         }
       }
 
