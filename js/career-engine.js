@@ -279,41 +279,41 @@ class BrighuCareerEngine {
         const factors = [];
         let total = 0;
 
-        // 1. Saturn strength (20 pts)
-        const satScore = Math.round(satData.strength * 0.20);
-        factors.push({ label: 'Saturn Shadbala Strength', score: satScore, max: 20 });
+        // 1. Saturn strength (15 pts max)
+        const satScore = Math.round(satData.strength * 0.15);
+        factors.push({ label: 'Saturn Shadbala Strength', score: satScore, max: 15 });
         total += satScore;
 
-        // 2. Saturn house quality (15 pts)
-        const houseScores = { 1: 10, 2: 8, 3: 7, 4: 9, 5: 11, 6: 12, 7: 10, 8: 9, 9: 13, 10: 15, 11: 12, 12: 7 };
-        const satHouseScore = houseScores[satData.house] || 10;
-        factors.push({ label: `Saturn in ${satData.house}th House`, score: satHouseScore, max: 15 });
+        // 2. Saturn house quality (10 pts)
+        const houseScores = { 1: 7, 2: 5, 3: 5, 4: 6, 5: 8, 6: 8, 7: 7, 8: 6, 9: 9, 10: 10, 11: 8, 12: 5 };
+        const satHouseScore = houseScores[satData.house] || 7;
+        factors.push({ label: `Saturn in ${satData.house}th House`, score: satHouseScore, max: 10 });
         total += satHouseScore;
 
-        // 3. Saturn sign quality (15 pts)
-        let satSignScore = 8;
-        if (satData.status.includes('Exalted')) satSignScore = 15;
-        else if (satData.status.includes('Own Sign')) satSignScore = 13;
-        else if (satData.status.includes('Debilitated')) satSignScore = 3;
-        factors.push({ label: `Saturn in ${satData.sign} (${satData.status})`, score: satSignScore, max: 15 });
+        // 3. Saturn sign quality (10 pts)
+        let satSignScore = 5;
+        if (satData.status.includes('Exalted')) satSignScore = 10;
+        else if (satData.status.includes('Own Sign')) satSignScore = 8;
+        else if (satData.status.includes('Debilitated')) satSignScore = 2;
+        factors.push({ label: `Saturn in ${satData.sign} (${satData.status})`, score: satSignScore, max: 10 });
         total += satSignScore;
 
-        // 4. 10th house lord strength (15 pts)
+        // 4. 10th house lord strength (10 pts)
         const tenthLordShadbala = this.birthChart.shadbala?.[tenth.tenthLord];
-        const tenthScore = tenthLordShadbala?.isStrong ? 15 : (tenthLordShadbala ? 8 : 5);
-        factors.push({ label: `10th Lord (${this.planetNames[tenth.tenthLord]}) Strength`, score: tenthScore, max: 15 });
+        const tenthScore = tenthLordShadbala?.isStrong ? 10 : (tenthLordShadbala ? 6 : 3);
+        factors.push({ label: `10th Lord (${this.planetNames[tenth.tenthLord]}) Strength`, score: tenthScore, max: 10 });
         total += tenthScore;
 
-        // 5. Planets in 10th house (10 pts)
+        // 5. Planets in 10th house (5 pts)
         const beneficsIn10th = tenth.planetsIn10th.filter(p => ['jupiter', 'venus', 'mercury'].includes(p)).length;
         const maleficsIn10th = tenth.planetsIn10th.filter(p => ['saturn', 'mars', 'rahu', 'ketu'].includes(p)).length;
-        const tenthPlanetScore = Math.min(10, (beneficsIn10th * 4) - (maleficsIn10th * 2) + 5);
-        factors.push({ label: `Planets in 10th House (${tenth.planetsIn10th.length || 'none'})`, score: Math.max(0, tenthPlanetScore), max: 10 });
+        const tenthPlanetScore = Math.min(5, (beneficsIn10th * 2) - maleficsIn10th + 3);
+        factors.push({ label: `Planets in 10th House (${tenth.planetsIn10th.length || 'none'})`, score: Math.max(0, tenthPlanetScore), max: 5 });
         total += Math.max(0, tenthPlanetScore);
 
-        // 6. Yogakaraka strength (10 pts)
-        const ykScore = yogakaraka ? (yogakaraka.isStrong ? 10 : 6) : 3;
-        factors.push({ label: `Yogakaraka (${yogakaraka ? this.planetNames[yogakaraka.planet] : 'None'})`, score: ykScore, max: 10 });
+        // 6. Yogakaraka strength (5 pts)
+        const ykScore = yogakaraka ? (yogakaraka.isStrong ? 5 : 3) : 2;
+        factors.push({ label: `Yogakaraka (${yogakaraka ? this.planetNames[yogakaraka.planet] : 'None'})`, score: ykScore, max: 5 });
         total += ykScore;
 
         // 7. Amatyakaraka (5 pts)
@@ -322,10 +322,37 @@ class BrighuCareerEngine {
         factors.push({ label: `Amatyakaraka (${this.planetNames[karakas.amatyakaraka.planet]})`, score: amkScore, max: 5 });
         total += amkScore;
 
-        // 8. D-10 assessment (10 pts) — baseline 6 if data exists
+        // 8. D-10 assessment (10 pts)
         const d10Score = d10Data.data ? 8 : 4;
         factors.push({ label: `D-10 (Dashamsha) Career Sign: ${d10Data.d10Sign}`, score: d10Score, max: 10 });
         total += d10Score;
+
+        // 9. Ashtakavarga 10th House (15 pts)
+        let bavScore = 8; // Default
+        if (this.birthChart.ashtakavarga) {
+            const ascSignIndex = Math.floor(this.birthChart.ascendant / 30);
+            const h10Index = (ascSignIndex + 9) % 12;
+            const points = this.birthChart.ashtakavarga.total[h10Index];
+            if (points >= 30) bavScore = 15;
+            else if (points >= 28) bavScore = 12;
+            else if (points >= 24) bavScore = 8;
+            else bavScore = 4;
+        }
+        factors.push({ label: `Ashtakavarga 10th Potency`, score: bavScore, max: 15 });
+        total += bavScore;
+
+        // 10. KP Sub-Lord Analysis (15 pts)
+        let kpScore = 8;
+        if (this.birthChart.kpAstrology) {
+            const mc = this.birthChart.kpAstrology.tenthCusp;
+            const subLordDetails = this.birthChart.planetaryDetails[mc.subLord];
+            const subLordHouse = subLordDetails ? subLordDetails.house : 0;
+            if ([2, 6, 10, 11].includes(subLordHouse)) kpScore = 15;
+            else if ([8, 12].includes(subLordHouse)) kpScore = 4;
+            else kpScore = 10;
+        }
+        factors.push({ label: `KP 10th Sub-Lord Destiny`, score: kpScore, max: 15 });
+        total += kpScore;
 
         const clampedTotal = Math.min(100, Math.max(10, total));
         let grade = 'C';
@@ -559,6 +586,11 @@ class BrighuCareerEngine {
             this.renderSadeSatiImpact(sadeSati);
             this.renderCareerRecommendations(professions);
             this.renderCareerTimeline(timeline);
+
+            // Ultra-Level Renderers
+            if (this.chartData?.kpAstrology) this.renderKPAstrology(this.chartData.kpAstrology);
+            if (this.chartData?.ashtakavarga) this.renderAshtakavarga(this.chartData.ashtakavarga);
+            if (this.chartData?.dashas) this.renderDashaTransit(this.chartData.dashas);
 
             // Sub-systems with separate error boundaries
             try { this.renderSubDashaAnalysis(); } catch (e) { console.error('Sub-Dasha Error:', e); }
@@ -900,12 +932,156 @@ class BrighuCareerEngine {
             html += `</div></div>`;
             el.innerHTML = html;
         } catch (e) {
-            console.error('Failed to render Sub-Dasha analysis:', e);
-            const errEl = document.getElementById('subDashaAnalysis');
-            if (errEl) errEl.innerHTML = `<div class="error-msg">Micro-analysis unavailable: ${e.message}</div>`;
+            console.error('Sub-Dasha render error:', e);
         }
     }
 
+    renderKPAstrology(kp) {
+        const el = document.getElementById('kpAstrologyCard');
+        if (!el || !kp) return;
+
+        const mc = kp.tenthCusp;
+        // KP Career Rules (simplified): 
+        // 10th Sub-Lord's Star Lord signifies 2,6,10,11 = Excellent Career/Business
+        // 10th Sub-Lord's Star Lord signifies 8,12 = Challenges/Breaks
+
+        // We check the Star Lord of the 10th Cusp Sub Lord
+        const subLordDetails = this.chartData.planetaryDetails[mc.subLord];
+        const subLordHouse = subLordDetails ? subLordDetails.house : '-';
+        
+        let verdict = "Neutral Alignment";
+        let color = "var(--text)";
+        let subLordDignity = subLordDetails ? subLordDetails.status : '';
+
+        // Simplistic check just for UI demonstration based on House
+        if ([2, 6, 10, 11].includes(subLordHouse)) {
+            verdict = "Guaranteed Success (Strong 2/6/10/11 link)";
+            color = "var(--success)";
+        } else if ([8, 12].includes(subLordHouse)) {
+            verdict = "Obstacles Expected (8/12 link)";
+            color = "var(--danger)";
+        } else if ([1, 5, 9].includes(subLordHouse)) {
+            verdict = "Destined Path (Dharma Trikona link)";
+            color = "var(--primary-light)";
+        }
+
+        el.innerHTML = `
+        <div style="font-size: 1.1rem; margin-bottom: 0.5rem; text-align: center;">
+            <div style="font-size: 0.85rem; color: var(--muted); text-transform: uppercase;">10th Cusp Midheaven</div>
+            <strong>${mc.longitude.toFixed(2)}° ${mc.signLord.charAt(0).toUpperCase() + mc.signLord.slice(1)}</strong> 
+        </div>
+        <div class="kp-grid" style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; background: rgba(0,0,0,0.2); padding: 15px; border-radius: 8px; text-align: center; margin-bottom: 15px;">
+            <div>
+                <div style="font-size: 0.8rem; color: var(--muted);">Sign Lord</div>
+                <strong style="color: var(--primary-light);">${mc.signLord.toUpperCase()}</strong>
+            </div>
+            <div>
+                <div style="font-size: 0.8rem; color: var(--muted);">Star Lord</div>
+                <strong style="color: var(--warning);">${mc.starLord.toUpperCase()}</strong>
+            </div>
+            <div>
+                <div style="font-size: 0.8rem; color: var(--muted);">Sub Lord</div>
+                <strong style="color: var(--success); font-size: 1.1rem;">${mc.subLord.toUpperCase()}</strong>
+            </div>
+        </div>
+        <div style="background: rgba(255,255,255,0.03); border-left: 3px solid ${color}; padding: 12px; border-radius: 4px;">
+            <div style="font-size: 0.85rem; color: var(--muted); margin-bottom: 4px;">Sub-Lord Prediction:</div>
+            <strong style="color: ${color};">${verdict}</strong>
+            <div style="font-size: 0.85rem; margin-top: 5px;">The 10th Sub-Lord is sitting in House ${subLordHouse} with ${subLordDignity} dignity.</div>
+        </div>`;
+    }
+
+    renderAshtakavarga(av) {
+        const el = document.getElementById('ashtakavargaCard');
+        if (!el || !av) return;
+
+        // Calculate 10th house index
+        const ascSignIndex = Math.floor(this.chartData.ascendant / 30);
+        const h10Index = (ascSignIndex + 9) % 12;
+        const h11Index = (ascSignIndex + 10) % 12; // 11th house for Income
+
+        const h10Points = av.sarvashtakavarga[h10Index];
+        const h11Points = av.sarvashtakavarga[h11Index];
+
+        let careerPotency = "Average";
+        let potencyColor = "var(--text)";
+        if (h10Points >= 30) { careerPotency = "Highly Auspicious"; potencyColor = "var(--success)"; }
+        else if (h10Points <= 24) { careerPotency = "Requires Hard Work"; potencyColor = "var(--danger)"; }
+
+        let incomeProm = "Average Income";
+        if (h11Points > h10Points) incomeProm = "Income > Effort (Wealth Yoga)";
+        else if (h11Points < h10Points) incomeProm = "Effort > Income (Service Focus)";
+
+        el.innerHTML = `
+        <div style="display: flex; justify-content: space-around; align-items: center; margin-bottom: 15px; padding: 15px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+            <div style="text-align: center;">
+                <div style="font-size: 2.5rem; font-weight: 800; color: ${potencyColor}; text-shadow: 0 0 10px ${potencyColor}40;">${h10Points}</div>
+                <div style="font-size: 0.8rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px;">10th House Points</div>
+            </div>
+            <div style="text-align: center;">
+                <div style="font-size: 2.5rem; font-weight: 800; color: var(--success);">${h11Points}</div>
+                <div style="font-size: 0.8rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px;">11th House (Income)</div>
+            </div>
+        </div>
+        <div>
+            <div style="margin-bottom: 8px;"><strong>Career Potency:</strong> <span style="color:${potencyColor}">${careerPotency}</span></div>
+            <div><strong>Wealth Generation:</strong> <span style="color:var(--primary-light)">${incomeProm}</span></div>
+            <p style="font-size: 0.85rem; color: var(--muted); margin-top: 10px; line-height: 1.4;">
+                (Avg points = 28. >30 means the house strongly supports you without much friction. 11th > 10th brings effortless wealth).
+            </p>
+        </div>`;
+    }
+
+    renderDashaTransit(dashas) {
+        const el = document.getElementById('dashaTransitCard');
+        if (!el || !dashas) return;
+
+        const md = dashas.currentMahadasha?.planet;
+        const ad = dashas.antardashas?.current?.planet;
+        
+        // Check Transit matches
+        const transits = this.astrologyEngine.calculateTransits();
+        const jupTransitSign = Math.floor(transits.jupiter / 30);
+        const satTransitSign = Math.floor(transits.saturn / 30);
+        
+        const ascSign = Math.floor(this.chartData.ascendant / 30);
+        const jupHouse = (jupTransitSign - ascSign + 12) % 12 + 1;
+        const satHouse = (satTransitSign - ascSign + 12) % 12 + 1;
+
+        // Activation triggers: Jup/Sat over 1,5,9,10
+        const isJupActivating = [1, 5, 9, 10, 11].includes(jupHouse);
+        const isSatActivating = [1, 5, 9, 10, 11].includes(satHouse);
+
+        let activeMsg = "Building Phase";
+        let activeColor = "var(--muted)";
+        if (isJupActivating && isSatActivating) {
+            activeMsg = "Double Transit Activation! Major Event IMMINENT.";
+            activeColor = "var(--success)";
+        } else if (isJupActivating) {
+            activeMsg = "Jupiter Blessings (Growth/Promotion phase)";
+            activeColor = "var(--primary-light)";
+        } else if (isSatActivating) {
+            activeMsg = "Saturn Activation (Hard work leading to solid rise)";
+            activeColor = "var(--warning)";
+        }
+
+        el.innerHTML = `
+        <div style="background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; padding: 15px; margin-bottom: 15px;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                <span><strong>Mahadasha:</strong> ${md ? md.toUpperCase() : '-'}</span>
+                <span><strong>Antardasha:</strong> ${ad ? ad.toUpperCase() : '-'}</span>
+            </div>
+            <div style="font-size: 0.85rem; color: var(--muted);">Base career flavor set by ${md}, specific events delivered by ${ad}.</div>
+        </div>
+        
+        <div style="border-left: 4px solid ${activeColor}; padding-left: 12px;">
+            <div style="font-size: 0.85rem; color: var(--muted); margin-bottom: 5px;">Double Transit Career Timing:</div>
+            <div style="font-size: 1.1rem; font-weight: bold; color: ${activeColor}; margin-bottom: 5px;">${activeMsg}</div>
+            <div style="font-size: 0.85rem;">
+                Jupiter is transiting House ${jupHouse} • Saturn is transiting House ${satHouse}
+            </div>
+        </div>`;
+    }
     formatDate(d) {
         if (!d || !(d instanceof Date) || isNaN(d)) return '—';
         return d.toLocaleDateString('en-IN', { month: 'short', year: 'numeric' });
@@ -986,7 +1162,7 @@ class BrighuCareerEngine {
 
             // --- TECHNOLOGY & IT ---
             software: ['IT', 'technology', 'mercury'], developer: ['IT', 'technology', 'mercury'],
-            programmer: ['IT', 'technology', 'mercury'], engineer: ['engineering', 'technology'],
+            programmer: ['IT', 'technology', 'mercury'], engineer: ['engineering', 'technology', 'mars', 'mercury', 'saturn'],
             data: ['IT', 'research', 'mercury'], ai: ['IT', 'technology', 'rahu'],
             machine: ['IT', 'technology', 'rahu'], cyber: ['IT', 'technology', 'rahu'],
             cloud: ['IT', 'technology', 'rahu'], frontend: ['IT', 'arts', 'venus'],
@@ -1095,13 +1271,20 @@ class BrighuCareerEngine {
         const matchedPlanets = new Set();
         const matchedKeywords = [];
 
+        // Also add Jupiter for any technical/analytical/structured profession
+        const techDomains = ['engineering', 'technology', 'IT', 'research', 'science', 'medicine', 'law', 'education'];
+
         for (const [kw, tags] of Object.entries(domainMap)) {
             if (q.includes(kw)) {
                 matchedKeywords.push(kw);
                 tags.forEach(t => {
                     const planets = ['sun', 'moon', 'mars', 'mercury', 'jupiter', 'venus', 'saturn', 'rahu', 'ketu'];
                     if (planets.includes(t)) matchedPlanets.add(t);
-                    else matchedDomains.add(t);
+                    else {
+                        matchedDomains.add(t);
+                        // Add Jupiter for technical/knowledge-based domains
+                        if (techDomains.includes(t)) matchedPlanets.add('jupiter');
+                    }
                 });
             }
         }
@@ -1116,6 +1299,11 @@ class BrighuCareerEngine {
         // Scoring signals
         const signals = [];
         let totalScore = 0;
+
+        // Baseline: give a small credit for any recognized profession keyword
+        if (matchedKeywords.length > 0) {
+            totalScore += 10;
+        }
 
         // 1. Check if query matches any top recommended professions (strong signal)
         const topMatch = topProfessions.find(p => p.name.toLowerCase().includes(q) || q.includes(p.name.toLowerCase().split(/\s/)[0]));
@@ -1219,7 +1407,7 @@ class BrighuCareerEngine {
             }
         });
 
-        if (finalWeakPlanets.length > 0 && signals.filter(s => s.positive).length < 2) {
+        if (finalWeakPlanets.length > 0 && signals.filter(s => s.positive).length === 0) {
             // Penalize more if the matched planets themselves are weak
             const matchedWeakCount = finalWeakPlanets.filter(w => matchedPlanets.has(w.code)).length;
             const penalty = (matchedWeakCount > 0 ? 12 : 8) * finalWeakPlanets.length;

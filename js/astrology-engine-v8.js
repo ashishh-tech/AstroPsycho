@@ -139,6 +139,10 @@ class VedicAstrologyEngine {
         // Core Life Stability Metrics (Ultra-Precision Engine)
         chart.stabilityMetrics = this.calculateDimensionalMetrics(chart);
 
+        // Calculate KP (Krishnamurti Paddhati) Astrology (Placidus cusps and Sub-lords)
+        chart.kpAstrology = this.calculateKPAstrology(jd, t, ayanamsa, birthDetails.latitude || 28.61, birthDetails.longitude || 77.20);
+        chart.kpAstrology.planets = this.calculateKPPlanetSubLords(chart.planets);
+
         return chart;
     }
 
@@ -458,6 +462,78 @@ class VedicAstrologyEngine {
 
         let asc = Math.atan2(y, x) * (180 / Math.PI);
         return this.normalize(asc - ayanamsa);
+    }
+
+    // KP ASTROLOGY: Placidus Cusps & calculations
+    calculateKPAstrology(jd, t, ayanamsa, lat, lon) {
+        let gmst = this.normalize(280.46061837 + 360.98564736629 * (jd - 2451545.0) + 0.000387933 * t * t);
+        const lst = this.normalize(gmst + lon);
+        const epsRad = this.toRadians(23.43929111 - 0.01300416 * t);
+        const lstRad = this.toRadians(lst);
+        
+        // Midheaven (MC) / 10th Cusp calculation
+        let mc = Math.atan2(Math.sin(lstRad), Math.cos(lstRad) * Math.cos(epsRad)) * (180 / Math.PI);
+        mc = this.normalize(mc - ayanamsa); // Sidereal MC
+        
+        // Ascendant (already calculated above, recalcing for package)
+        const latRad = this.toRadians(lat);
+        const y = Math.cos(lstRad);
+        const x = -Math.sin(lstRad) * Math.cos(epsRad) - Math.tan(latRad) * Math.sin(epsRad);
+        let asc = this.normalize((Math.atan2(y, x) * (180 / Math.PI)) - ayanamsa);
+
+        // Get Sub-ords for 10th Cusp (MC) and Ascendant
+        const tenthCusp = this.getKPSignificators(mc);
+        const ascendantCusp = this.getKPSignificators(asc);
+
+        return {
+            mc: mc,
+            ascendant: asc,
+            tenthCusp: tenthCusp,
+            ascendantCusp: ascendantCusp
+        };
+    }
+
+    calculateKPPlanetSubLords(planets) {
+        const kpPlanets = {};
+        for (const [planet, pos] of Object.entries(planets)) {
+            if (planet === 'velocities') continue;
+            kpPlanets[planet] = this.getKPSignificators(pos);
+        }
+        return kpPlanets;
+    }
+
+    getKPSignificators(longitude) {
+        const signIndex = Math.floor(longitude / 30);
+        const signLordMap = ['mars', 'venus', 'mercury', 'moon', 'sun', 'mercury', 'venus', 'mars', 'jupiter', 'saturn', 'saturn', 'jupiter'];
+        const signLord = signLordMap[signIndex];
+
+        const nak = this.getNakshatra(longitude);
+        const starLord = nak.lord;
+
+        // Calculate Sub-Lord
+        const degreeInNak = longitude % 13.333333;
+        const sequence = this.getDashaSequence(starLord);
+        
+        let accumulatedDegree = 0;
+        let subLord = starLord; // Default
+        
+        for (const p of sequence) {
+            const span = 13.333333 * (this.dashaYears[p] / 120);
+            accumulatedDegree += span;
+            if (degreeInNak <= accumulatedDegree) {
+                subLord = p;
+                break;
+            }
+        }
+
+        return {
+            longitude: longitude,
+            signLord: signLord,
+            starLord: starLord,
+            subLord: subLord,
+            nakshatra: nak.name,
+            pada: nak.pada
+        };
     }
 
     calculateNavamsha(planets, ascendant) {
@@ -958,7 +1034,10 @@ class VedicAstrologyEngine {
     getNakshatra(longitude) {
         const index = Math.floor(longitude / 13.333333);
         const nak = this.nakshatras[index % 27];
-        return { ...nak, index: index % 27, progress: ((longitude % 13.333333) / 13.333333) * 100 };
+        const rem = longitude % 13.333333;
+        const progress = (rem / 13.333333) * 100;
+        const pada = Math.floor(rem / 3.333333) + 1; // 1 to 4
+        return { ...nak, index: index % 27, progress, pada };
     }
 
     getHouseNumber(planetLongitude, ascendantLongitude) {
