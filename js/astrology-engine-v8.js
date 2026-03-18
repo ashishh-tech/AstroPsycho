@@ -1096,11 +1096,11 @@ class VedicAstrologyEngine {
 
         // Helper: Get Ashtakavarga score (0-10) based on 0-8 bindus
         const getBavScore = (planet, sign) => {
-            if (!chart.ashtakavarga || !chart.ashtakavarga.bhavas) return 5;
+            if (!chart.ashtakavarga || !chart.ashtakavarga.sarvashtakavarga) return 5;
             // Simplified: usually represented by total SAV or specific BAV. Using SAV / 4 for an approx 0-10 scale
             const ascSignIndex = Math.floor(chart.ascendant / 30);
             const houseIndex = (sign - ascSignIndex + 12) % 12;
-            const sav = chart.ashtakavarga.bhavas[houseIndex];
+            const sav = chart.ashtakavarga.sarvashtakavarga[houseIndex];
             return Math.min(10, Math.max(0, (sav - 20) / 1.5)); // Average SAV is 28. Scale: 20=0, 28=5.3, 35=10
         };
 
@@ -1219,7 +1219,7 @@ class VedicAstrologyEngine {
             emotional: { score: emoScore, label: getLabel(emoScore, 'emo'), desc: "Measures mental steadiness based on Lunar dignity, Shadbala mass, and 4th House (Inner Peace) strength." },
             timing: { score: timingScore, label: getLabel(timingScore, 'timing'), desc: "Evaluates current action probability based on Ascendant relationship with the active Mahadasha Lord." }
         };
-    }
+}
 }
 
 if (typeof module !== 'undefined' && module.exports) {

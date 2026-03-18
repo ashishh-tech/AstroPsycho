@@ -587,10 +587,18 @@ class BrighuCareerEngine {
             this.renderCareerRecommendations(professions);
             this.renderCareerTimeline(timeline);
 
-            // Ultra-Level Renderers
-            if (this.birthChart?.kpAstrology) this.renderKPAstrology(this.birthChart.kpAstrology);
-            if (this.birthChart?.ashtakavarga) this.renderAshtakavarga(this.birthChart.ashtakavarga);
-            if (this.birthChart?.dashas) this.renderDashaTransit(this.birthChart.dashas);
+            // Ultra-Level Renderers - Wrapped in individual try-catch to prevent engine stall
+            try { 
+                if (this.birthChart?.kpAstrology) this.renderKPAstrology(this.birthChart.kpAstrology);
+            } catch (e) { console.error('KP Astrology Render Error:', e); }
+
+            try {
+                if (this.birthChart?.ashtakavarga) this.renderAshtakavarga(this.birthChart.ashtakavarga);
+            } catch (e) { console.error('Ashtakavarga Render Error:', e); }
+
+            try {
+                if (this.birthChart?.dashas) this.renderDashaTransit(this.birthChart.dashas);
+            } catch (e) { console.error('Dasha-Transit Render Error:', e); }
 
             // Sub-systems with separate error boundaries
             try { this.renderSubDashaAnalysis(); } catch (e) { console.error('Sub-Dasha Error:', e); }
@@ -598,7 +606,10 @@ class BrighuCareerEngine {
             try { this.renderPersonInfo(); } catch (e) { console.error('Person Info Error:', e); }
         } catch (e) {
             console.error('Render All Error:', e);
-            document.body.innerHTML += `<div style="color:red;padding:2rem;">Rendering Error: ${e.message}</div>`;
+            const msg = document.getElementById('kpAstrologyCard') || document.body;
+            msg.innerHTML += `<div style="color:#ef4444;padding:1rem;background:rgba(239,68,68,0.1);border-radius:8px;margin-top:10px;">
+                ⚠️ <strong>Ultra-Engine Notice:</strong> Some advanced calculations are still initializing. Try refreshing in a moment. (${e.message})
+            </div>`;
         }
     }
 
@@ -956,13 +967,13 @@ class BrighuCareerEngine {
         // Simplistic check just for UI demonstration based on House
         if ([2, 6, 10, 11].includes(subLordHouse)) {
             verdict = "Guaranteed Success (Strong 2/6/10/11 link)";
-            color = "var(--success)";
+            color = "var(--accent-green)";
         } else if ([8, 12].includes(subLordHouse)) {
             verdict = "Obstacles Expected (8/12 link)";
-            color = "var(--danger)";
+            color = "var(--accent-red)";
         } else if ([1, 5, 9].includes(subLordHouse)) {
             verdict = "Destined Path (Dharma Trikona link)";
-            color = "var(--primary-light)";
+            color = "var(--saturn-blue)";
         }
 
         el.innerHTML = `
@@ -973,15 +984,15 @@ class BrighuCareerEngine {
         <div class="kp-grid" style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; background: rgba(0,0,0,0.2); padding: 15px; border-radius: 8px; text-align: center; margin-bottom: 15px;">
             <div>
                 <div style="font-size: 0.8rem; color: var(--muted);">Sign Lord</div>
-                <strong style="color: var(--primary-light);">${mc.signLord.toUpperCase()}</strong>
+                <strong style="color: var(--saturn-blue);">${mc.signLord.toUpperCase()}</strong>
             </div>
             <div>
                 <div style="font-size: 0.8rem; color: var(--muted);">Star Lord</div>
-                <strong style="color: var(--warning);">${mc.starLord.toUpperCase()}</strong>
+                <strong style="color: var(--saturn-gold);">${mc.starLord.toUpperCase()}</strong>
             </div>
             <div>
                 <div style="font-size: 0.8rem; color: var(--muted);">Sub Lord</div>
-                <strong style="color: var(--success); font-size: 1.1rem;">${mc.subLord.toUpperCase()}</strong>
+                <strong style="color: var(--accent-green); font-size: 1.1rem;">${mc.subLord.toUpperCase()}</strong>
             </div>
         </div>
         <div style="background: rgba(255,255,255,0.03); border-left: 3px solid ${color}; padding: 12px; border-radius: 4px;">
@@ -1005,8 +1016,8 @@ class BrighuCareerEngine {
 
         let careerPotency = "Average";
         let potencyColor = "var(--text)";
-        if (h10Points >= 30) { careerPotency = "Highly Auspicious"; potencyColor = "var(--success)"; }
-        else if (h10Points <= 24) { careerPotency = "Requires Hard Work"; potencyColor = "var(--danger)"; }
+        if (h10Points >= 30) { careerPotency = "Highly Auspicious"; potencyColor = "var(--accent-green)"; }
+        else if (h10Points <= 24) { careerPotency = "Requires Hard Work"; potencyColor = "var(--accent-red)"; }
 
         let incomeProm = "Average Income";
         if (h11Points > h10Points) incomeProm = "Income > Effort (Wealth Yoga)";
@@ -1019,13 +1030,13 @@ class BrighuCareerEngine {
                 <div style="font-size: 0.8rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px;">10th House Points</div>
             </div>
             <div style="text-align: center;">
-                <div style="font-size: 2.5rem; font-weight: 800; color: var(--success);">${h11Points}</div>
+                <div style="font-size: 2.5rem; font-weight: 800; color: var(--accent-green);">${h11Points}</div>
                 <div style="font-size: 0.8rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px;">11th House (Income)</div>
             </div>
         </div>
         <div>
             <div style="margin-bottom: 8px;"><strong>Career Potency:</strong> <span style="color:${potencyColor}">${careerPotency}</span></div>
-            <div><strong>Wealth Generation:</strong> <span style="color:var(--primary-light)">${incomeProm}</span></div>
+            <div><strong>Wealth Generation:</strong> <span style="color:var(--saturn-blue)">${incomeProm}</span></div>
             <p style="font-size: 0.85rem; color: var(--muted); margin-top: 10px; line-height: 1.4;">
                 (Avg points = 28. >30 means the house strongly supports you without much friction. 11th > 10th brings effortless wealth).
             </p>
@@ -1056,13 +1067,13 @@ class BrighuCareerEngine {
         let activeColor = "var(--muted)";
         if (isJupActivating && isSatActivating) {
             activeMsg = "Double Transit Activation! Major Event IMMINENT.";
-            activeColor = "var(--success)";
+            activeColor = "var(--accent-green)";
         } else if (isJupActivating) {
             activeMsg = "Jupiter Blessings (Growth/Promotion phase)";
-            activeColor = "var(--primary-light)";
+            activeColor = "var(--saturn-blue)";
         } else if (isSatActivating) {
             activeMsg = "Saturn Activation (Hard work leading to solid rise)";
-            activeColor = "var(--warning)";
+            activeColor = "var(--saturn-gold)";
         }
 
         el.innerHTML = `
