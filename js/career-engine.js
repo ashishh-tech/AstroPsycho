@@ -588,9 +588,9 @@ class BrighuCareerEngine {
             this.renderCareerTimeline(timeline);
 
             // Ultra-Level Renderers
-            if (this.chartData?.kpAstrology) this.renderKPAstrology(this.chartData.kpAstrology);
-            if (this.chartData?.ashtakavarga) this.renderAshtakavarga(this.chartData.ashtakavarga);
-            if (this.chartData?.dashas) this.renderDashaTransit(this.chartData.dashas);
+            if (this.birthChart?.kpAstrology) this.renderKPAstrology(this.birthChart.kpAstrology);
+            if (this.birthChart?.ashtakavarga) this.renderAshtakavarga(this.birthChart.ashtakavarga);
+            if (this.birthChart?.dashas) this.renderDashaTransit(this.birthChart.dashas);
 
             // Sub-systems with separate error boundaries
             try { this.renderSubDashaAnalysis(); } catch (e) { console.error('Sub-Dasha Error:', e); }
@@ -946,7 +946,7 @@ class BrighuCareerEngine {
         // 10th Sub-Lord's Star Lord signifies 8,12 = Challenges/Breaks
 
         // We check the Star Lord of the 10th Cusp Sub Lord
-        const subLordDetails = this.chartData.planetaryDetails[mc.subLord];
+        const subLordDetails = this.birthChart.planetaryDetails[mc.subLord];
         const subLordHouse = subLordDetails ? subLordDetails.house : '-';
         
         let verdict = "Neutral Alignment";
@@ -996,7 +996,7 @@ class BrighuCareerEngine {
         if (!el || !av) return;
 
         // Calculate 10th house index
-        const ascSignIndex = Math.floor(this.chartData.ascendant / 30);
+        const ascSignIndex = Math.floor(this.birthChart.ascendant / 30);
         const h10Index = (ascSignIndex + 9) % 12;
         const h11Index = (ascSignIndex + 10) % 12; // 11th house for Income
 
@@ -1044,7 +1044,7 @@ class BrighuCareerEngine {
         const jupTransitSign = Math.floor(transits.jupiter / 30);
         const satTransitSign = Math.floor(transits.saturn / 30);
         
-        const ascSign = Math.floor(this.chartData.ascendant / 30);
+        const ascSign = Math.floor(this.birthChart.ascendant / 30);
         const jupHouse = (jupTransitSign - ascSign + 12) % 12 + 1;
         const satHouse = (satTransitSign - ascSign + 12) % 12 + 1;
 
