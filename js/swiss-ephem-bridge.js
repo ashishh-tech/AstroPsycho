@@ -40,18 +40,14 @@
     // ── Load WASM ────────────────────────────────────────────────────────────
     async function loadSwissEph() {
         try {
-            // Dynamically load the swisseph WASM wrapper
-            await new Promise((resolve, reject) => {
-                const script = document.createElement('script');
-                script.src = WASM_BASE + 'swisseph.js';
-                script.onload = resolve;
-                script.onerror = reject;
-                document.head.appendChild(script);
-            });
+            // Dynamically import the ES6 module
+            const swissephModule = await import('/js/swisseph.js');
+            const Swisseph = swissephModule.default;
 
-            // SwissEph WASM loader (exposed as global after script load)
-            sweInstance = new SwissEph({ locateFile: f => WASM_BASE + f });
-            await sweInstance.initSwissEph ? sweInstance.initSwissEph() : waitForReady(sweInstance);
+            // Instantiation of Emscripten WASM module
+            sweInstance = await Swisseph({ locateFile: f => WASM_BASE + f });
+            if (sweInstance.initSwissEph) await sweInstance.initSwissEph();
+            else await waitForReady(sweInstance);
 
             // Set Lahiri ayanamsa (same as AstroSage / standard Vedic)
             sweInstance.set_sid_mode(SE.SE_SIDM_LAHIRI, 0, 0);
