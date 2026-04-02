@@ -1,0 +1,41 @@
+/**
+ * house-planet-data-3.js — Jupiter & Venus in Houses (Parashari)
+ */
+(function() {
+  if (typeof HouseAnalysisEngine === 'undefined') return;
+  const origInit = HouseAnalysisEngine.prototype._initPlanetInHouseEffects;
+  HouseAnalysisEngine.prototype._initPlanetInHouseEffects = function() {
+    if (origInit) origInit.call(this);
+    if (!this.planetInHouseEffects) this.planetInHouseEffects = {};
+
+    this.planetInHouseEffects['Jupiter'] = {
+      1: { en: "Wise, generous, optimistic, and morally strong personality. Often large or well-built body. Natural teacher and counselor. Life is blessed with divine protection. Respected by society.", hi: "बुद्धिमान, उदार, आशावादी और नैतिक रूप से मजबूत व्यक्तित्व। प्रायः बड़ा शरीर। प्राकृतिक शिक्षक। ईश्वरीय सुरक्षा। समाज में सम्मानित।" },
+      2: { en: "Excellent for wealth accumulation through legitimate means. Sweet, truthful speech. Strong family values. Knowledge-driven wealth. Good eating habits. Face glows with wisdom.", hi: "वैध तरीकों से धन संचय के लिए उत्तम। मधुर सत्यवादी वाणी। मजबूत पारिवारिक मूल्य। ज्ञान से धन। चेहरा ज्ञान से दमकता है।" },
+      3: { en: "Courage based on wisdom rather than aggression. Siblings bond well and may be spiritual. Excellent writing especially on philosophy, dharma, or education.", hi: "आक्रामकता नहीं बल्कि ज्ञान पर आधारित साहस। भाई-बहनों से अच्छा बंधन। दर्शन या धर्म पर उत्कृष्ट लेखन।" },
+      4: { en: "Highly auspicious — great domestic peace, large or beautiful home. Mother is religious and wise. Strong education. Vehicles and property accumulate. Blessed inner life.", hi: "अत्यंत शुभ — गृह शांति, बड़ा सुंदर घर। माता धार्मिक और बुद्धिमान। मजबूत शिक्षा। वाहन और संपत्ति बढ़ती है। आशीर्वादित जीवन।" },
+      5: { en: "One of the best placements — exceptional intelligence, blessed children, past-life merit active. Strong mantras and spiritual practices. Love life is dharmic and deep.", hi: "सर्वश्रेष्ठ स्थानों में से एक — असाधारण बुद्धि, आशीर्वादित संतान, पूर्व पुण्य सक्रिय। मजबूत मंत्र शक्ति। प्रेम जीवन धार्मिक और गहरा।" },
+      6: { en: "Jupiter weakened in dusthana — enemies may come from religious or legal circles. Health issues from overindulgence. However, strong ability to counsel and heal others.", hi: "दुस्थान में गुरु कमजोर — धार्मिक या कानूनी क्षेत्रों से शत्रु। अत्यधिक भोग से स्वास्थ्य समस्याएं। परंतु दूसरों को सलाह और उपचार की क्षमता।" },
+      7: { en: "Auspicious for marriage — partner is wise, educated, and supportive. Blessed married life. Business partnerships are ethical and profitable. Strong public reputation.", hi: "विवाह के लिए शुभ — साथी बुद्धिमान, शिक्षित, सहायक। आशीर्वादित वैवाहिक जीवन। नैतिक और लाभदायक साझेदारी। मजबूत सार्वजनिक छवि।" },
+      8: { en: "Protects longevity — Jupiter's gaze guards against sudden misfortune. Strong intuition about hidden matters. Interest in ancient wisdom and tantra. Inheritance likely.", hi: "आयु की रक्षा — गुरु की दृष्टि अचानक दुर्भाग्य से बचाती है। गुप्त विषयों की मजबूत अंतर्ज्ञान। प्राचीन ज्ञान और तंत्र में रुचि। विरासत संभव।" },
+      9: { en: "Most powerful placement — Jupiter in its own house of dharma. Extreme fortune, divine blessings, noble father, long sacred travels. Born teacher and philosopher.", hi: "सबसे शक्तिशाली स्थान — धर्म भाव में गुरु। अत्यधिक भाग्य, ईश्वरीय आशीर्वाद, महान पिता, तीर्थ यात्राएं। जन्मजात शिक्षक और दार्शनिक।" },
+      10: { en: "Excellent for prestigious career — professor, judge, advisor, spiritual leader. Earned respect in society. Ethical career path. Father's legacy supports profession.", hi: "प्रतिष्ठित करियर के लिए उत्तम — प्रोफेसर, न्यायाधीश, सलाहकार। समाज में अर्जित सम्मान। नैतिक करियर पथ। पिता की विरासत से समर्थन।" },
+      11: { en: "Terrific for gains — wealth flows from wisdom, education, spiritual networks. Large, supportive friend circle. Desires fulfilled through dharmic means. Elder siblings prosper.", hi: "लाभ के लिए अद्भुत — ज्ञान, शिक्षा, आध्यात्मिक नेटवर्क से धन। बड़ा सहायक मित्र मंडल। धार्मिक तरीकों से इच्छा पूर्ति।" },
+      12: { en: "Powerful for spiritual liberation — moksha karaka in moksha house. Deep meditation ability. Comfortable foreign stays. Expenses for charity and pilgrimage. Dreams are prophetic.", hi: "आध्यात्मिक मुक्ति के लिए शक्तिशाली — मोक्ष भाव में मोक्ष कारक। गहरी ध्यान क्षमता। आरामदायक विदेश प्रवास। दान और तीर्थ पर व्यय। स्वप्न भविष्यवाणी करते हैं।" }
+    };
+
+    this.planetInHouseEffects['Venus'] = {
+      1: { en: "Attractive, charming, artistic personality. Graceful appearance and refined manners. Love of beauty, fashion, and luxury. Strong social skills. Life enjoys material comforts.", hi: "आकर्षक, मनोहर, कलात्मक व्यक्तित्व। सुंदर रूप और परिष्कृत व्यवहार। सौंदर्य, फैशन और विलासिता प्रेम। मजबूत सामाजिक कौशल। भौतिक सुविधाएं।" },
+      2: { en: "Excellent for wealth — Venus blesses with luxury, beauty, and family harmony. Sweet, pleasant speech. Earns through arts, fashion, entertainment, or beauty industry.", hi: "धन के लिए उत्तम — शुक्र विलासिता, सौंदर्य, पारिवारिक सुख देता है। मधुर वाणी। कला, फैशन, मनोरंजन या ब्यूटी इंडस्ट्री से आय।" },
+      3: { en: "Artistic communication — talent in writing, singing, or media. Harmonious sibling relationships. Short travels for pleasure. Desires centered on beauty and sensory pleasures.", hi: "कलात्मक संचार — लेखन, गायन या मीडिया में प्रतिभा। भाई-बहनों से सामंजस्यपूर्ण संबंध। आनंद के लिए छोटी यात्राएं।" },
+      4: { en: "Beautiful, comfortable home with artistic décor. Luxurious vehicles. Mother is attractive and nurturing. Strong emotional foundation. Real estate brings profit.", hi: "सुंदर, आरामदायक घर। विलासितापूर्ण वाहन। माता आकर्षक और पोषक। मजबूत भावनात्मक नींव। अचल संपत्ति से लाभ।" },
+      5: { en: "Strong romantic life — love affairs are passionate and artistic. Creative talents in music, art, cinema. Children are beautiful and talented. Speculation gains possible.", hi: "मजबूत रोमांटिक जीवन — प्रेम कलात्मक। संगीत, कला, सिनेमा में रचनात्मक प्रतिभा। संतान सुंदर और प्रतिभाशाली। सट्टे में लाभ।" },
+      6: { en: "Venus weakened — relationship conflicts in daily life. Health issues related to kidneys, sugar, or reproductive system. May attract rivalries in love. Service in beauty or healthcare.", hi: "शुक्र कमजोर — दैनिक जीवन में संबंध संघर्ष। गुर्दे, शर्करा या प्रजनन से स्वास्थ्य समस्या। प्रेम में प्रतिद्वंद्विता। स्वास्थ्य या सौंदर्य सेवा।" },
+      7: { en: "Excellent for marriage — beautiful, artistic, and loving partner. Harmonious marriage. Business partnerships in luxury, art, or entertainment. Strong public appeal.", hi: "विवाह के लिए उत्तम — सुंदर, कलात्मक, प्रेमी साथी। सामंजस्यपूर्ण विवाह। विलासिता या कला में साझेदारी। मजबूत जनाकर्षण।" },
+      8: { en: "Secret love affairs or hidden pleasures. Gains through partner's wealth or inheritance. Occult interests have an artistic dimension. Sexual energy is intense and transformative.", hi: "गुप्त प्रेम या छुपे आनंद। साथी के धन या विरासत से लाभ। तंत्र में कलात्मक आयाम। यौन ऊर्जा तीव्र और परिवर्तनकारी।" },
+      9: { en: "Fortune through arts, beauty, diplomacy, or foreign cultures. Travel for pleasure and luxury. Spiritual path is devotional (Bhakti). Father may be artistic or wealthy.", hi: "कला, सौंदर्य, कूटनीति या विदेशी संस्कृतियों से भाग्य। आनंद के लिए यात्रा। आध्यात्मिक मार्ग भक्तिमय। पिता कलात्मक या धनी।" },
+      10: { en: "Career in arts, fashion, entertainment, beauty, hospitality, or diplomacy. Loved and appreciated in profession. Public image is glamorous. Career involves luxury.", hi: "कला, फैशन, मनोरंजन, सौंदर्य या कूटनीति में करियर। पेशे में प्रिय। सार्वजनिक छवि आकर्षक। करियर विलासिता से जुड़ा।" },
+      11: { en: "Gains through artistic ventures, female connections, luxury business. Large social circle of creative people. Desires especially for comfort and beauty fulfilled.", hi: "कलात्मक उद्यमों, महिला संबंधों, विलासिता व्यापार से लाभ। रचनात्मक मित्रों का बड़ा दायरा। आराम और सौंदर्य की इच्छाएं पूर्ण।" },
+      12: { en: "Bed pleasures and secret romances. Expenses on luxury and foreign travel. Comfortable foreign stays. Spiritual path through beauty, art, and devotion. Moksha through love.", hi: "शयन सुख और गुप्त प्रेम। विलासिता और विदेश यात्रा पर व्यय। आरामदायक विदेश प्रवास। सौंदर्य, कला और भक्ति से मोक्ष।" }
+    };
+  };
+})();

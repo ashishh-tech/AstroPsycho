@@ -1,0 +1,202 @@
+
+========================================================================
+  ASTROPSYCHO -- CELEBRITY ACCURACY TEST
+  Meeus Engine vs Astro-Databank / AstroSage Reference Data
+========================================================================
+  Engine: VedicAstrologyEngine (Meeus / Schlyter orbital elements)
+  Ayanamsa: Lahiri (Chitra Paksha)
+  Reference: Astro-Databank, AstroSage, Jagannatha Hora
+  Test Method: Sign-match per planet + Moon Nakshatra
+
+------------------------------------------------------------------------
+  [*] Marilyn Monroe
+      Actress, Singer | Rodden Rating: AA
+      Born: 1926-06-01 at 09:30 | Los Angeles, California
+      Lat: 34.0522, Lon: -118.2437, TZ: UTC-8
+------------------------------------------------------------------------
+  [PASS] Lagna     : Cancer (20.25 in sign) | Expected: Cancer
+  [PASS] Sun    : Taurus        ( 17.62 in sign) | Expected: Taurus
+  [PASS] Moon    : Capricorn     ( 26.30 in sign) | Expected: Capricorn
+  [PASS] Mars    : Aquarius      ( 27.92 in sign) | Expected: Aquarius
+  [PASS] Mercury   : Taurus        ( 13.96 in sign) | Expected: Taurus
+  [PASS] Jupiter   : Aquarius      (  3.81 in sign) | Expected: Aquarius
+  [PASS] Venus    : Aries         (  6.03 in sign) | Expected: Aries
+  [PASS] Saturn    : Libra         ( 29.04 in sign) | Expected: Libra
+  [PASS] Rahu    : Gemini        ( 25.45 in sign) | Expected: Gemini
+  [PASS] Moon Nak  : Dhanishtha (Pada 1) | Expected: Dhanishtha
+
+  Score: 10/10 [####################] 100.0%
+
+------------------------------------------------------------------------
+  [*] Michael Jackson
+      King of Pop | Birth time: 23:53 (debated)
+      Born: 1958-08-29 at 23:53 | Gary, Indiana
+      Lat: 41.4925, Lon: -87.3464, TZ: UTC-6
+------------------------------------------------------------------------
+  [PASS] Lagna     : Gemini (7.98 in sign) | Expected: Gemini
+  [PASS] Sun    : Leo           ( 13.08 in sign) | Expected: Leo
+  [PASS] Moon    : Aquarius      ( 24.40 in sign) | Expected: Aquarius
+  [PASS] Mars    : Aries         ( 28.89 in sign) | Expected: Aries
+  [PASS] Mercury   : Leo           (  2.05 in sign) | Expected: Leo
+  [PASS] Jupiter   : Libra         (  4.90 in sign) | Expected: Libra
+  [PASS] Venus    : Cancer        ( 24.14 in sign) | Expected: Cancer
+  [PASS] Saturn    : Scorpio       ( 26.67 in sign) | Expected: Scorpio
+  [PASS] Rahu    : Libra         (  1.33 in sign) | Expected: Libra
+  [PASS] Moon Nak  : Purva Bhadrapada (Pada 2) | Expected: Purva Bhadrapada
+
+  Score: 10/10 [####################] 100.0%
+
+------------------------------------------------------------------------
+  [*] Princess Diana
+      Princess of Wales | Rodden Rating: AA
+      Born: 1961-07-01 at 19:45 | Sandringham, Norfolk, UK
+      Lat: 52.8242, Lon: 0.5143, TZ: UTC+1
+------------------------------------------------------------------------
+  [PASS] Lagna     : Scorpio (25.11 in sign) | Expected: Scorpio
+  [PASS] Sun    : Gemini        ( 16.35 in sign) | Expected: Gemini
+  [PASS] Moon    : Aquarius      (  1.73 in sign) | Expected: Aquarius
+  [PASS] Mars    : Leo           (  8.33 in sign) | Expected: Leo
+  [PASS] Mercury   : Gemini        (  9.90 in sign) | Expected: Gemini
+  [PASS] Jupiter   : Capricorn     ( 11.14 in sign) | Expected: Capricorn
+  [PASS] Venus    : Taurus        (  1.12 in sign) | Expected: Taurus
+  [PASS] Saturn    : Capricorn     (  5.28 in sign) | Expected: Capricorn
+  [PASS] Rahu    : Leo           (  6.40 in sign) | Expected: Leo
+  [PASS] Moon Nak  : Dhanishtha (Pada 3) | Expected: Dhanishtha
+
+  Score: 10/10 [####################] 100.0%
+
+------------------------------------------------------------------------
+  [*] Elvis Presley
+      King of Rock and Roll | Rodden Rating: AA
+      Born: 1935-01-08 at 04:35 | Tupelo, Mississippi
+      Lat: 34.2576, Lon: -88.7034, TZ: UTC-6
+------------------------------------------------------------------------
+  [PASS] Lagna     : Scorpio (19.41 in sign) | Expected: Scorpio
+  [PASS] Sun    : Sagittarius   ( 24.28 in sign) | Expected: Sagittarius
+  [PASS] Moon    : Aquarius      (  9.05 in sign) | Expected: Aquarius
+  [PASS] Mars    : Virgo         ( 19.87 in sign) | Expected: Virgo
+  [PASS] Mercury   : Sagittarius   ( 29.35 in sign) | Expected: Sagittarius
+  [PASS] Jupiter   : Libra         ( 24.74 in sign) | Expected: Libra
+  [PASS] Venus    : Capricorn     (  6.54 in sign) | Expected: Capricorn
+  [PASS] Saturn    : Aquarius      (  3.02 in sign) | Expected: Aquarius
+  [PASS] Rahu    : Capricorn     (  8.90 in sign) | Expected: Capricorn
+  [PASS] Moon Nak  : Shatabhisha (Pada 1) | Expected: Shatabhisha
+
+  Score: 10/10 [####################] 100.0%
+
+------------------------------------------------------------------------
+  [*] Madonna
+      Queen of Pop | Rodden Rating: AA
+      Born: 1958-08-16 at 07:05 | Bay City, Michigan
+      Lat: 42.4734, Lon: -83.8886, TZ: UTC-5
+------------------------------------------------------------------------
+  [PASS] Lagna     : Leo (14.72 in sign) | Expected: Leo
+  [PASS] Sun    : Cancer        ( 29.83 in sign) | Expected: Cancer
+  [PASS] Moon    : Leo           ( 18.18 in sign) | Expected: Leo
+  [PASS] Mars    : Aries         ( 22.13 in sign) | Expected: Aries
+  [PASS] Mercury   : Leo           ( 12.38 in sign) | Expected: Leo
+  [PASS] Jupiter   : Libra         (  2.69 in sign) | Expected: Libra
+  [PASS] Venus    : Cancer        (  7.33 in sign) | Expected: Cancer
+  [PASS] Saturn    : Scorpio       ( 26.75 in sign) | Expected: Scorpio
+  [PASS] Rahu    : Libra         (  2.05 in sign) | Expected: Libra
+  [PASS] Moon Nak  : Purva Phalguni (Pada 2) | Expected: Purva Phalguni
+
+  Score: 10/10 [####################] 100.0%
+
+
+========================================================================
+  OVERALL ACCURACY SUMMARY
+========================================================================
+
+  Celebrity             Pass   Fail   Rate     Grade
+  -------------------------------------------------------
+  Marilyn Monroe        10     0      100.0%   A+
+  Michael Jackson       10     0      100.0%   A+
+  Princess Diana        10     0      100.0%   A+
+  Elvis Presley         10     0      100.0%   A+
+  Madonna               10     0      100.0%   A+
+  -------------------------------------------------------
+  TOTAL                 50     0      100.0%   A+
+
+  Overall: [########################################] 100.0% accuracy
+
+  VERDICT: EXCELLENT -- Meeus engine matches reference data with high fidelity!
+
+  Notes:
+  - Sign-boundary cases (planets near 0/30 deg) may show mismatch
+    even with <2 deg error. This is normal for Meeus calculations.
+  - Swiss Ephemeris bridge (swiss-ephem-bridge.js) provides <0.01 deg accuracy.
+  - Some celebrities have debated birth times (esp. Michael Jackson).
+
+
+========================================================================
+  PART 2: DEGREE-LEVEL PRECISION ANALYSIS
+  Comparing engine output degrees vs Swiss Ephemeris reference
+========================================================================
+  Tolerance bands: <1deg = EXCELLENT, <2deg = GOOD, <5deg = FAIR
+
+  Marilyn Monroe:
+    Sun     : Calc=  47.62  Ref=  46  Delta=  1.62deg  [GOOD     ]
+    Moon     : Calc= 296.30  Ref= 296  Delta=  0.30deg  [EXCELLENT]
+    Mars     : Calc= 327.92  Ref= 328  Delta=  0.08deg  [EXCELLENT]
+    Mercury  : Calc=  43.96  Ref=  43  Delta=  0.96deg  [EXCELLENT]
+    Jupiter  : Calc= 303.81  Ref= 303  Delta=  0.81deg  [EXCELLENT]
+    Venus    : Calc=   6.03  Ref=   5  Delta=  1.03deg  [GOOD     ]
+    Saturn   : Calc= 209.04  Ref= 208  Delta=  1.04deg  [GOOD     ]
+    Rahu     : Calc=  85.45  Ref=  85  Delta=  0.45deg  [EXCELLENT]
+    ─── Avg error: 0.79deg | Max error: 1.62deg
+
+  Michael Jackson:
+    Sun     : Calc= 133.08  Ref= 132  Delta=  1.08deg  [GOOD     ]
+    Moon     : Calc= 324.40  Ref= 324  Delta=  0.40deg  [EXCELLENT]
+    Mars     : Calc=  28.89  Ref=  29  Delta=  0.11deg  [EXCELLENT]
+    Mercury  : Calc= 122.05  Ref= 122  Delta=  0.05deg  [EXCELLENT]
+    Jupiter  : Calc= 184.90  Ref= 185  Delta=  0.10deg  [EXCELLENT]
+    Venus    : Calc= 114.14  Ref= 114  Delta=  0.14deg  [EXCELLENT]
+    Saturn   : Calc= 236.67  Ref= 237  Delta=  0.33deg  [EXCELLENT]
+    Rahu     : Calc= 181.33  Ref= 181  Delta=  0.33deg  [EXCELLENT]
+    ─── Avg error: 0.32deg | Max error: 1.08deg
+
+  Princess Diana:
+    Sun     : Calc=  76.35  Ref=  76  Delta=  0.35deg  [EXCELLENT]
+    Moon     : Calc= 301.73  Ref= 302  Delta=  0.27deg  [EXCELLENT]
+    Mars     : Calc= 128.33  Ref= 128  Delta=  0.33deg  [EXCELLENT]
+    Mercury  : Calc=  69.90  Ref=  70  Delta=  0.10deg  [EXCELLENT]
+    Jupiter  : Calc= 281.14  Ref= 281  Delta=  0.14deg  [EXCELLENT]
+    Venus    : Calc=  31.12  Ref=  31  Delta=  0.12deg  [EXCELLENT]
+    Saturn   : Calc= 275.28  Ref= 275  Delta=  0.28deg  [EXCELLENT]
+    Rahu     : Calc= 126.40  Ref= 126  Delta=  0.40deg  [EXCELLENT]
+    ─── Avg error: 0.25deg | Max error: 0.40deg
+
+  Elvis Presley:
+    Sun     : Calc= 264.28  Ref= 264  Delta=  0.28deg  [EXCELLENT]
+    Moon     : Calc= 309.05  Ref= 309  Delta=  0.05deg  [EXCELLENT]
+    Mars     : Calc= 169.87  Ref= 170  Delta=  0.13deg  [EXCELLENT]
+    Mercury  : Calc= 269.35  Ref= 269  Delta=  0.35deg  [EXCELLENT]
+    Jupiter  : Calc= 204.74  Ref= 205  Delta=  0.26deg  [EXCELLENT]
+    Venus    : Calc= 276.54  Ref= 277  Delta=  0.46deg  [EXCELLENT]
+    Saturn   : Calc= 303.02  Ref= 303  Delta=  0.02deg  [EXCELLENT]
+    Rahu     : Calc= 278.90  Ref= 279  Delta=  0.10deg  [EXCELLENT]
+    ─── Avg error: 0.21deg | Max error: 0.46deg
+
+  Madonna:
+    Sun     : Calc= 119.83  Ref= 120  Delta=  0.17deg  [EXCELLENT]
+    Moon     : Calc= 138.18  Ref= 138  Delta=  0.18deg  [EXCELLENT]
+    Mars     : Calc=  22.13  Ref=  22  Delta=  0.13deg  [EXCELLENT]
+    Mercury  : Calc= 132.38  Ref= 132  Delta=  0.38deg  [EXCELLENT]
+    Jupiter  : Calc= 182.69  Ref= 183  Delta=  0.31deg  [EXCELLENT]
+    Venus    : Calc=  97.33  Ref=  97  Delta=  0.33deg  [EXCELLENT]
+    Saturn   : Calc= 236.75  Ref= 237  Delta=  0.25deg  [EXCELLENT]
+    Rahu     : Calc= 182.05  Ref= 182  Delta=  0.05deg  [EXCELLENT]
+    ─── Avg error: 0.22deg | Max error: 0.38deg
+
+  -------------------------------------------------------
+  DEGREE PRECISION SUMMARY (40 measurements):
+    Average error : 0.36 degrees
+    Median error  : 0.28 degrees
+    Max error     : 1.62 degrees
+    <1deg (Excellent) : 36/40 (90%)
+    <2deg (Good)      : 40/40 (100%)
+    <5deg (Fair)      : 40/40 (100%)
+
+  PRECISION VERDICT: OUTSTANDING -- Sub-degree average error!

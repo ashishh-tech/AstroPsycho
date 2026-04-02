@@ -1,0 +1,57 @@
+{
+  "timestamp": "2026-04-01T14:46:45.915Z",
+  "engine": "VedicAstrologyEngine (Meeus/Schlyter)",
+  "ayanamsa": "Lahiri (Chitra Paksha)",
+  "summary": {
+    "totalChecks": 50,
+    "totalPass": 50,
+    "totalFail": 0,
+    "overallAccuracy": "100.0%",
+    "grade": "A+"
+  },
+  "celebrities": [
+    {
+      "name": "Marilyn Monroe",
+      "checks": 10,
+      "pass": 10,
+      "fail": 0,
+      "rate": "100.0"
+    },
+    {
+      "name": "Michael Jackson",
+      "checks": 10,
+      "pass": 10,
+      "fail": 0,
+      "rate": "100.0"
+    },
+    {
+      "name": "Princess Diana",
+      "checks": 10,
+      "pass": 10,
+      "fail": 0,
+      "rate": "100.0"
+    },
+    {
+      "name": "Elvis Presley",
+      "checks": 10,
+      "pass": 10,
+      "fail": 0,
+      "rate": "100.0"
+    },
+    {
+      "name": "Madonna",
+      "checks": 10,
+      "pass": 10,
+      "fail": 0,
+      "rate": "100.0"
+    }
+  ],
+  "degreePrecision": {
+    "averageError": "0.36 degrees",
+    "medianError": "0.28 degrees",
+    "maxError": "1.62 degrees",
+    "underOneDegree": "36/40",
+    "underTwoDegrees": "40/40",
+    "totalMeasurements": 40
+  }
+}

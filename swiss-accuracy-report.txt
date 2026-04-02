@@ -1,0 +1,101 @@
+
+============================================================================
+  ASTROPSYCHO -- NASA SWISS EPHEMERIS vs MEEUS ENGINE PRECISION TEST
+============================================================================
+  Swiss Ephemeris: NASA JPL DE431 via WASM | Meeus: Schlyter orbital elements
+  Ayanamsa: Lahiri (Chitra Paksha)
+
+----------------------------------------------------------------------------
+  Marilyn Monroe
+----------------------------------------------------------------------------
+  Planet    NASA(SwissEph)      Meeus               Delta         Grade
+  --------------------------------------------------------------------
+  Sun       47.6197 Tau         47.6184 Tau             0.0013  EXCELLENT
+  Moon      296.2737 Cap        296.3047 Cap            0.0310  VERY GOOD
+  Mercury   43.9540 Tau         43.9632 Tau             0.0092  EXCELLENT
+  Venus     5.9258 Ari          6.0306 Ari              0.1048  GOOD
+  Mars      327.9069 Aqu        327.9223 Aqu            0.0154  VERY GOOD
+  Jupiter   304.0011 Aqu        303.8101 Aqu            0.1910  GOOD
+  Saturn    208.6170 Lib        209.0400 Lib            0.4230  GOOD
+  Rahu      85.4425 Gem         85.4471 Gem             0.0046  EXCELLENT
+
+----------------------------------------------------------------------------
+  Michael Jackson
+----------------------------------------------------------------------------
+  Planet    NASA(SwissEph)      Meeus               Delta         Grade
+  --------------------------------------------------------------------
+  Sun       133.0763 Leo        133.0754 Leo            0.0009  PERFECT
+  Moon      324.3240 Aqu        324.3983 Aqu            0.0743  VERY GOOD
+  Mercury   122.0391 Leo        122.0471 Leo            0.0080  EXCELLENT
+  Venus     114.0615 Can        114.1386 Can            0.0771  VERY GOOD
+  Mars      28.8547 Ari         28.8867 Ari             0.0320  VERY GOOD
+  Jupiter   185.2937 Lib        184.8994 Lib            0.3943  GOOD
+  Saturn    235.8451 Sco        236.6720 Sco            0.8269  GOOD
+  Rahu      181.3276 Lib        181.3253 Lib            0.0024  EXCELLENT
+
+----------------------------------------------------------------------------
+  Princess Diana
+----------------------------------------------------------------------------
+  Planet    NASA(SwissEph)      Meeus               Delta         Grade
+  --------------------------------------------------------------------
+  Sun       76.3460 Gem         76.3478 Gem             0.0018  EXCELLENT
+  Moon      301.7207 Aqu        301.7339 Aqu            0.0131  VERY GOOD
+  Mercury   69.8844 Gem         69.9007 Gem             0.0163  VERY GOOD
+  Venus     31.0828 Tau         31.1191 Tau             0.0363  VERY GOOD
+  Mars      128.3287 Leo        128.3282 Leo            0.0005  PERFECT
+  Jupiter   281.7800 Cap        281.1401 Cap            0.6399  GOOD
+  Saturn    274.4970 Cap        275.2790 Cap            0.7820  GOOD
+  Rahu      126.3995 Leo        126.4016 Leo            0.0022  EXCELLENT
+
+----------------------------------------------------------------------------
+  Elvis Presley
+----------------------------------------------------------------------------
+  Planet    NASA(SwissEph)      Meeus               Delta         Grade
+  --------------------------------------------------------------------
+  Sun       264.2784 Sag        264.2771 Sag            0.0014  EXCELLENT
+  Moon      309.0704 Aqu        309.0550 Aqu            0.0154  VERY GOOD
+  Mercury   269.3532 Sag        269.3522 Sag            0.0010  PERFECT
+  Venus     276.4112 Cap        276.5379 Cap            0.1268  GOOD
+  Mars      169.8770 Vir        169.8655 Vir            0.0115  VERY GOOD
+  Jupiter   205.1154 Lib        204.7423 Lib            0.3731  GOOD
+  Saturn    302.7890 Aqu        303.0183 Aqu            0.2294  GOOD
+  Rahu      278.9037 Cap        278.8992 Cap            0.0045  EXCELLENT
+
+----------------------------------------------------------------------------
+  Madonna
+----------------------------------------------------------------------------
+  Planet    NASA(SwissEph)      Meeus               Delta         Grade
+  --------------------------------------------------------------------
+  Sun       119.8315 Can        119.8295 Can            0.0020  EXCELLENT
+  Moon      138.2633 Leo        138.1757 Leo            0.0876  VERY GOOD
+  Mercury   132.3752 Leo        132.3768 Leo            0.0016  EXCELLENT
+  Venus     97.2571 Can         97.3316 Can             0.0745  VERY GOOD
+  Mars      22.1047 Ari         22.1321 Ari             0.0274  VERY GOOD
+  Jupiter   183.1149 Lib        182.6911 Lib            0.4238  GOOD
+  Saturn    235.8602 Sco        236.7550 Sco            0.8948  GOOD
+  Rahu      182.0558 Lib        182.0533 Lib            0.0025  EXCELLENT
+
+============================================================================
+  PRECISION SUMMARY (40 measurements)
+============================================================================
+
+    Average  : 0.149135 deg (536.88 arcsec)
+    Median   : 0.027365 deg
+    Max      : 0.894814 deg
+
+    < 0.001d (Perfect)   : 3/40
+    < 0.01d  (Excellent) : 15/40
+    < 0.1d   (Very Good) : 28/40
+    < 1.0d   (Good)      : 40/40
+
+  Per-Planet Average:
+    Sun       0.001466 deg (5.3 arcsec)
+    Moon      0.044285 deg (159.4 arcsec)
+    Mercury   0.007204 deg (25.9 arcsec)
+    Venus     0.083887 deg (302.0 arcsec)
+    Mars      0.017350 deg (62.5 arcsec)
+    Jupiter   0.404447 deg (1456.0 arcsec)
+    Saturn    0.631222 deg (2272.4 arcsec)
+    Rahu      0.003216 deg (11.6 arcsec)
+
+  VERDICT: EXCELLENT -- Meeus engine average error < 1 degree vs NASA JPL!

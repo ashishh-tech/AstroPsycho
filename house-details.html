@@ -1,437 +1,334 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta
-      name="description"
-      content="AstroPsycho: The premier Vedic astrology engine combining precise planetary calculations with deep psychological insights."
-    />
-    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-    <link rel="icon" type="image/png" href="favicon.png" />
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-    <meta
-      name="viewport"
-      content="width=device-width,initial-scale=1.0, viewport-fit=cover"
-    />
-    <title>Detailed 12-House Analysis — AstroPsycho</title>
-    <link rel="stylesheet" href="styles.css" />
-    <meta name="theme-color" content="#0a0a1f" />
-    <meta name="mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta
-      name="apple-mobile-web-app-status-bar-style"
-      content="black-translucent"
-    />
-    <link rel="stylesheet" href="mobile-nav.css" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cinzel:wght@400;600;700&family=Dancing+Script:wght@400;700&display=swap"
-      rel="stylesheet"
-    />
-    <style>
-      .med-hero {
-        text-align: center;
-        padding: 3rem 1rem 2rem;
-        background: radial-gradient(
-          ellipse at top,
-          rgba(244, 196, 48, 0.08),
-          transparent 70%
-        );
-      }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover" />
+  <title>Detailed 12-House Analysis — AstroPsycho</title>
+  <meta name="description" content="AstroPsycho: Deep Parashari 12-House Vedic Analysis with planet-in-house predictions, lord placement effects, and full synthesis." />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="mobile-nav.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet" />
+  <meta name="theme-color" content="#0a0a1f" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <style>
+    .med-hero { text-align:center; padding:3rem 1rem 2rem; background:radial-gradient(ellipse at top,rgba(244,196,48,.08),transparent 70%); }
+    .med-hero h1 { font-family:'Cinzel',serif; font-size:2.4rem; color:var(--star-gold); margin-bottom:.5rem; }
+    .results-panel { margin-top:2rem; display:none; }
+    .house-grid { display:grid; grid-template-columns:1fr; gap:2rem; margin-bottom:4rem; }
 
-      .med-hero h1 {
-        font-family: "Cinzel", serif;
-        font-size: 2.4rem;
-        color: var(--star-gold);
-        margin-bottom: 0.5rem;
-      }
+    /* ── Premium Glassmorphism House Card ── */
+    .house-card {
+      background: rgba(15,15,40,.6);
+      backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(100,255,218,.12);
+      border-radius: 16px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 8px 32px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.05);
+      transition: transform .35s cubic-bezier(.4,0,.2,1), box-shadow .35s ease, border-color .35s ease;
+      opacity: 0; transform: translateY(30px);
+      animation: cardEntrance .6s ease forwards;
+    }
+    .house-card:hover {
+      transform: translateY(-4px) scale(1.01);
+      box-shadow: 0 16px 48px rgba(100,255,218,.08), 0 4px 16px rgba(0,0,0,.5);
+      border-color: rgba(100,255,218,.3);
+    }
+    @keyframes cardEntrance { to { opacity:1; transform:translateY(0); } }
 
-      .results-panel {
-        margin-top: 2rem;
-        display: none;
-      }
+    /* Staggered entry */
+    .house-card:nth-child(1) { animation-delay:.05s; } .house-card:nth-child(2) { animation-delay:.1s; }
+    .house-card:nth-child(3) { animation-delay:.15s; } .house-card:nth-child(4) { animation-delay:.2s; }
+    .house-card:nth-child(5) { animation-delay:.25s; } .house-card:nth-child(6) { animation-delay:.3s; }
+    .house-card:nth-child(7) { animation-delay:.35s; } .house-card:nth-child(8) { animation-delay:.4s; }
+    .house-card:nth-child(9) { animation-delay:.45s; } .house-card:nth-child(10) { animation-delay:.5s; }
+    .house-card:nth-child(11) { animation-delay:.55s; } .house-card:nth-child(12) { animation-delay:.6s; }
 
-      .house-grid {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 2rem;
-        margin-bottom: 4rem;
-      }
+    .house-header {
+      background: linear-gradient(135deg, rgba(244,196,48,.12), rgba(124,58,237,.08));
+      padding: 1.5rem;
+      border-bottom: 1px solid rgba(244,196,48,.2);
+      display: flex; justify-content:space-between; align-items:center;
+    }
+    .house-num { font-family:'Cinzel',serif; font-size:2rem; color:var(--star-gold); opacity:.25; font-weight:700; line-height:1; margin-right:1rem; }
+    .house-title { font-family:'Cinzel',serif; font-size:1.3rem; color:var(--star-gold); margin:0; flex:1; }
+    .house-sign { font-size:.85rem; color:var(--accent-cyan); text-transform:uppercase; letter-spacing:1.5px; font-weight:600; background:rgba(100,255,218,.08); padding:.3rem .8rem; border-radius:50px; border:1px solid rgba(100,255,218,.2); }
+    .house-body { padding:1.5rem; }
+    .signification-text { font-style:italic; color:var(--moon-silver); font-size:.92rem; margin-bottom:1.5rem; line-height:1.7; border-left:3px solid rgba(244,196,48,.3); padding-left:1rem; background:rgba(244,196,48,.03); border-radius:0 8px 8px 0; padding:.8rem 1rem; }
 
-      .house-card {
-        background: rgba(20, 20, 50, 0.7);
-        border: 1px solid rgba(100, 255, 218, 0.2);
-        border-radius: 12px;
-        overflow: hidden;
-        position: relative;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-      }
+    .detail-row { display:flex; margin-bottom:.75rem; padding-bottom:.75rem; border-bottom:1px solid rgba(255,255,255,.04); }
+    .detail-row:last-child { border-bottom:none; margin-bottom:0; padding-bottom:0; }
+    .detail-label { min-width:140px; font-weight:600; color:var(--soft-white); font-size:.88rem; }
+    .detail-value { color:var(--moon-silver); font-size:.92rem; flex-grow:1; line-height:1.6; }
 
-      .house-header {
-        background: linear-gradient(
-          90deg,
-          rgba(244, 196, 48, 0.15),
-          transparent
-        );
-        padding: 1.5rem;
-        border-bottom: 1px solid rgba(244, 196, 48, 0.3);
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
+    /* ── Glowing Planet Tags ── */
+    .planet-tag {
+      display:inline-block; padding:.25rem .7rem; border-radius:50px; font-size:.78rem;
+      margin-right:.4rem; margin-bottom:.4rem; text-transform:capitalize; font-weight:500;
+      transition: all .3s ease; cursor:default;
+    }
+    .planet-tag-benefic { background:rgba(100,255,218,.1); border:1px solid rgba(100,255,218,.3); color:#64ffda; }
+    .planet-tag-benefic:hover { background:rgba(100,255,218,.2); box-shadow:0 0 12px rgba(100,255,218,.3); }
+    .planet-tag-malefic { background:rgba(255,107,157,.08); border:1px solid rgba(255,107,157,.3); color:#ff6b9d; }
+    .planet-tag-malefic:hover { background:rgba(255,107,157,.2); box-shadow:0 0 12px rgba(255,107,157,.3); }
 
-      .house-title {
-        font-family: "Cinzel", serif;
-        font-size: 1.5rem;
-        color: var(--star-gold);
-        margin: 0;
-      }
+    /* ── Planet Effect Box (NEW v3) ── */
+    .planet-effect-box {
+      margin-top:.8rem; padding:.8rem 1rem; border-radius:10px;
+      background:rgba(100,255,218,.04); border-left:3px solid rgba(100,255,218,.25);
+      font-size:.9rem; line-height:1.65; color:var(--moon-silver);
+      transition: background .3s ease;
+    }
+    .planet-effect-box:hover { background:rgba(100,255,218,.08); }
+    .planet-effect-box .pe-planet { color:var(--accent-cyan); font-weight:600; font-size:.85rem; text-transform:uppercase; letter-spacing:.5px; display:block; margin-bottom:.3rem; }
 
-      .house-sign {
-        font-size: 0.9rem;
-        color: var(--accent-cyan);
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        font-weight: 600;
-      }
+    /* ── Synthesis Box ── */
+    .synthesis-box {
+      margin-top:1.5rem; padding:1.2rem; border-radius:12px;
+      background:linear-gradient(135deg,rgba(124,58,237,.08),rgba(100,255,218,.04));
+      border:1px solid rgba(167,139,250,.2);
+    }
+    .synthesis-label { font-family:'Cinzel',serif; color:#a78bfa; font-weight:700; margin-bottom:.5rem; display:block; font-size:.95rem; }
+    .synthesis-box ul { margin:.5rem 0 0!important; padding-left:1.2rem!important; }
+    .synthesis-box li { margin-bottom:.85rem; line-height:1.65; }
+    .synthesis-box li:last-child { margin-bottom:0; }
+    .synthesis-box strong { color:#d8b4fe; font-weight:600; letter-spacing:.3px; }
 
-      .house-body {
-        padding: 1.5rem;
-      }
+    /* ── Lord Info Row ── */
+    .lord-info { background:rgba(244,196,48,.04); border-radius:10px; padding:.8rem 1rem; margin-bottom:1rem; border:1px solid rgba(244,196,48,.1); }
+    .lord-info .lord-name { color:var(--star-gold); font-weight:700; font-size:.95rem; }
+    .lord-info .lord-placement { color:var(--moon-silver); font-size:.88rem; display:block; margin-top:.3rem; line-height:1.6; }
 
-      .signification-text {
-        font-style: italic;
-        color: var(--moon-silver);
-        font-size: 0.95rem;
-        margin-bottom: 1.5rem;
-        line-height: 1.6;
-        border-left: 3px solid rgba(255, 255, 255, 0.2);
-        padding-left: 1rem;
-      }
+    @media (min-width:900px) { .house-grid { grid-template-columns:1fr 1fr; } }
+    @media (max-width:540px) {
+      .med-hero h1 { font-size:1.7rem; }
+      .detail-row { flex-direction:column; gap:.3rem; }
+      .detail-label { min-width:unset; color:var(--accent-cyan); font-size:.82rem; }
+      .house-header { padding:1rem 1.25rem; }
+      .house-body { padding:1.25rem; }
+      .house-num { font-size:1.5rem; }
+      .house-title { font-size:1.1rem; }
+    }
 
-      .detail-row {
-        display: flex;
-        margin-bottom: 0.75rem;
-        padding-bottom: 0.75rem;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-      }
+    .hi-text { display:none!important; }
+    .en-text { display:inline!important; }
+    body.hindi-mode .hi-text { display:inline!important; }
+    body.hindi-mode .en-text { display:none!important; }
 
-      .detail-row:last-child {
-        border-bottom: none;
-        margin-bottom: 0;
-        padding-bottom: 0;
-      }
+    @keyframes spin { to { transform:rotate(360deg); } }
+    .loader { width:40px; height:40px; border:3px solid rgba(244,196,48,.2); border-top-color:var(--star-gold); border-radius:50%; animation:spin 1s linear infinite; margin:0 auto 1rem; }
 
-      .detail-label {
-        min-width: 140px;
-        font-weight: 600;
-        color: var(--soft-white);
-        font-size: 0.9rem;
-      }
+    /* ── Premium Glowy More Info Button (USP) ── */
+    .more-info-btn {
+      display: flex; justify-content: space-between; align-items: center;
+      width: 100%; padding: 1.2rem; margin-bottom: 1.5rem;
+      background: linear-gradient(135deg, rgba(100,255,218,0.15), rgba(124,58,237,0.15));
+      border: 1px solid rgba(100,255,218,0.4); border-radius: 12px;
+      color: var(--accent-cyan); font-weight: 700; font-size: 1.05rem;
+      cursor: pointer; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 0 15px rgba(100,255,218,0.2), inset 0 0 10px rgba(124,58,237,0.1);
+      text-transform: uppercase; letter-spacing: 1px;
+    }
+    .more-info-btn:hover {
+      background: linear-gradient(135deg, rgba(100,255,218,0.25), rgba(124,58,237,0.25));
+      box-shadow: 0 0 25px rgba(100,255,218,0.4), inset 0 0 15px rgba(124,58,237,0.2);
+      transform: translateY(-2px);
+      border-color: rgba(100,255,218,0.8);
+    }
+    .more-info-btn .arrow { transition: transform 0.4s ease; font-size: 0.9rem; }
+    .more-info-btn.open .arrow { transform: rotate(180deg); }
 
-      .detail-value {
-        color: var(--moon-silver);
-        font-size: 0.95rem;
-        flex-grow: 1;
-        line-height: 1.5;
-      }
+    .more-info-panel {
+      display: none; margin-bottom: 1.5rem; animation: fadeIn 0.5s ease;
+    }
+    .more-info-panel.open { display: block; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
 
-      .planet-tag {
-        display: inline-block;
-        background: rgba(100, 255, 218, 0.1);
-        border: 1px solid rgba(100, 255, 218, 0.3);
-        color: var(--accent-cyan);
-        padding: 0.2rem 0.6rem;
-        border-radius: 50px;
-        font-size: 0.8rem;
-        margin-right: 0.4rem;
-        margin-bottom: 0.4rem;
-        text-transform: capitalize;
-      }
-
-      .synthesis-box {
-        margin-top: 1.5rem;
-        padding: 1rem;
-        background: rgba(124, 58, 237, 0.1);
-        border-radius: 8px;
-        border-left: 4px solid #a78bfa;
-      }
-
-      .synthesis-label {
-        font-family: "Cinzel", serif;
-        color: #a78bfa;
-        font-weight: 700;
-        margin-bottom: 0.3rem;
-        display: block;
-      }
-
-      @media (min-width: 900px) {
-        .house-grid {
-          grid-template-columns: 1fr 1fr;
-        }
-      }
-
-      /* ── Mobile Overrides (≤540px) ── */
-      @media (max-width: 540px) {
-        .med-hero h1 {
-          font-size: 1.8rem;
-        }
-
-        .detail-row {
-          flex-direction: column;
-          gap: 0.3rem;
-        }
-
-        .detail-label {
-          min-width: unset;
-          margin-bottom: 0.2rem;
-          color: var(--accent-cyan);
-        }
-
-        .house-header {
-          padding: 1rem 1.25rem;
-        }
-
-        .house-body {
-          padding: 1.25rem;
-        }
-      }
-
-      /* ── Hindi / English toggle for pre-rendered bilingual content ── */
-      .hi-text {
-        display: none !important;
-      }
-
-      .en-text {
-        display: inline !important;
-      }
-
-      body.hindi-mode .hi-text {
-        display: inline !important;
-      }
-
-      body.hindi-mode .en-text {
-        display: none !important;
-      }
-
-      /* Prevent CSS grid blowout on mobile */
-      .varga-layout > div,
-      .varsha-grid > div,
-      .navamsa-grid > div,
-      .charts-grid > div,
-      .report-section,
-      .dignity-grid > div,
-      .irow > div,
-      .table-responsive {
-        min-width: 0 !important;
-      }
-
-      /* Force table text to stay on one line for better mobile scrolling */
-      .planet-table th,
-      .planet-table td,
-      table th,
-      table td {
-        white-space: nowrap;
-      }
-
-      .synthesis-box ul {
-        margin: 0.5rem 0 0 0 !important;
-        padding-left: 1.2rem !important;
-      }
-
-      .synthesis-box li {
-        margin-bottom: 0.85rem;
-        line-height: 1.6;
-      }
-
-      .synthesis-box li:last-child {
-        margin-bottom: 0;
-      }
-
-      .synthesis-box strong {
-        color: #d8b4fe;
-        font-weight: 600;
-        letter-spacing: 0.3px;
-      }
-    </style>
-  
-    <!-- Open Graph / SEO -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://ashishh-tech.github.io/ashishh-tech/">
-    <meta property="og:title" content="AstroPsycho - Premium Vedic Astrology & Psychology">
-    <meta property="og:description" content="Discover your cosmic blueprint with advanced Vedic astrology, AI predictions, Kundali charts, and personalized psychological birth details.">
-    <meta property="og:image" content="https://ashishh-tech.github.io/ashishh-tech/krishna-universe.png">
-    
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://ashishh-tech.github.io/ashishh-tech/">
-    <meta property="twitter:title" content="AstroPsycho - Premium Vedic Astrology & Psychology">
-    <meta property="twitter:description" content="Discover your cosmic blueprint with advanced Vedic astrology, AI predictions, Kundali charts, and personalized psychological birth details.">
-    <meta property="twitter:image" content="https://ashishh-tech.github.io/ashishh-tech/krishna-universe.png">
-    <meta name="theme-color" content="#0a0a1f">
-
+    .minfo-card {
+      background: rgba(10,10,30,0.8); border-radius: 10px;
+      padding: 1.2rem; margin-bottom: 0.8rem;
+      border: 1px solid rgba(100,255,218,0.1);
+      border-left: 3px solid var(--accent-cyan);
+    }
+    .minfo-card:last-child { margin-bottom: 0; }
+    .minfo-card-header { display: flex; align-items: center; margin-bottom: 0.6rem; }
+    .minfo-icon { font-size: 1.4rem; margin-right: 0.8rem; }
+    .minfo-topic { color: var(--soft-white); font-weight: 600; font-size: 0.95rem; }
+    .minfo-content { color: var(--moon-silver); font-size: 0.92rem; line-height: 1.65; }
+  </style>
 </head>
+<body>
+  <div class="cosmic-bg"><div class="stars"></div><div class="stars2"></div><div class="stars3"></div></div>
+  <div class="container" style="max-width:1200px;margin:0 auto;padding:1rem">
+    <header class="site-header">
+      <div class="logo"><span class="logo-icon">✦</span><span class="logo-text">AstroPsycho</span></div>
+      <nav style="display:flex;gap:1rem;align-items:center">
+        <a href="results.html" class="btn btn-secondary" style="font-size:.85rem;padding:.4rem 1rem">← Back</a>
+      </nav>
+    </header>
 
-  <body>
-    <div class="cosmic-bg">
-      <div class="stars"></div>
-      <div class="stars2"></div>
-      <div class="stars3"></div>
+    <div class="med-hero">
+      <div style="font-size:3rem;margin-bottom:.75rem">🏠</div>
+      <h1><span class="en-text">Comprehensive 12-House Analysis</span><span class="hi-text">संपूर्ण 12-भाव विश्लेषण</span></h1>
+      <p style="color:var(--moon-silver);max-width:700px;margin:0 auto;line-height:1.8">
+        <span class="en-text">A deep Parashari dive into every area of your life — specific planet effects, lord dispositions, aspects, and full bilingual synthesis.</span>
+        <span class="hi-text">आपके जीवन के हर क्षेत्र का गहरा पाराशरी विश्लेषण — विशिष्ट ग्रह प्रभाव, भावेश स्थिति, दृष्टि, और पूर्ण द्विभाषी संश्लेषण।</span>
+      </p>
     </div>
-    <div
-      class="container"
-      style="max-width: 1200px; margin: 0 auto; padding: 1rem"
-    >
-      <header class="site-header">
-        <div class="logo">
-          <span class="logo-icon">✦</span>
-          <span class="logo-text">AstroPsycho</span>
-        </div>
-        <nav style="display: flex; gap: 1rem; align-items: center">
-          <a
-            href="results.html"
-            class="btn btn-secondary"
-            style="font-size: 0.85rem; padding: 0.4rem 1rem"
-            >← Back</a
-          >
-        </nav>
-      </header>
-      <div class="med-hero">
-        <div style="font-size: 3rem; margin-bottom: 0.75rem">🏠</div>
-        <h1>Comprehensive 12-House Analysis</h1>
-        <p
-          style="
-            color: var(--moon-silver);
-            max-width: 700px;
-            margin: 0 auto;
-            line-height: 1.8;
-          "
-        >
-          A deep dive into every area of your life. Every house is analyzed
-          based on its ruling planet, dispositor strength, planetary occupants,
-          and aspects hitting the house.
-        </p>
-      </div>
-      <div class="results-panel" id="resultsPanel">
-        <div class="house-grid" id="houseGrid"></div>
-      </div>
-      <div id="loadingPanel" style="text-align: center; padding: 4rem 0">
-        <div
-          class="loader"
-          style="
-            width: 40px;
-            height: 40px;
-            border: 3px solid rgba(244, 196, 48, 0.2);
-            border-top-color: var(--star-gold);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 1rem;
-          "
-        ></div>
-        <div style="color: var(--star-gold)">
-          Calculating house lords, aspects, and dispositors...
-        </div>
-      </div>
+
+    <div class="results-panel" id="resultsPanel"><div class="house-grid" id="houseGrid"></div></div>
+    <div id="loadingPanel" style="text-align:center;padding:4rem 0">
+      <div class="loader"></div>
+      <div style="color:var(--star-gold)"><span class="en-text">Calculating Parashari house analysis...</span><span class="hi-text">पाराशरी भाव विश्लेषण की गणना हो रही है...</span></div>
     </div>
-    <style>
-      @keyframes spin {
-        to {
-          transform: rotate(360deg);
-        }
-      }
+  </div>
 
-      /* Prevent CSS grid blowout on mobile */
-      .varga-layout > div,
-      .varsha-grid > div,
-      .navamsa-grid > div,
-      .charts-grid > div,
-      .report-section,
-      .dignity-grid > div,
-      .irow > div,
-      .table-responsive {
-        min-width: 0 !important;
-      }
+  <script src="js/astrology-engine-v8.js"></script>
+  <script src="js/house-engine-v3.js"></script>
+  <script src="js/house-planet-data-1.js"></script>
+  <script src="js/house-planet-data-2.js"></script>
+  <script src="js/house-planet-data-3.js"></script>
+  <script src="js/house-planet-data-4.js"></script>
+  <script src="js/house-moreinfo.js"></script>
+  <script>
+    const BENEFICS = ['jupiter','venus','moon','mercury'];
+    const PLANET_HI = { sun:'सूर्य', moon:'चंद्र', mars:'मंगल', mercury:'बुध', jupiter:'गुरु', venus:'शुक्र', saturn:'शनि', rahu:'राहु', ketu:'केतु' };
 
-      /* Force table text to stay on one line for better mobile scrolling */
-      .planet-table th,
-      .planet-table td,
-      table th,
-      table td {
-        white-space: nowrap;
-      }
-    </style>
-    <script src="js/astrology-engine-v8.js"></script>
-    <script src="js/house-engine.js"></script>
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        var stored = localStorage.getItem('astropsycho_assessment');
-        if (!stored) {
-          alert('Birth data not found. Please complete the assessment first.');
-          window.location.href = 'index.html';
-          return;
-        }
-        var assessmentData = JSON.parse(stored);
-        var birthDetails = assessmentData.birthDetails;
-        setTimeout(function() {
-          try {
-            var baseEng = new VedicAstrologyEngine();
-            var chart = baseEng.calculateBirthChart(birthDetails);
-            var houseEng = new HouseAnalysisEngine();
-            var analysis = houseEng.generate12HouseAnalysis(chart);
-            renderHouseGrid(analysis);
-            document.getElementById('loadingPanel').style.display = 'none';
-            document.getElementById('resultsPanel').style.display = 'block';
-          } catch(err) {
-            console.error(err);
-            alert('Error generating house analysis: ' + err.message);
-          }
-        }, 1000);
-      });
+    document.addEventListener('DOMContentLoaded', function() {
+      var stored = localStorage.getItem('astropsycho_assessment');
+      if (!stored) { alert('Birth data not found. Please complete the assessment first.'); window.location.href = 'index.html'; return; }
+      var assessmentData = JSON.parse(stored);
+      var birthDetails = assessmentData.birthDetails;
+      setTimeout(function() {
+        try {
+          var baseEng = new VedicAstrologyEngine();
+          var chart = baseEng.calculateBirthChart(birthDetails);
+          var houseEng = new HouseAnalysisEngine();
+          var analysis = houseEng.generate12HouseAnalysis(chart);
+          renderHouseGrid(analysis);
+          document.getElementById('loadingPanel').style.display = 'none';
+          document.getElementById('resultsPanel').style.display = 'block';
+        } catch(err) { console.error(err); alert('Error: ' + err.message); }
+      }, 800);
+    });
 
-      function renderHouseGrid(analysis) {
-        var grid = document.getElementById('houseGrid');
-        var html = '';
-        for (var i = 0; i < analysis.length; i++) {
-          var h = analysis[i];
+    function renderHouseGrid(analysis) {
+      var grid = document.getElementById('houseGrid');
+      var html = '';
+      for (var i = 0; i < analysis.length; i++) {
+        var h = analysis[i];
+        var titleEn = h.houseTitle.en, titleHi = h.houseTitle.hi;
+        var sigEn = h.significations.en, sigHi = h.significations.hi;
 
-          var occupantTags = '';
-          if (h.occupants.length > 0) {
-            for (var j = 0; j < h.occupants.length; j++) {
-              occupantTags += '<span class="planet-tag" style="border-color:#ff6b9d;color:#ff6b9d;background:rgba(255,107,157,0.1)">' + h.occupants[j] + '</span>';
+        // Planet effect boxes (NEW v3 — specific Parashari predictions)
+        var planetEffectsHtml = '';
+        if (h.occupantEffects && h.occupantEffects.length > 0) {
+          for (var j = 0; j < h.occupantEffects.length; j++) {
+            var oe = h.occupantEffects[j];
+            if (oe.effect) {
+              var pHi = PLANET_HI[oe.planet] || oe.planet;
+              planetEffectsHtml += '<div class="planet-effect-box">';
+              planetEffectsHtml += '<span class="pe-planet"><span class="en-text">' + cap(oe.planet) + ' in this House:</span><span class="hi-text">' + pHi + ' इस भाव में:</span></span>';
+              planetEffectsHtml += '<span class="en-text">' + oe.effect.en + '</span><span class="hi-text">' + oe.effect.hi + '</span>';
+              planetEffectsHtml += '</div>';
             }
-          } else {
-            occupantTags = '<span style="color:rgba(255,255,255,0.3);font-style:italic">Empty House</span>';
           }
-
-          var aspectTags = '';
-          if (h.aspectingPlanets.length > 0) {
-            for (var k = 0; k < h.aspectingPlanets.length; k++) {
-              aspectTags += '<span class="planet-tag">' + h.aspectingPlanets[k] + '</span>';
-            }
-          } else {
-            aspectTags = '<span style="color:rgba(255,255,255,0.3);font-style:italic">No Aspects</span>';
-          }
-
-          var lordPlacementTextEn = h.lordPlacementHouse ? 'Placed in House ' + h.lordPlacementHouse + ' (' + h.lordStatus + ')' : 'Placement Unknown';
-          var lordPlacementTextHi = h.lordPlacementHouse ? 'भाव ' + h.lordPlacementHouse + ' में स्थित (' + h.lordStatus + ')' : 'स्थिति अज्ञात';
-
-          html += '<div class="house-card">';
-          html += '<div class="house-header"><h2 class="house-title">' + h.houseTitle + '</h2><span class="house-sign">' + h.sign + '</span></div>';
-          html += '<div class="house-body">';
-          html += '<div class="signification-text"><span class="en-text">Signifies: ' + h.significations + '</span><span class="hi-text" style="display:none">संकेत: ' + h.significations + '</span></div>';
-          html += '<div class="detail-row"><div class="detail-label"><span class="en-text">House Lord:</span><span class="hi-text" style="display:none">भावेश:</span></div><div class="detail-value"><strong style="color:var(--soft-white)">' + h.lord + '</strong></div></div>';
-          html += '<div class="detail-row"><div class="detail-label"><span class="en-text">Lord Placement:</span><span class="hi-text" style="display:none">स्वामी स्थिति:</span></div>';
-          html += '<div class="detail-value"><span style="display:block;margin-bottom:0.2rem;color:var(--star-gold)"><span class="en-text">' + lordPlacementTextEn + '</span><span class="hi-text" style="display:none">' + lordPlacementTextHi + '</span></span>';
-          html += '<span style="font-size:0.85rem"><span class="en-text">' + h.lordEffect.en + '</span><span class="hi-text" style="display:none">' + h.lordEffect.hi + '</span></span></div></div>';
-          html += '<div class="detail-row"><div class="detail-label">Occupants (Sits Here):</div><div class="detail-value">' + occupantTags + '</div></div>';
-          html += '<div class="detail-row"><div class="detail-label">Aspects (Looks Here):</div><div class="detail-value">' + aspectTags + '</div></div>';
-          html += '<div class="synthesis-box"><span class="synthesis-label"><span class="en-text">Overall House Synthesis:</span><span class="hi-text" style="display:none">संपूर्ण भाव संश्लेषण:</span></span>';
-          html += '<span style="color:var(--soft-white);font-size:0.95rem;line-height:1.5"><span class="en-text">' + h.synthesis.en + '</span><span class="hi-text" style="display:none">' + h.synthesis.hi + '</span></span></div>';
-          html += '</div></div>';
         }
-        grid.innerHTML = html;
+
+        // Occupant tags
+        var occupantTags = '';
+        if (h.occupants.length > 0) {
+          for (var j = 0; j < h.occupants.length; j++) {
+            var p = h.occupants[j];
+            var isBenefic = BENEFICS.includes(p);
+            var pHi = PLANET_HI[p] || p;
+            occupantTags += '<span class="planet-tag ' + (isBenefic ? 'planet-tag-benefic' : 'planet-tag-malefic') + '"><span class="en-text">' + cap(p) + '</span><span class="hi-text">' + pHi + '</span></span>';
+          }
+        } else {
+          occupantTags = '<span style="color:rgba(255,255,255,.3);font-style:italic"><span class="en-text">Empty House</span><span class="hi-text">खाली भाव</span></span>';
+        }
+
+        // Aspect tags
+        var aspectTags = '';
+        if (h.aspectingPlanets.length > 0) {
+          for (var k = 0; k < h.aspectingPlanets.length; k++) {
+            var ap = h.aspectingPlanets[k];
+            var isBenefic = BENEFICS.includes(ap);
+            var apHi = PLANET_HI[ap] || ap;
+            aspectTags += '<span class="planet-tag ' + (isBenefic ? 'planet-tag-benefic' : 'planet-tag-malefic') + '"><span class="en-text">' + cap(ap) + '</span><span class="hi-text">' + apHi + '</span></span>';
+          }
+        } else {
+          aspectTags = '<span style="color:rgba(255,255,255,.3);font-style:italic"><span class="en-text">No Aspects</span><span class="hi-text">कोई दृष्टि नहीं</span></span>';
+        }
+
+        // Lord info
+        var lordHi = PLANET_HI[h.lord.toLowerCase()] || h.lord;
+        var lordPlaceEn = h.lordPlacementHouse ? 'Placed in House ' + h.lordPlacementHouse + ' (' + h.lordStatus + ')' : 'Unknown';
+        var lordPlaceHi = h.lordPlacementHouse ? 'भाव ' + h.lordPlacementHouse + ' में स्थित (' + h.lordStatus + ')' : 'अज्ञात';
+
+        // More Info Section
+        var moreInfoHtml = '';
+        if (h.moreInfo && h.moreInfo.length > 0) {
+          var cardsHtml = '';
+          for(var m=0; m<h.moreInfo.length; m++) {
+            var mi = h.moreInfo[m];
+            cardsHtml += '<div class="minfo-card">' +
+                           '<div class="minfo-card-header"><span class="minfo-icon">' + mi.icon + '</span><span class="minfo-topic">' + mi.topic + '</span></div>' +
+                           '<div class="minfo-content">' + mi.content + '</div>' +
+                         '</div>';
+          }
+          moreInfoHtml = '<button class="more-info-btn" onclick="toggleMoreInfo(this)">' +
+                           '<span><span class="en-text">✦ Detailed Life Area Analysis</span><span class="hi-text">✦ विस्तृत जीवन क्षेत्र विश्लेषण</span></span>' +
+                           '<span class="arrow">▼</span>' +
+                         '</button>' +
+                         '<div class="more-info-panel">' + cardsHtml + '</div>';
+        }
+
+        html += '<div class="house-card">';
+        html += '<div class="house-header"><span class="house-num">' + h.houseNumber + '</span><h2 class="house-title"><span class="en-text">' + titleEn + '</span><span class="hi-text">' + titleHi + '</span></h2><span class="house-sign">' + h.sign + '</span></div>';
+        html += '<div class="house-body">';
+        
+        // Show Glowy button at the very top as USP
+        html += moreInfoHtml;
+
+        html += '<div class="signification-text"><span class="en-text">' + sigEn + '</span><span class="hi-text">' + sigHi + '</span></div>';
+
+        // Lord info box
+        html += '<div class="lord-info"><span class="lord-name"><span class="en-text">House Lord: ' + h.lord + '</span><span class="hi-text">भावेश: ' + lordHi + '</span></span>';
+        html += '<span class="lord-placement"><span class="en-text">' + lordPlaceEn + '</span><span class="hi-text">' + lordPlaceHi + '</span></span>';
+        html += '<span class="lord-placement" style="margin-top:.4rem;font-size:.85rem"><span class="en-text">' + h.lordEffect.en + '</span><span class="hi-text">' + h.lordEffect.hi + '</span></span></div>';
+
+        // Occupants & Aspects
+        html += '<div class="detail-row"><div class="detail-label"><span class="en-text">Occupants:</span><span class="hi-text">निवासी ग्रह:</span></div><div class="detail-value">' + occupantTags + '</div></div>';
+        html += '<div class="detail-row"><div class="detail-label"><span class="en-text">Aspects:</span><span class="hi-text">दृष्टि:</span></div><div class="detail-value">' + aspectTags + '</div></div>';
+
+        // Planet-specific effects (v3 Parashari)
+        if (planetEffectsHtml) {
+          html += '<div style="margin-top:.5rem"><div class="detail-label" style="margin-bottom:.5rem"><span class="en-text">🔮 Specific Planet Effects (Parashari):</span><span class="hi-text">🔮 विशिष्ट ग्रह फल (पाराशरी):</span></div>' + planetEffectsHtml + '</div>';
+        }
+
+        // Synthesis
+        html += '<div class="synthesis-box"><span class="synthesis-label"><span class="en-text">Overall House Synthesis:</span><span class="hi-text">संपूर्ण भाव संश्लेषण:</span></span>';
+        html += '<span style="color:var(--soft-white);font-size:.92rem;line-height:1.6"><span class="en-text">' + h.synthesis.en + '</span><span class="hi-text">' + h.synthesis.hi + '</span></span></div>';
+        html += '</div></div>';
       }
-    </script>
-    <script src="mobile-nav.js"></script>
-    <script src="js/hindi-translate.js"></script>
-  </body>
+      grid.innerHTML = html;
+    }
+
+    function toggleMoreInfo(btn) {
+      btn.classList.toggle('open');
+      var panel = btn.nextElementSibling;
+      if (panel) panel.classList.toggle('open');
+    }
+
+    function cap(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
+  </script>
+  <script src="mobile-nav.js"></script>
+  <script src="js/hindi-translate.js"></script>
+  <script src="astro_chatbot.js"></script>
+</body>
 </html>

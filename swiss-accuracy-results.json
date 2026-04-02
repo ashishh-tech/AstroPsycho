@@ -1,0 +1,291 @@
+{
+  "timestamp": "2026-04-01T14:56:39.097Z",
+  "summary": {
+    "avgDeg": "0.149135",
+    "medianDeg": "0.027365",
+    "maxDeg": "0.894814",
+    "n": 40
+  },
+  "details": [
+    {
+      "celeb": "Marilyn Monroe",
+      "planet": "Sun",
+      "swe": 47.619716,
+      "meeus": 47.618412,
+      "diff": 0.001304
+    },
+    {
+      "celeb": "Marilyn Monroe",
+      "planet": "Moon",
+      "swe": 296.2737,
+      "meeus": 296.304662,
+      "diff": 0.030962
+    },
+    {
+      "celeb": "Marilyn Monroe",
+      "planet": "Mercury",
+      "swe": 43.95401,
+      "meeus": 43.963169,
+      "diff": 0.009159
+    },
+    {
+      "celeb": "Marilyn Monroe",
+      "planet": "Venus",
+      "swe": 5.925778,
+      "meeus": 6.030562,
+      "diff": 0.104783
+    },
+    {
+      "celeb": "Marilyn Monroe",
+      "planet": "Mars",
+      "swe": 327.906908,
+      "meeus": 327.922327,
+      "diff": 0.01542
+    },
+    {
+      "celeb": "Marilyn Monroe",
+      "planet": "Jupiter",
+      "swe": 304.001105,
+      "meeus": 303.81008,
+      "diff": 0.191026
+    },
+    {
+      "celeb": "Marilyn Monroe",
+      "planet": "Saturn",
+      "swe": 208.616993,
+      "meeus": 209.040012,
+      "diff": 0.423019
+    },
+    {
+      "celeb": "Marilyn Monroe",
+      "planet": "Rahu",
+      "swe": 85.442539,
+      "meeus": 85.447096,
+      "diff": 0.004556
+    },
+    {
+      "celeb": "Michael Jackson",
+      "planet": "Sun",
+      "swe": 133.076323,
+      "meeus": 133.075411,
+      "diff": 0.000912
+    },
+    {
+      "celeb": "Michael Jackson",
+      "planet": "Moon",
+      "swe": 324.323962,
+      "meeus": 324.398284,
+      "diff": 0.074322
+    },
+    {
+      "celeb": "Michael Jackson",
+      "planet": "Mercury",
+      "swe": 122.039116,
+      "meeus": 122.047126,
+      "diff": 0.008011
+    },
+    {
+      "celeb": "Michael Jackson",
+      "planet": "Venus",
+      "swe": 114.06149,
+      "meeus": 114.138589,
+      "diff": 0.077099
+    },
+    {
+      "celeb": "Michael Jackson",
+      "planet": "Mars",
+      "swe": 28.854693,
+      "meeus": 28.88671,
+      "diff": 0.032017
+    },
+    {
+      "celeb": "Michael Jackson",
+      "planet": "Jupiter",
+      "swe": 185.293715,
+      "meeus": 184.899372,
+      "diff": 0.394343
+    },
+    {
+      "celeb": "Michael Jackson",
+      "planet": "Saturn",
+      "swe": 235.84509,
+      "meeus": 236.671991,
+      "diff": 0.826901
+    },
+    {
+      "celeb": "Michael Jackson",
+      "planet": "Rahu",
+      "swe": 181.327625,
+      "meeus": 181.325251,
+      "diff": 0.002373
+    },
+    {
+      "celeb": "Princess Diana",
+      "planet": "Sun",
+      "swe": 76.346027,
+      "meeus": 76.347801,
+      "diff": 0.001773
+    },
+    {
+      "celeb": "Princess Diana",
+      "planet": "Moon",
+      "swe": 301.72073,
+      "meeus": 301.733857,
+      "diff": 0.013127
+    },
+    {
+      "celeb": "Princess Diana",
+      "planet": "Mercury",
+      "swe": 69.884373,
+      "meeus": 69.900652,
+      "diff": 0.016279
+    },
+    {
+      "celeb": "Princess Diana",
+      "planet": "Venus",
+      "swe": 31.082821,
+      "meeus": 31.119072,
+      "diff": 0.036251
+    },
+    {
+      "celeb": "Princess Diana",
+      "planet": "Mars",
+      "swe": 128.328681,
+      "meeus": 128.328201,
+      "diff": 0.00048
+    },
+    {
+      "celeb": "Princess Diana",
+      "planet": "Jupiter",
+      "swe": 281.780034,
+      "meeus": 281.140129,
+      "diff": 0.639905
+    },
+    {
+      "celeb": "Princess Diana",
+      "planet": "Saturn",
+      "swe": 274.496993,
+      "meeus": 275.279006,
+      "diff": 0.782012
+    },
+    {
+      "celeb": "Princess Diana",
+      "planet": "Rahu",
+      "swe": 126.399451,
+      "meeus": 126.40162,
+      "diff": 0.002169
+    },
+    {
+      "celeb": "Elvis Presley",
+      "planet": "Sun",
+      "swe": 264.278434,
+      "meeus": 264.277061,
+      "diff": 0.001373
+    },
+    {
+      "celeb": "Elvis Presley",
+      "planet": "Moon",
+      "swe": 309.070407,
+      "meeus": 309.054969,
+      "diff": 0.015438
+    },
+    {
+      "celeb": "Elvis Presley",
+      "planet": "Mercury",
+      "swe": 269.35318,
+      "meeus": 269.352197,
+      "diff": 0.000983
+    },
+    {
+      "celeb": "Elvis Presley",
+      "planet": "Venus",
+      "swe": 276.41118,
+      "meeus": 276.537941,
+      "diff": 0.12676
+    },
+    {
+      "celeb": "Elvis Presley",
+      "planet": "Mars",
+      "swe": 169.876959,
+      "meeus": 169.865491,
+      "diff": 0.011468
+    },
+    {
+      "celeb": "Elvis Presley",
+      "planet": "Jupiter",
+      "swe": 205.115448,
+      "meeus": 204.742332,
+      "diff": 0.373115
+    },
+    {
+      "celeb": "Elvis Presley",
+      "planet": "Saturn",
+      "swe": 302.788966,
+      "meeus": 303.01833,
+      "diff": 0.229363
+    },
+    {
+      "celeb": "Elvis Presley",
+      "planet": "Rahu",
+      "swe": 278.903711,
+      "meeus": 278.899248,
+      "diff": 0.004462
+    },
+    {
+      "celeb": "Madonna",
+      "planet": "Sun",
+      "swe": 119.831459,
+      "meeus": 119.82949,
+      "diff": 0.001969
+    },
+    {
+      "celeb": "Madonna",
+      "planet": "Moon",
+      "swe": 138.263255,
+      "meeus": 138.175679,
+      "diff": 0.087576
+    },
+    {
+      "celeb": "Madonna",
+      "planet": "Mercury",
+      "swe": 132.375207,
+      "meeus": 132.376796,
+      "diff": 0.001589
+    },
+    {
+      "celeb": "Madonna",
+      "planet": "Venus",
+      "swe": 97.257067,
+      "meeus": 97.331607,
+      "diff": 0.07454
+    },
+    {
+      "celeb": "Madonna",
+      "planet": "Mars",
+      "swe": 22.104708,
+      "meeus": 22.132073,
+      "diff": 0.027365
+    },
+    {
+      "celeb": "Madonna",
+      "planet": "Jupiter",
+      "swe": 183.114911,
+      "meeus": 182.691066,
+      "diff": 0.423845
+    },
+    {
+      "celeb": "Madonna",
+      "planet": "Saturn",
+      "swe": 235.86017,
+      "meeus": 236.754985,
+      "diff": 0.894814
+    },
+    {
+      "celeb": "Madonna",
+      "planet": "Rahu",
+      "swe": 182.055824,
+      "meeus": 182.053304,
+      "diff": 0.00252
+    }
+  ]
+}

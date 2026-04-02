@@ -27,6 +27,26 @@ class ResultsController {
             // Calculate birth chart
             const birthChart = this.astrologyEngine.calculateBirthChart(this.userData.birthDetails);
 
+            // ── SAVE exact chart for AI Ashish chatbot ──────────────────────
+            try {
+                const SIGNS = ['Aries','Taurus','Gemini','Cancer','Leo','Virgo','Libra','Scorpio','Sagittarius','Capricorn','Aquarius','Pisces'];
+                const lagnaSignIdx = Math.floor(birthChart.ascendant / 30);
+                const aiChart = {
+                    lagna: SIGNS[lagnaSignIdx],
+                    lagnaSignIdx,
+                    moonSign: birthChart.planetaryDetails.moon ? birthChart.planetaryDetails.moon.sign : SIGNS[Math.floor(birthChart.planets.moon / 30)],
+                    sunSign:  birthChart.planetaryDetails.sun  ? birthChart.planetaryDetails.sun.sign  : SIGNS[Math.floor(birthChart.planets.sun  / 30)],
+                    planets: {}
+                };
+                Object.entries(birthChart.planetaryDetails).forEach(([p, d]) => {
+                    aiChart.planets[p] = { sign: d.sign, house: d.house, nakshatra: d.nakshatra || '' };
+                });
+                const stored = JSON.parse(localStorage.getItem('astropsycho_assessment') || '{}');
+                stored.calculatedChart = aiChart;
+                localStorage.setItem('astropsycho_assessment', JSON.stringify(stored));
+            } catch(e) { console.warn('AI chart save failed:', e); }
+            // ─────────────────────────────────────────────────────────────────
+
             // Generate comprehensive report
             this.report = this.recommendationEngine.generateReport(this.userData, birthChart);
 
