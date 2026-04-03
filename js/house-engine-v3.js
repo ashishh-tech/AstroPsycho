@@ -113,7 +113,7 @@ class HouseAnalysisEngine {
       const occupantEffects = this._getOccupantEffects(h, occupants);
 
       // Synthesis
-      const synthesis = this._synthesizeHouse(h, lordStatus, occupants, aspectingPlanets, signName, lordPlanet, lordHouse, occupantEffects);
+      const synthResult = this._synthesizeHouse(h, lordStatus, occupants, aspectingPlanets, signName, lordPlanet, lordHouse, occupantEffects);
 
       fullAnalysis.push({
         houseNumber: h,
@@ -127,7 +127,8 @@ class HouseAnalysisEngine {
         occupants,
         occupantEffects,
         aspectingPlanets,
-        synthesis
+        synthesis: synthResult.synthesis,
+        strengthScore: synthResult.score
       });
     }
     return fullAnalysis;
@@ -273,8 +274,11 @@ class HouseAnalysisEngine {
     hiParts.push(`<strong>निष्कर्ष:</strong> ${vHi}`);
 
     return {
-      en: `<ul style="margin:0;padding-left:1.2rem"><li>${enParts.join('</li><li style="margin-top:0.6rem">')}</li></ul>`,
-      hi: `<ul style="margin:0;padding-left:1.2rem"><li>${hiParts.join('</li><li style="margin-top:0.6rem">')}</li></ul>`
+      score: Math.round(score * 10) / 10,
+      synthesis: {
+        en: `<ul style="margin:0;padding-left:1.2rem"><li>${enParts.join('</li><li style="margin-top:0.6rem">')}</li></ul>`,
+        hi: `<ul style="margin:0;padding-left:1.2rem"><li>${hiParts.join('</li><li style="margin-top:0.6rem">')}</li></ul>`
+      }
     };
   }
 }

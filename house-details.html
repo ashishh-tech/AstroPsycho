@@ -128,7 +128,7 @@
       width: 100%; padding: 1.2rem; margin-bottom: 1.5rem;
       background: linear-gradient(135deg, rgba(100,255,218,0.15), rgba(124,58,237,0.15));
       border: 1px solid rgba(100,255,218,0.4); border-radius: 12px;
-      color: var(--accent-cyan); font-weight: 700; font-size: 1.05rem;
+      color: var(--accent-cyan); font-weight: 700; font-size: 1rem;
       cursor: pointer; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       box-shadow: 0 0 15px rgba(100,255,218,0.2), inset 0 0 10px rgba(124,58,237,0.1);
       text-transform: uppercase; letter-spacing: 1px;
@@ -139,26 +139,76 @@
       transform: translateY(-2px);
       border-color: rgba(100,255,218,0.8);
     }
-    .more-info-btn .arrow { transition: transform 0.4s ease; font-size: 0.9rem; }
+    .more-info-btn .btn-left { display:flex; align-items:center; gap:.7rem; }
+    .more-info-btn .insight-badge {
+      background: rgba(100,255,218,0.15); border: 1px solid rgba(100,255,218,0.35);
+      border-radius: 50px; padding: .15rem .6rem; font-size: .72rem;
+      color: var(--accent-cyan); font-weight: 700; letter-spacing: .5px;
+    }
+    .more-info-btn .arrow { transition: transform 0.4s ease; font-size: 0.9rem; flex-shrink:0; }
     .more-info-btn.open .arrow { transform: rotate(180deg); }
 
+    /* ── Smooth Accordion ── */
     .more-info-panel {
-      display: none; margin-bottom: 1.5rem; animation: fadeIn 0.5s ease;
+      max-height: 0; overflow: hidden; margin-bottom: 0;
+      transition: max-height 0.5s cubic-bezier(0.4,0,0.2,1), margin-bottom 0.3s ease;
     }
-    .more-info-panel.open { display: block; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+    .more-info-panel.open { max-height: 4000px; margin-bottom: 1.5rem; }
 
+    /* ── Color-coded minfo cards by topic type ── */
     .minfo-card {
       background: rgba(10,10,30,0.8); border-radius: 10px;
       padding: 1.2rem; margin-bottom: 0.8rem;
-      border: 1px solid rgba(100,255,218,0.1);
+      border: 1px solid rgba(100,255,218,0.08);
       border-left: 3px solid var(--accent-cyan);
+      transition: transform .2s ease, border-color .2s ease;
     }
+    .minfo-card:hover { transform: translateX(3px); }
     .minfo-card:last-child { margin-bottom: 0; }
+    /* Gold — wealth, income, finance */
+    .minfo-card.topic-wealth { border-left-color: #f4c430; background: rgba(244,196,48,.04); }
+    /* Pink — love, romance, marriage */
+    .minfo-card.topic-love { border-left-color: #ff6b9d; background: rgba(255,107,157,.04); }
+    /* Purple — intelligence, occult, spirituality */
+    .minfo-card.topic-intellect { border-left-color: #a78bfa; background: rgba(167,139,250,.04); }
+    /* Coral — health, body */
+    .minfo-card.topic-health { border-left-color: #ff7f50; background: rgba(255,127,80,.04); }
+    /* Blue — travel, foreign, career */
+    .minfo-card.topic-career { border-left-color: #60a5fa; background: rgba(96,165,250,.04); }
+    /* Green — luck, dharma */
+    .minfo-card.topic-fortune { border-left-color: #34d399; background: rgba(52,211,153,.04); }
     .minfo-card-header { display: flex; align-items: center; margin-bottom: 0.6rem; }
     .minfo-icon { font-size: 1.4rem; margin-right: 0.8rem; }
     .minfo-topic { color: var(--soft-white); font-weight: 600; font-size: 0.95rem; }
     .minfo-content { color: var(--moon-silver); font-size: 0.92rem; line-height: 1.65; }
+
+    /* ── House Strength Badge ── */
+    .strength-badge {
+      display: inline-flex; align-items: center; gap: .35rem;
+      padding: .25rem .75rem; border-radius: 50px; font-size: .75rem;
+      font-weight: 700; letter-spacing: .5px; text-transform: uppercase;
+      flex-shrink: 0;
+    }
+    .strength-strong { background: rgba(52,211,153,.15); border: 1px solid rgba(52,211,153,.4); color: #34d399; }
+    .strength-good   { background: rgba(96,165,250,.15); border: 1px solid rgba(96,165,250,.4); color: #60a5fa; }
+    .strength-mixed  { background: rgba(251,191,36,.15); border: 1px solid rgba(251,191,36,.4); color: #fbbf24; }
+    .strength-hard   { background: rgba(248,113,113,.15); border: 1px solid rgba(248,113,113,.4); color: #f87171; }
+
+    /* ── Back to Top ── */
+    #backToTop {
+      position: fixed; bottom: 2rem; right: 1.5rem; z-index: 999;
+      width: 44px; height: 44px; border-radius: 50%;
+      background: linear-gradient(135deg, rgba(100,255,218,.25), rgba(124,58,237,.35));
+      border: 1px solid rgba(100,255,218,.4);
+      color: var(--accent-cyan); font-size: 1.2rem;
+      cursor: pointer; display: flex; align-items:center; justify-content:center;
+      box-shadow: 0 0 18px rgba(100,255,218,.25);
+      opacity: 0; transform: translateY(10px);
+      transition: opacity .3s ease, transform .3s ease;
+      backdrop-filter: blur(8px);
+    }
+    #backToTop.visible { opacity: 1; transform: translateY(0); }
+    #backToTop:hover { box-shadow: 0 0 28px rgba(100,255,218,.5); transform: translateY(-3px); }
   </style>
 </head>
 <body>
@@ -270,26 +320,46 @@
         var lordPlaceEn = h.lordPlacementHouse ? 'Placed in House ' + h.lordPlacementHouse + ' (' + h.lordStatus + ')' : 'Unknown';
         var lordPlaceHi = h.lordPlacementHouse ? 'भाव ' + h.lordPlacementHouse + ' में स्थित (' + h.lordStatus + ')' : 'अज्ञात';
 
-        // More Info Section
+        // More Info Section — with badge + color-coded cards
         var moreInfoHtml = '';
         if (h.moreInfo && h.moreInfo.length > 0) {
           var cardsHtml = '';
+          // Icon → CSS topic class map
+          var iconClass = {
+            '💰':'topic-wealth','💵':'topic-wealth','📈':'topic-wealth','💎':'topic-wealth',
+            '💘':'topic-love','💍':'topic-love','🔥':'topic-love',
+            '🧠':'topic-intellect','🔮':'topic-intellect','🌟':'topic-intellect','🕊':'topic-intellect','🌀':'topic-intellect','🧘':'topic-intellect','😴':'topic-intellect',
+            '🧬':'topic-health','🏥':'topic-health','🩺':'topic-health','🫀':'topic-health','🖐':'topic-health',
+            '💼':'topic-career','👑':'topic-career','🏛':'topic-career','🏆':'topic-career','👔':'topic-career','⚔':'topic-career','🥊':'topic-career','✈':'topic-career',
+            '🍀':'topic-fortune','🕌':'topic-fortune','⏳':'topic-fortune','🌏':'topic-fortune'
+          };
           for(var m=0; m<h.moreInfo.length; m++) {
             var mi = h.moreInfo[m];
-            cardsHtml += '<div class="minfo-card">' +
+            var cardClass = 'minfo-card ' + (iconClass[mi.icon] || '');
+            cardsHtml += '<div class="' + cardClass + '">' +
                            '<div class="minfo-card-header"><span class="minfo-icon">' + mi.icon + '</span><span class="minfo-topic">' + mi.topic + '</span></div>' +
                            '<div class="minfo-content">' + mi.content + '</div>' +
                          '</div>';
           }
+          var cnt = h.moreInfo.length;
           moreInfoHtml = '<button class="more-info-btn" onclick="toggleMoreInfo(this)">' +
-                           '<span><span class="en-text">✦ Detailed Life Area Analysis</span><span class="hi-text">✦ विस्तृत जीवन क्षेत्र विश्लेषण</span></span>' +
+                           '<span class="btn-left"><span class="en-text">✦ Detailed Life Area Analysis</span><span class="hi-text">✦ विस्तृत जीवन क्षेत्र विश्लेषण</span>' +
+                           '<span class="insight-badge">' + cnt + ' insights</span></span>' +
                            '<span class="arrow">▼</span>' +
                          '</button>' +
                          '<div class="more-info-panel">' + cardsHtml + '</div>';
         }
 
+        // Strength badge
+        var sc = h.strengthScore || 5;
+        var sbClass, sbLabel;
+        if (sc >= 8)      { sbClass='strength-strong'; sbLabel='🟢 Strong'; }
+        else if (sc >= 6) { sbClass='strength-good';   sbLabel='🔵 Good'; }
+        else if (sc >= 4) { sbClass='strength-mixed';  sbLabel='🟡 Mixed'; }
+        else              { sbClass='strength-hard';   sbLabel='🔴 Challenging'; }
+
         html += '<div class="house-card">';
-        html += '<div class="house-header"><span class="house-num">' + h.houseNumber + '</span><h2 class="house-title"><span class="en-text">' + titleEn + '</span><span class="hi-text">' + titleHi + '</span></h2><span class="house-sign">' + h.sign + '</span></div>';
+        html += '<div class="house-header"><span class="house-num">' + h.houseNumber + '</span><h2 class="house-title"><span class="en-text">' + titleEn + '</span><span class="hi-text">' + titleHi + '</span></h2><span class="house-sign">' + h.sign + '</span><span class="strength-badge ' + sbClass + '">' + sbLabel + '</span></div>';
         html += '<div class="house-body">';
         
         // Show Glowy button at the very top as USP
@@ -325,10 +395,24 @@
       if (panel) panel.classList.toggle('open');
     }
 
+    // ── Back to Top ──
+    var btt = document.getElementById('backToTop');
+    window.addEventListener('scroll', function() {
+      if (window.scrollY > 320) btt.classList.add('visible');
+      else btt.classList.remove('visible');
+    });
+    btt.addEventListener('click', function() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
     function cap(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
   </script>
   <script src="mobile-nav.js"></script>
   <script src="js/hindi-translate.js"></script>
   <script src="astro_chatbot.js"></script>
+
+  <!-- Back to Top Button -->
+  <button id="backToTop" title="Back to top">↑</button>
+
 </body>
 </html>
