@@ -193,11 +193,12 @@ HouseAnalysisEngine.prototype.getSignRelationTrait = function(s) {
 HouseAnalysisEngine.prototype.generateMoreInfo = function(houseNum, sign, lord, lordHouse, lordStatus, occupants, aspects) {
   var isStrong = lordStatus && (lordStatus.includes('Exalted') || lordStatus.includes('Own'));
   var isWeak   = lordStatus && lordStatus.includes('Debilitated');
-  var occ = occupants || []; var asp = aspects || [];
-  var has = function(p) { return occ.includes(p) || asp.includes(p); };
-  var hasJupiter=has('Jupiter'),hasSaturn=has('Saturn'),hasMars=has('Mars');
-  var hasVenus=has('Venus'),hasMoon=has('Moon'),hasSun=has('Sun');
-  var hasRahu=has('Rahu'),hasKetu=has('Ketu'),hasMercury=has('Mercury');
+  var occ = (occupants || []).map(function(p){ return p.toLowerCase(); });
+  var asp = (aspects || []).map(function(p){ return p.toLowerCase(); });
+  var has = function(p) { var pl = p.toLowerCase(); return occ.includes(pl) || asp.includes(pl); };
+  var hasJupiter=has('jupiter'),hasSaturn=has('saturn'),hasMars=has('mars');
+  var hasVenus=has('venus'),hasMoon=has('moon'),hasSun=has('sun');
+  var hasRahu=has('rahu'),hasKetu=has('ketu'),hasMercury=has('mercury');
   var self = this;
 
   var maps = {
