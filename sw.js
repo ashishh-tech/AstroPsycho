@@ -1,12 +1,13 @@
 /**
- * AstroPsycho Service Worker v5
+ * AstroPsycho Service Worker v15
  * - Navigation requests (HTML page loads): NOT intercepted — browser handles natively.
  *   This is the fix for "redirected response used for a request whose redirect mode
  *   is not follow" errors caused by Cloudflare's server-side redirects.
  * - Static assets (JS/CSS/fonts/images): cache-first with background refresh.
+ * - v15: Force cache bust for latest 12-house analysis updates.
  */
 
-const CACHE_NAME = 'astropsycho-v14';
+const CACHE_NAME = 'astropsycho-v15';
 
 // Only cache static assets — NOT HTML pages (they cause redirect errors on Cloudflare)
 const CORE_ASSETS = [
