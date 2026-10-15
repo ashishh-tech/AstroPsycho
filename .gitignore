@@ -1,3 +1,17 @@
 # Local Netlify folder
 .netlify
 node_modules
+
+# Local environment and generated tooling state
+.env
+.env.*
+!.env.example
+.wrangler/
+chrome/
+
+# Temporary local experiments and generated diagnostics
+temp_swisseph/
+out*.txt
+err*.txt
+*-out.txt
+*-error.txt
